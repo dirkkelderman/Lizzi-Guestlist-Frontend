@@ -23,7 +23,7 @@ export class AddEvent extends Component {
             description: this.state.description,
         }, {withCredentials: true})
         .then( (res) => {
-                // this.props.getData();
+                this.props.getEvent();
                     this.setState({
                         eventName: '',
                         date: '',

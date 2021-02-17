@@ -6,7 +6,7 @@ import EventList from './components/events/EventList'
 function App() {
   return (
     <div className="App">
-      <AddEvent />
+      {/* <AddEvent /> */}
       <EventList />
     </div>
   );

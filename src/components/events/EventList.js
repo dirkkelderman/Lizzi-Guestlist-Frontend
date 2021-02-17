@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import AddEvent from './AddEvent'
 
 export class EventList extends Component {
 
@@ -27,7 +28,7 @@ export class EventList extends Component {
     render() {
         const eventList = this.state.eventList.map(event => {
             return (
-                <div>
+                <div key={event._id}>
                     <h2>{event.eventName}</h2>
                 </div>
             )
@@ -36,6 +37,7 @@ export class EventList extends Component {
             <div>
                 <h1>EventList</h1>
                 {eventList}
+                <AddEvent getEvent={() => this.getEventList()}/>
             </div>
         )
     }
