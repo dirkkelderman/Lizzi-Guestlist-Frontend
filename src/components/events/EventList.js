@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import AddEvent from './AddEvent'
+import { Link } from 'react-router-dom';
+import EventService from './event-service'
 
 export class EventList extends Component {
 
@@ -7,12 +10,14 @@ export class EventList extends Component {
         eventList: []
     }
 
+    service = new EventService()
+
     getEventList = () => {
         axios.get('http://localhost:5000/api/events', {withCredentials: true})
         .then(eventsFromApi => {
             console.log(eventsFromApi)
             this.setState({
-                eventList: eventsFromApi.data
+                eventList: eventsFromApi
             })
         }, err => {
             console.log(err)
@@ -27,8 +32,10 @@ export class EventList extends Component {
     render() {
         const eventList = this.state.eventList.map(event => {
             return (
-                <div>
-                    <h2>{event.eventName}</h2>
+                <div key={event._id}>
+                    <Link to={`/events/${event._id}`}>
+                        <h2>{event.eventName}</h2>
+                    </Link>
                 </div>
             )
         })
@@ -36,6 +43,7 @@ export class EventList extends Component {
             <div>
                 <h1>EventList</h1>
                 {eventList}
+                <AddEvent getEvent={() => this.getEventList()}/>
             </div>
         )
     }
