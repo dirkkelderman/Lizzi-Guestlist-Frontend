@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import AddEvent from './AddEvent'
+import { Link } from 'react-router-dom';
+
 
 export class EventList extends Component {
 
@@ -29,7 +31,9 @@ export class EventList extends Component {
         const eventList = this.state.eventList.map(event => {
             return (
                 <div key={event._id}>
-                    <h2>{event.eventName}</h2>
+                    <Link to={`/events/${event._id}`}>
+                        <h2>{event.eventName}</h2>
+                    </Link>
                 </div>
             )
         })
