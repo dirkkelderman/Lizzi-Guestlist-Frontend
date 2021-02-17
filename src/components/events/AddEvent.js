@@ -15,15 +15,16 @@ export class AddEvent extends Component {
     handleFormSubmit = (e) => {
         e.preventDefault()
 
-        axios.post('http://localhost:5001/api/events', {
+        axios.post('http://localhost:5000/api/events', {
             eventName: this.state.eventName,
             date: this.state.date,
             guestNumber: this.state.guestNumber,
             location: this.state.location,
             description: this.state.description,
-        }, {withCredentials: true})
+        }, )
         .then( (res) => {
                 // this.props.getData();
+                console.log(res)
                     this.setState({
                         eventName: '',
                         date: '',

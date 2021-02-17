@@ -8,7 +8,7 @@ export class EventList extends Component {
     }
 
     getEventList = () => {
-        axios.get('http://localhost:5001/api/events', {withCredentials: true})
+        axios.get('http://localhost:5000/api/events', {withCredentials: true})
         .then(eventsFromApi => {
             console.log(eventsFromApi)
             this.setState({

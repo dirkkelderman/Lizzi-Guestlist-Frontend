@@ -3,10 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter as Router } from 'react-router-dom';
+import {createBrowserHistory} from 'history';
 
+const history = createBrowserHistory({
+  basename: process.env.PUBLIC_URL,
+})
 ReactDOM.render(
   <React.StrictMode>
+    <Router history ={history}>
     <App />
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );
