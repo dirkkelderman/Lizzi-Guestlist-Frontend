@@ -21,7 +21,7 @@ export class EventDetails extends Component {
 
     getSingleEvent(){
         const {params} = this.props.match
-        axios.get(`http://localhost:5001/api/events/${params.id}`, {withCredentials: true})
+        axios.get(`http://localhost:5000/api/events/${params.id}`, {withCredentials: true})
             .then( responseFromApi => {
                 console.log(responseFromApi)
 

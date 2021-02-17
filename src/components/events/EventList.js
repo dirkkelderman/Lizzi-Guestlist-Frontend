@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import AddEvent from './AddEvent'
 import { Link } from 'react-router-dom';
-
+import EventService from './event-service'
 
 export class EventList extends Component {
 
@@ -10,12 +10,14 @@ export class EventList extends Component {
         eventList: []
     }
 
+    service = new EventService()
+
     getEventList = () => {
-        axios.get('http://localhost:5001/api/events', {withCredentials: true})
+        this.service.eventList()
         .then(eventsFromApi => {
             console.log(eventsFromApi)
             this.setState({
-                eventList: eventsFromApi.data
+                eventList: eventsFromApi
             })
         }, err => {
             console.log(err)
