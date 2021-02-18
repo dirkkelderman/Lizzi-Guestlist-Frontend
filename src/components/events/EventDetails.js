@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import EventService from "./event-service";
 import EditEvent from "./EditEvent";
+import { Link } from "react-router-dom";
 
 export class EventDetails extends Component {
   service = new EventService();
@@ -100,6 +101,12 @@ export class EventDetails extends Component {
         <button onClick={this.deleteEvent}>
             Delete Event
         </button>
+
+        <Link to='/events'>
+            <button>
+                Back to events
+            </button>
+        </Link>
 
         <div>
           {this.state.showEditForm ? <div>{this.renderEditForm()} </div> : null}
