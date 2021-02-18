@@ -1,7 +1,10 @@
 import axios from 'axios';
 import React, { Component } from 'react'
+import EventService from './event-service'
 
 export class EventDetails extends Component {
+
+    service = new EventService()
 
     constructor(props){
         super(props);
@@ -21,11 +24,11 @@ export class EventDetails extends Component {
 
     getSingleEvent(){
         const {params} = this.props.match
-        axios.get(`http://localhost:5000/api/events/${params.id}`, {withCredentials: true})
+        this.service.eventDetails(params.id)
             .then( responseFromApi => {
                 console.log(responseFromApi)
 
-                const {eventName, date, guestNumber, location, description} = responseFromApi.data
+                const {eventName, date, guestNumber, location, description} = responseFromApi
                 this.setState({
                     eventName: eventName,
                     date: date,

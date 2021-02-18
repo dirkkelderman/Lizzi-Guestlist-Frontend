@@ -13,7 +13,7 @@ export class EventList extends Component {
     service = new EventService()
 
     getEventList = () => {
-        axios.get('http://localhost:5000/api/events', {withCredentials: true})
+        this.service.eventList()
         .then(eventsFromApi => {
             console.log(eventsFromApi)
             this.setState({

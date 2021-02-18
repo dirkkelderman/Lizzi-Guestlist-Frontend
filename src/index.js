@@ -9,9 +9,10 @@ import {createBrowserHistory} from 'history';
 const history = createBrowserHistory({
   basename: process.env.PUBLIC_URL,
 })
+
 ReactDOM.render(
   <React.StrictMode>
-    <Router history ={history}>
+    <Router>
     <App />
     </Router>
   </React.StrictMode>,
