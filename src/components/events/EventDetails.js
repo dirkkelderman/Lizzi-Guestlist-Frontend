@@ -72,6 +72,17 @@ export class EventDetails extends Component {
     });
   };
 
+  deleteEvent = () => {
+    const { params } = this.props.match;
+
+    this.service.deleteEvent(params.id)
+    .then( () =>{
+        this.props.history.push('/events');       
+    }, (err)=>{
+        console.log(err)
+    })
+  }
+
   render() {
     return (
       <div>
@@ -84,6 +95,10 @@ export class EventDetails extends Component {
 
         <button onClick={this.showEditForm}>
           {this.state.showEditForm ? "Hide edit form" : "Edit event"}
+        </button>
+
+        <button onClick={this.deleteEvent}>
+            Delete Event
         </button>
 
         <div>

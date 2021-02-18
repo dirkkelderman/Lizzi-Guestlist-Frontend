@@ -28,6 +28,11 @@ class EventService {
         return this.service.get(`/events/${params}`)
         .then(respons => respons.data)
     }
+
+    deleteEvent(params){
+        return this.service.delete(`/events/${params}`)
+        .then(respons => respons.data)
+    }
 }
 
 export default EventService
