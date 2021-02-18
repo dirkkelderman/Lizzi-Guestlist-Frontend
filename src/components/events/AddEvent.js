@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import EventService from './event-service'
 
 export class AddEvent extends Component {
+
+    service = new EventService()
 
     state = {
         eventName: '',
@@ -15,15 +18,15 @@ export class AddEvent extends Component {
     handleFormSubmit = (e) => {
         e.preventDefault()
 
-        axios.post('http://localhost:5000/api/events', {
-            eventName: this.state.eventName,
-            date: this.state.date,
-            guestNumber: this.state.guestNumber,
-            location: this.state.location,
-            description: this.state.description,
-        }, )
+        const eventName = this.state.eventName
+        const date = this.state.date
+        const guestNumber = this.state.guestNumber
+        const location = this.state.location
+        const description = this.state.description
+
+        this.service.addEvent(eventName, date, guestNumber, location, description)
         .then( (res) => {
-                // this.props.getData();
+                this.props.getEvent();
                 console.log(res)
                     this.setState({
                         eventName: '',
@@ -57,7 +60,7 @@ export class AddEvent extends Component {
                     <input type='text' name='eventName' value={this.state.eventName} onChange={this.handleChange} />
 
                     <label>Date</label>
-                    <input type='text' name='date' value={this.state.date} onChange={this.handleChange} />
+                    <input type='date' name='date' value={this.state.date} onChange={this.handleChange} />
 
                     <label>Number of guests</label>
                     <input type='number' name='guestNumber' value={this.state.guestNumber} onChange={this.handleChange} />
