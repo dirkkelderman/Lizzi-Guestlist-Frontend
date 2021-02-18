@@ -16,7 +16,7 @@ class Login extends Component {
                 console.log(response)
                 this.setState({ username: "", password: "" });
 
-                window.location = "./AddEvent"
+                window.location = "./Events"
             })
             .catch(error => console.log(error))
     }

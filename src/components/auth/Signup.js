@@ -11,26 +11,7 @@ class Signup extends Component {
 
     service = new AuthService()
 
-    // handleFormSubmit = (event) => {
-    //     event.preventDefault();
-    //     const username = this.state.username;
-    //     const password = this.state.password;
-
-    //     this.service.signup(username, password)
-    //         .then(response => {
-    //             console.log(response)
-    //             this.setState({
-    //                 username: "",
-    //                 password: "",
-    //             });
-        
-    //             // console.log(response)
-                
-    //             // this.props.history.push('./protected-route');
-    //         })
-    //         .catch(error => console.log(error))
-    // }
-    handleFormSubmit = event => {
+     handleFormSubmit = event => {
         const url = 'http://localhost:5000/api'
       event.preventDefault();
       fetch(`${url}/signup`, {
