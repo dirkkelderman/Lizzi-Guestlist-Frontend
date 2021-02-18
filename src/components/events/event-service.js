@@ -19,6 +19,11 @@ class EventService {
         .then(respons => respons.data)
     }
 
+    updateEvent(_id, eventName, date, guestNumber, location, description){
+        return this.service.put(`/events/${_id}`, {eventName, date, guestNumber, location, description})
+        .then(respons => respons.data)
+    }
+
     eventDetails(params){
         return this.service.get(`/events/${params}`)
         .then(respons => respons.data)

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 import AddEvent from './AddEvent'
 import { Link } from 'react-router-dom';
 import EventService from './event-service'

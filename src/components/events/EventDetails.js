@@ -1,60 +1,97 @@
-import axios from 'axios';
-import React, { Component } from 'react'
-import EventService from './event-service'
+import React, { Component } from "react";
+import EventService from "./event-service";
+import EditEvent from "./EditEvent";
 
 export class EventDetails extends Component {
+  service = new EventService();
 
-    service = new EventService()
+  constructor(props) {
+    super(props);
+    this.state = {
+      eventName: "",
+      date: "",
+      guestNumber: 0,
+      location: "",
+      description: "",
+      _id: "",
+      status: "",
+      showEditForm: false,
+    };
+  }
 
-    constructor(props){
-        super(props);
-        this.state = {
-            eventName: '',
-            date: '',
-            guestNumber: 0,
-            location: '',
-            description: '',
-            status: ''
-        }
+  componentDidMount() {
+    this.getSingleEvent();
+  }
+
+  getSingleEvent() {
+    const { params } = this.props.match;
+    this.service.eventDetails(params.id).then(
+      (responseFromApi) => {
+        const {
+          eventName,
+          date,
+          guestNumber,
+          location,
+          description,
+          _id,
+        } = responseFromApi;
+        this.setState({
+          eventName: eventName,
+          date: date,
+          guestNumber: guestNumber,
+          location: location,
+          description: description,
+          status: "",
+          _id: _id,
+        });
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  renderEditForm = () => {
+    if (!this.state.eventName) {
+      this.getSingleEvent();
+    } else {
+      return (
+        <EditEvent
+          theEvent={this.state}
+          getEvent={this.getSingleEvent}
+          {...this.props}
+        />
+      );
     }
+  };
 
-    componentDidMount(){
-        this.getSingleEvent()
-    }
+  showEditForm = () => {
+    const statusEditForm = !this.state.showEditForm;
+    this.setState({
+      showEditForm: statusEditForm,
+    });
+  };
 
-    getSingleEvent(){
-        const {params} = this.props.match
-        this.service.eventDetails(params.id)
-            .then( responseFromApi => {
-                console.log(responseFromApi)
+  render() {
+    return (
+      <div>
+        <h1>Event Details</h1>
+        <p>Event Name:{this.state.eventName}</p>
+        <p>Date: {this.state.date}</p>
+        <p>Number of guestes: {this.state.guestNumber}</p>
+        <p>Location: {this.state.location}</p>
+        <p>Description: {this.state.description}</p>
 
-                const {eventName, date, guestNumber, location, description} = responseFromApi
-                this.setState({
-                    eventName: eventName,
-                    date: date,
-                    guestNumber: guestNumber,
-                    location: location,
-                    description: description,
-                    status: ''
-                })
-            }, err => {
-                console.log(err)
-            })
-    }
+        <button onClick={this.showEditForm}>
+          {this.state.showEditForm ? "Hide edit form" : "Edit event"}
+        </button>
 
-
-    render() {
-        return (
-            <div>
-                <h1>Event Details</h1>
-                <p>Event Name:{this.state.eventName}</p>
-                <p>Date: {this.state.date}</p>
-                <p>Number of guestes: {this.state.guestNumber}</p>
-                <p>Location: {this.state.location}</p>
-                <p>Description: {this.state.description}</p>
-            </div>
-        )
-    }
+        <div>
+          {this.state.showEditForm ? <div>{this.renderEditForm()} </div> : null}
+        </div>
+      </div>
+    );
+  }
 }
 
-export default EventDetails
+export default EventDetails;
