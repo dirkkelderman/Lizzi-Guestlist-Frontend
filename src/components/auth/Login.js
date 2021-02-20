@@ -1,48 +1,61 @@
-import React, { Component } from 'react';
-import AuthService from './auth-service';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import AuthService from "./auth-service";
+import { Link } from "react-router-dom";
 
 class Login extends Component {
-    state = { username: '', password: '' }
+  state = { username: "", password: "" };
 
-    service = new AuthService()
+  service = new AuthService();
 
-    handleFormSubmit = (event) => {
-        event.preventDefault();
-        const username = this.state.username;
-        const password = this.state.password;
-        this.service.login(username, password)
-            .then(response => {
-                console.log(response)
-                this.setState({ username: "", password: "" });
+  handleFormSubmit = (event) => {
+    event.preventDefault();
 
-                window.location = "./Events"
-            })
-            .catch(error => console.log(error))
-    }
+    const username = this.state.username;
+    const password = this.state.password;
 
-    handleChange = (event) => {
-        const { name, value } = event.target;
-        this.setState({ [name]: value });
-    }
+    this.service
+      .login(username, password)
+      .then((response) => {
+        console.log(response);
+        this.props.getUser(response);
+        this.props.history.push("/events");
+      })
+      .catch((error) => console.log(error));
+  };
 
-    render() {
-        return (
-            <div>
-                <form onSubmit={this.handleFormSubmit}>
-                    <label>Username:</label>
-                    <input type="text" name="username" value={this.state.username} onChange={e => this.handleChange(e)} />
-                    <label>Password:</label>
-                    <input type="password" name="password" value={this.state.password} onChange={e => this.handleChange(e)} />
+  handleChange = (event) => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  };
 
-                    <input type="submit" value="Login" />
-                </form>
-                <p>Don't have account?
-            <Link to={"/signup"}> Signup</Link>
-                </p>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div>
+        <form onSubmit={this.handleFormSubmit}>
+          <label>Username:</label>
+          <input
+            type="text"
+            name="username"
+            value={this.state.username}
+            onChange={(e) => this.handleChange(e)}
+          />
+          <label>Password:</label>
+          <input
+            type="password"
+            name="password"
+            value={this.state.password}
+            onChange={(e) => this.handleChange(e)}
+          />
+
+          <input type="submit" value="Login" />
+        </form>
+        <p>
+          Don't have account?
+          <Link to={"/signup"}> Signup</Link>
+        </p>
+      </div>
+    );
+  }
 }
 
 export default Login;
