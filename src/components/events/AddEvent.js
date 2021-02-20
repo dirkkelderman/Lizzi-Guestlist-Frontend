@@ -22,6 +22,7 @@ export class AddEvent extends Component {
     const guestNumber = this.state.guestNumber;
     const location = this.state.location;
     const description = this.state.description;
+    // const id = this.props.userInSession._id
 
     this.service
       .addEvent(eventName, date, guestNumber, location, description)

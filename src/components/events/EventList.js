@@ -32,6 +32,7 @@ export class EventList extends Component {
   }
 
   render() {
+      console.log(this.props.userInSession)
     const eventList = this.state.eventList.map((event) => {
       return (
         <div key={event._id}>
@@ -46,7 +47,7 @@ export class EventList extends Component {
         <h1>EventList</h1>
         <h1>Hello user{this.props.userInSession.username}</h1>
         {eventList}
-        <AddEvent getEvent={() => this.getEventList()} />
+        <AddEvent userinSession={this.props.userInSession} getEvent={() => this.getEventList()} />
       </div>
     );
   }
