@@ -7,6 +7,7 @@ import EventDetails from "./components/events/EventDetails";
 import GuestList from './components/guests/GuestList'
 import { Route, Switch } from "react-router-dom";
 import { Component } from "react";
+import Navbar from "./components/navbar/Navbar"
 
 class App extends Component {
   state = {
@@ -22,6 +23,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+
+      <Navbar userInSession={this.state.loggedInUser} getUser={this.getTheUser} />
         <Switch>
           {/* <Route exact path="/" /> */}
           <Route

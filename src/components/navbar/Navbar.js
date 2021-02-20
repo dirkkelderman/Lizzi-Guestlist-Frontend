@@ -20,16 +20,15 @@ export default class Navbar extends React.Component {
         return (
             <>
                 {
-                    this.props.user ?
+                    this.props.userInSession ?
                         <div>
-                            Welcome, {this.props.user.username}
-                            <br />
                             <Link to='/'>
                                 <button onClick={() => this.logoutUser()}> Logout </button>
                             </Link>
                         </div> :
                         <div>
-                            <Link to="/signup">Register</Link>
+                            <Link to="/Signup">Register</Link>
+                            <Link to="/Login">Login</Link>
                         </div>
                 }
 
