@@ -16,12 +16,7 @@ class EditProject extends Component {
   handleFormSubmit = (e) => {
     e.preventDefault();
 
-    const eventName = this.state.eventName;
-    const date = this.state.date;
-    const guestNumber = this.state.guestNumber;
-    const location = this.state.location;
-    const description = this.state.description;
-    const _id = this.state._id;
+    const {eventName, date, guestNumber, location, description, _id} = this.state
 
     this.service
       .updateEvent(_id, eventName, date, guestNumber, location, description)

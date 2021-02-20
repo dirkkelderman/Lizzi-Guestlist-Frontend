@@ -9,6 +9,7 @@ export class EventList extends Component {
     this.state = {
       eventList: [],
       loggedInUser: null,
+      showAddForm: false,
     };
   }
 
@@ -31,6 +32,13 @@ export class EventList extends Component {
     this.getEventList();
   }
 
+  showAddForm = () => {
+    const statusAddForm = !this.state.showAddForm;
+    this.setState({
+        showAddForm: statusAddForm,
+    });
+  };
+
   render() {
       console.log(this.props.userInSession)
     const eventList = this.state.eventList.map((event) => {
@@ -45,9 +53,18 @@ export class EventList extends Component {
     return (
       <div>
         <h1>EventList</h1>
-        <h1>Hello user{this.props.userInSession.username}</h1>
+        <h1>Hello user: {this.props.userInSession.username}</h1>
+
+        <button onClick={this.showAddForm}>
+          {this.state.showAddForm ? "Hide add form" : "Add event"}
+        </button>
+
+        {
+            this.state.showAddForm ? <AddEvent userinSession={this.props.userInSession} getEvent={() => this.getEventList()} /> : null
+        }
+
         {eventList}
-        <AddEvent userinSession={this.props.userInSession} getEvent={() => this.getEventList()} />
+        
       </div>
     );
   }
