@@ -45,7 +45,7 @@ export class EventList extends Component {
     return (
       <div>
         <h1>EventList</h1>
-        <h1>Hello user{this.props.userInSession.username}</h1>
+        <h1>Hello {this.props.userInSession.username}</h1>
         {eventList}
         <AddEvent userinSession={this.props.userInSession} getEvent={() => this.getEventList()} />
       </div>
