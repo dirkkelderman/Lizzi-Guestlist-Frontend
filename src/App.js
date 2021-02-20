@@ -4,6 +4,7 @@ import EventList from "./components/events/EventList";
 import Signup from "./components/auth/Signup";
 import Login from "./components/auth/Login";
 import EventDetails from "./components/events/EventDetails";
+import GuestList from './components/guests/GuestList'
 import { Route, Switch } from "react-router-dom";
 import { Component } from "react";
 
@@ -46,6 +47,7 @@ class App extends Component {
           />
 
           <Route exact path="/events/:id" component={EventDetails} />
+          <Route exact path="/events/:id/guestlist" component={GuestList} />
         </Switch>
       </div>
     );

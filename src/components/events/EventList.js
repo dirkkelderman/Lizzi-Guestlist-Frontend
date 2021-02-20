@@ -44,7 +44,10 @@ export class EventList extends Component {
     const eventList = this.state.eventList.map((event) => {
       return (
         <div key={event._id}>
-          <Link to={`/events/${event._id}`}>
+          {/* <Link to={`/events/${event._id}`}>
+            <h2>{event.eventName}</h2>
+          </Link> */}
+          <Link to={`/events/${event._id}/guestlist`}>
             <h2>{event.eventName}</h2>
           </Link>
         </div>
