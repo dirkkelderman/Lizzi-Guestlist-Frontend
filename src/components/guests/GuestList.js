@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import GuestService from './guest-service'
+import AddGuest from './AddGuest'
+import EditGuest from './EditGuest'
 
 export class GuestList extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            guestList: []
+            guestList: [],
+            ticketNumber: 0
         }
     }
 
@@ -16,8 +19,10 @@ export class GuestList extends Component {
     getGuestList = () => {
         this.service.guestList()
         .then( guestsFromApi => {
+            console.log(guestsFromApi)
             this.setState({
-                guestList: guestsFromApi
+                guestList: guestsFromApi,
+                ticketNumber: guestsFromApi.ticketNumber
             })
         })
     }
@@ -26,21 +31,35 @@ export class GuestList extends Component {
         this.getGuestList()
     }
 
+    checkInGuest = () => {
+        console.log('Guest checked-in')
+    }
+
   render() {
 
     const { params } = this.props.match;
+    const copyOfGuestList = [...this.state.guestList]
 
-    // guestFirstName, guestLastName, contact, tag
-
-    const guestList = this.state.guestList.map((guest) => {
+    const guestList = copyOfGuestList.map((guest) => {
         return (
             <div key={guest._id} >
                 <p>Name: {guest.guestFirstName}</p>
                 <p>Last name: {guest.guestLastName}</p>
+                <p>No. of ticket: {guest.ticketNumber}</p>
                 <p>{guest.contact}</p>
                 <p>{guest.tag}</p>
+
+                <button>
+                    <Link to={`/events/${params.id}/guestlist/${guest._id}`}>
+                        Edit
+                    </Link>
+                </button>
+                <button onClick={this.checkInGuest}>
+                    Check-in
+                </button>
             </div>
-        )        
+        ) 
+    
     })
 
     return ( 
@@ -51,6 +70,8 @@ export class GuestList extends Component {
         </Link>
 
         <h1>It's the guestlist</h1>
+
+        <AddGuest getGuest={() => this.getGuestList()} />
         
         {guestList}
 

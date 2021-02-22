@@ -8,6 +8,7 @@ import GuestList from './components/guests/GuestList'
 import { Route, Switch } from "react-router-dom";
 import { Component } from "react";
 import Navbar from "./components/navbar/Navbar"
+import GuestDetails from './components/guests/GuestDetails'
 
 class App extends Component {
   state = {
@@ -51,6 +52,8 @@ class App extends Component {
 
           <Route exact path="/events/:id" component={EventDetails} />
           <Route exact path="/events/:id/guestlist" component={GuestList} />
+          <Route exact path="/events/:id/guestlist/:guestId" component={GuestDetails} />
+
         </Switch>
       </div>
     );
