@@ -25,10 +25,12 @@ export default class Navbar extends React.Component {
                             <Link to='/'>
                                 <button onClick={() => this.logoutUser()}> Logout </button>
                             </Link>
+                            <Link to="/profile">Profile </Link>
                         </div> :
                         <div>
                             <Link to="/Signup">Register</Link>
                             <Link to="/Login">Login</Link>
+                
                         </div>
                 }
 
