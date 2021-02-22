@@ -9,6 +9,7 @@ import { Route, Switch } from "react-router-dom";
 import { Component } from "react";
 import Navbar from "./components/navbar/Navbar"
 import GuestDetails from './components/guests/GuestDetails'
+import Profile from  './components/profile/Profile'
 
 class App extends Component {
   state = {
@@ -49,11 +50,17 @@ class App extends Component {
               <EventList {...props} userInSession={this.state.loggedInUser} />
             )}
           />
-
           <Route exact path="/events/:id" component={EventDetails} />
           <Route exact path="/events/:id/guestlist" component={GuestList} />
           <Route exact path="/events/:id/guestlist/:guestId" component={GuestDetails} />
 
+          <Route
+            exact
+            path="/profile"
+            render={(props) => (
+              <Profile {...props} userInSession={this.state.loggedInUser} />
+            )}
+          />
         </Switch>
       </div>
     );
