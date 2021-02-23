@@ -10,20 +10,24 @@ export class GuestList extends Component {
         super(props);
         this.state = {
             guestList: [],
-            ticketNumber: 0
+            // ticketNumber: 0
         }
     }
 
     service = new GuestService();
 
+    
+
     getGuestList = () => {
+        
         this.service.guestList()
-        .then( guestsFromApi => {
-            console.log(guestsFromApi)
+        .then( guestList => {
+            console.log(guestList)
             this.setState({
-                guestList: guestsFromApi,
-                ticketNumber: guestsFromApi.ticketNumber
+                guestList,
+                // ticketNumber: guestList.ticketNumber
             })
+            // console.log(guestList[12].ticketNumber)
         })
     }
 
@@ -31,16 +35,27 @@ export class GuestList extends Component {
         this.getGuestList()
     }
 
-    checkInGuest = () => {
+    checkInGuest = (index) => {
+        const copyOfGuestList = [...this.state.guestList]
+
+        copyOfGuestList[index].ticketNumber -= 1 
+
+        this.setState({
+            guestList: copyOfGuestList
+        }, () => {this.service.updateGuest(copyOfGuestList[index]._id, copyOfGuestList[index].ticketNumber)})
+
+        
         console.log('Guest checked-in')
     }
 
   render() {
 
     const { params } = this.props.match;
-    const copyOfGuestList = [...this.state.guestList]
+    
+    
 
-    const guestList = copyOfGuestList.map((guest) => {
+
+    const guestList = this.state.guestList.map((guest, index) => {
         return (
             <div key={guest._id} >
                 <p>Name: {guest.guestFirstName}</p>
@@ -54,9 +69,11 @@ export class GuestList extends Component {
                         Edit
                     </Link>
                 </button>
-                <button onClick={this.checkInGuest}>
+
+                <button onClick={ () => this.checkInGuest(index)}>
                     Check-in
                 </button>
+
             </div>
         ) 
     
@@ -65,13 +82,22 @@ export class GuestList extends Component {
     return ( 
         
       <div>
-        <Link to={`/events/${params.id}`}>
-          <h2>Details</h2>
-        </Link>
+
+        <button>
+            <Link to={`/events`}>
+               Back to events
+            </Link>
+        </button>
+
+        <button>
+            <Link to={`/events/${params.id}`}>
+               Event Details
+            </Link>
+        </button>
 
         <h1>It's the guestlist</h1>
 
-        <AddGuest getGuest={() => this.getGuestList()} />
+        <AddGuest eventId={params.id} getGuest={() => this.getGuestList()} />
         
         {guestList}
 

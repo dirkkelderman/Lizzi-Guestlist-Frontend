@@ -14,12 +14,12 @@ class GuestService {
         .then(respons => respons.data)
     }
 
-    addGuest(guestFirstName, guestLastName, contact, tag, ticketNumber){
-        return this.service.post('/guestlist', {guestFirstName, guestLastName, contact, tag, ticketNumber})
+    addGuest(event, guestFirstName, guestLastName, contact, tag, ticketNumber){
+        return this.service.post('/guestlist', {event, guestFirstName, guestLastName, contact, tag, ticketNumber})
         .then(respons => respons.data)
     }
 
-    updateGuest(_id, guestFirstName, guestLastName, contact, tag, ticketNumber){
+    updateGuest(_id, ticketNumber, guestFirstName, guestLastName, contact, tag, ){
         return this.service.put(`/guestlist/${_id}`, {guestFirstName, guestLastName, contact, tag, ticketNumber})
         .then(respons => respons.data)
     }

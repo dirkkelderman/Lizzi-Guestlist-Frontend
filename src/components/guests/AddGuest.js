@@ -17,9 +17,12 @@ export class AddGuest extends Component {
     e.preventDefault();
 
     const {guestFirstName, guestLastName, contact, tag, ticketNumber} = this.state
+    const event = this.props.eventId;
+    
+    console.log(this.props.eventId)
 
     this.service
-      .addGuest(guestFirstName, guestLastName, contact, tag, ticketNumber)
+      .addGuest(event, guestFirstName, guestLastName, contact, tag, ticketNumber)
       .then(
         (res) => {
           this.props.getGuest();
