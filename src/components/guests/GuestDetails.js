@@ -1,41 +1,101 @@
-import React, { Component } from 'react'
-import GuestService from './guest-service';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import GuestService from "./guest-service";
 
 export class GuestDetails extends Component {
-    service = new GuestService()
+  service = new GuestService();
 
-    constructor(props){
-        super(props);
-        this.state = {
-            guestObj: {            
-                guestFirstName:'', 
-                guestLastName:'', 
-                contact:'', 
-                tag:'', 
-                ticketNumber:0
-            }
+  constructor(props) {
+    super(props);
+    this.state = {
+      guestObj: {
+        guestFirstName: "",
+        guestLastName: "",
+        contact: "",
+        tag: "",
+        ticketNumber: 0,
+      },
+    };
+  }
+
+  componentDidMount() {
+    this.getSingleGuest();
+  }
+
+  getSingleGuest() {
+    const { params } = this.props.match;
+    this.service.guestDetails(params.guestId).then((responseFromApi) => {
+      this.setState({
+        guestObj: responseFromApi,
+      });
+    });
+  }
+
+  handleChange = (e) => {
+    const { name, value } = e.target;
+    this.setState({
+        guestObj: Object.assign({}, this.state.guestObj, { [name]: value })
+      });
+  };
+
+
+
+  handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    const { params } = this.props.match;
+    const {guestFirstName, guestLastName, contact, tag, ticketNumber} = this.state.guestObj
+
+    this.service
+      .updateGuest(params.guestId, guestFirstName, guestLastName, contact, tag, ticketNumber)
+      .then(
+        (res) => {
+          console.log(res);
+          this.setState({
+            guestFirstName: "",
+            guestLastName: "",
+            contact: "",
+            tag: "",
+            ticketNumber: 0,
+            status: "Your guest is editted",
+          })
+          this.props.history.push(`/events/${params.id}/guestlist`);
+        },
+        (err) => {
+          console.log(err);
+          this.setState({
+            status: "Oops, something wrong",
+          });
         }
-    }
+      );
+  };
 
-    componentDidMount(){
-        this.getSingleGuest();
-    }
+  deleteGuest = () => {
+    const { params } = this.props.match;
 
-    getSingleGuest(){
-        const {params} = this.props.match;
-        this.service.guestDetails(params.guestId)
-            .then( (responseFromApi) => {
-                this.setState({
-                    guestObj: responseFromApi
-                })
-            })
-    }
+    this.service.deleteGuest(params.guestId)
+    .then( () =>{
+        this.props.history.push(`/events/${params.guestId}/guestlist`);       
+    }, (err)=>{
+        console.log(err)
+    })
+  }
 
-    render() {
-        const {guestFirstName, guestLastName, contact, tag, ticketNumber} = this.state.guestObj
-        return (
-            <div>
-<form onSubmit={this.handleFormSubmit}>
+
+  render() {
+    const {
+      guestFirstName,
+      guestLastName,
+      contact,
+      tag,
+      ticketNumber,
+    } = this.state.guestObj;
+
+    const { params } = this.props.match;
+
+    return (
+      <div>
+        <form onSubmit={this.handleFormSubmit}>
           <label>First name</label>
           <input
             type="text"
@@ -68,7 +128,7 @@ export class GuestDetails extends Component {
             onChange={this.handleChange}
           />
 
-         <label>Number of tickets</label>
+          <label>Number of tickets</label>
           <input
             type="number"
             name="ticketNumber"
@@ -76,12 +136,22 @@ export class GuestDetails extends Component {
             onChange={this.handleChange}
           />
 
-
           <input type="submit" value="Submit" />
+          <button>
+              <Link to={`/events/${params.id}/guestlist`} >
+                  Back
+              </Link>
+          </button>
+
+
+
         </form>
-            </div>
-        )
-    }
+        <button onClick={this.deleteGuest}>
+            Delete Guest
+        </button>
+      </div>
+    );
+  }
 }
 
-export default GuestDetails
+export default GuestDetails;
