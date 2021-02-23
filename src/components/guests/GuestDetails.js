@@ -44,10 +44,10 @@ export class GuestDetails extends Component {
     e.preventDefault();
 
     const { params } = this.props.match;
-    const {guestFirstName, guestLastName, contact, tag, ticketNumber} = this.state.guestObj
+    const {ticketNumber, guestFirstName, guestLastName, contact, tag } = this.state.guestObj
 
     this.service
-      .updateGuest(params.guestId, guestFirstName, guestLastName, contact, tag, ticketNumber)
+      .updateGuest(params.guestId, ticketNumber, guestFirstName, guestLastName, contact, tag)
       .then(
         (res) => {
           console.log(res);
