@@ -14,6 +14,7 @@ export class GuestDetails extends Component {
         contact: "",
         tag: "",
         ticketNumber: 0,
+        freeTickets: 0
       },
     };
   }
@@ -44,10 +45,10 @@ export class GuestDetails extends Component {
     e.preventDefault();
 
     const { params } = this.props.match;
-    const {ticketNumber, guestFirstName, guestLastName, contact, tag } = this.state.guestObj
+    const { freeTickets, guestFirstName, guestLastName, contact, tag, ticketNumber } = this.state.guestObj
 
     this.service
-      .updateGuest(params.guestId, ticketNumber, guestFirstName, guestLastName, contact, tag)
+      .updateGuest(params.guestId, freeTickets, guestFirstName, guestLastName, contact, tag, ticketNumber)
       .then(
         (res) => {
           console.log(res);
@@ -57,6 +58,7 @@ export class GuestDetails extends Component {
             contact: "",
             tag: "",
             ticketNumber: 0,
+            freeTickets: 0,
             status: "Your guest is editted",
           })
           this.props.history.push(`/events/${params.id}/guestlist`);
@@ -89,6 +91,7 @@ export class GuestDetails extends Component {
       contact,
       tag,
       ticketNumber,
+      freeTickets
     } = this.state.guestObj;
 
     const { params } = this.props.match;
@@ -112,7 +115,27 @@ export class GuestDetails extends Component {
             onChange={this.handleChange}
           />
 
-          <label>Contact</label>
+
+          <label>Number of tickets</label>
+          <input
+            type="number"
+            name="ticketNumber"
+            value={ticketNumber}
+            onChange={this.handleChange}
+          />
+
+        <label>Free tickets</label>
+          <input
+            type="number"
+            name="freeTickets"
+            value={freeTickets}
+            onChange={this.handleChange}
+          />
+
+        {
+            this.state.showAdvancedForm ? 
+            <div>
+            <label>Contact</label>
           <input
             type="text"
             name="contact"
@@ -127,14 +150,11 @@ export class GuestDetails extends Component {
             value={tag}
             onChange={this.handleChange}
           />
+          </div>
+          : null
+        }
+        
 
-          <label>Number of tickets</label>
-          <input
-            type="number"
-            name="ticketNumber"
-            value={ticketNumber}
-            onChange={this.handleChange}
-          />
 
           <input type="submit" value="Submit" />
           <button>

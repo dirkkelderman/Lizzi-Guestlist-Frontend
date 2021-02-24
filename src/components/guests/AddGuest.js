@@ -11,7 +11,8 @@ export class AddGuest extends Component {
     contact: "",
     tag: "",
     ticketNumber: 0,
-    freeTickets: 0
+    freeTickets: 0,
+    showAdvancedForm: false
   };
 
   handleFormSubmit = (e) => {
@@ -52,6 +53,13 @@ export class AddGuest extends Component {
     this.setState({ [name]: value });
   };
 
+  showAdvancedForm = () => {
+    const statusAdvancedForm = !this.state.showAdvancedForm;
+    this.setState({
+        showAdvancedForm: statusAdvancedForm,
+    });
+  };
+
   render() {
     return (
       <div>
@@ -74,21 +82,6 @@ export class AddGuest extends Component {
             onChange={this.handleChange}
           />
 
-          <label>Contact</label>
-          <input
-            type="text"
-            name="contact"
-            value={this.state.contact}
-            onChange={this.handleChange}
-          />
-
-          <label>Tag</label>
-          <input
-            type="text"
-            name="tag"
-            value={this.state.tag}
-            onChange={this.handleChange}
-          />
 
          <label>Number of tickets</label>
           <input
@@ -106,9 +99,31 @@ export class AddGuest extends Component {
             onChange={this.handleChange}
           />
 
+{
+            this.state.showAdvancedForm ? 
+            <div>
+            <label>Contact</label>
+          <input
+            type="text"
+            name="contact"
+            value={this.state.contact}
+            onChange={this.handleChange}
+          />
+
+          <label>Tag</label>
+          <input
+            type="text"
+            name="tag"
+            value={this.state.tag}
+            onChange={this.handleChange}
+          />
+          </div>
+          : null
+        }
 
           <input type="submit" value="Submit" />
         </form>
+        <button onClick={this.showAdvancedForm}>Advanced Form</button>
       </div>
     );
   }

@@ -1,114 +1,109 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import GuestService from './guest-service'
-import AddGuest from './AddGuest'
-import EditGuest from './EditGuest'
+import GuestService from "./guest-service";
+import AddGuest from "./AddGuest";
+import EditGuest from "./EditGuest";
 
 export class GuestList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      guestList: [],
+      checkedTickets: 0,
+      // ticketNumber: 0
+    };
+  }
 
-    constructor(props){
-        super(props);
-        this.state = {
-            guestList: [],
-            checkedTickets: 0
-            // ticketNumber: 0
-        }
-    }
+  service = new GuestService();
 
-    service = new GuestService();
+  getGuestList = () => {
+    const { params } = this.props.match;
 
-    
+    this.service.guestList(params.id).then((guestList) => {
+      console.log(params.id);
 
-    getGuestList = () => {
-        const { params } = this.props.match;
+      console.log(guestList);
+      this.setState({
+        guestList,
+        // ticketNumber: guestList.ticketNumber
+      });
+      // console.log(guestList[12].ticketNumber)
+    });
+  };
 
-        
-        this.service.guestList(params.id)
-        .then( guestList => {
-            console.log(params.id)
+  componentDidMount() {
+    this.getGuestList();
+  }
 
-            console.log(guestList)
-            this.setState({
-                guestList,
-                // ticketNumber: guestList.ticketNumber
-            })
-            // console.log(guestList[12].ticketNumber)
-        })
-    }
+  checkInGuest = (index) => {
+    const copyOfGuestList = [...this.state.guestList];
 
-    componentDidMount(){
-        this.getGuestList()
-    }
+    copyOfGuestList[index].freeTickets += 1;
 
-    checkInGuest = (index) => {
-        const copyOfGuestList = [...this.state.guestList]
+    this.setState(
+      {
+        guestList: copyOfGuestList,
+      },
+      () => {
+        this.service.updateGuest(
+          copyOfGuestList[index]._id,
+          copyOfGuestList[index].freeTickets
+        );
+      }
+    );
 
-        copyOfGuestList[index].freeTickets += 1 
-
-        this.setState({
-            guestList: copyOfGuestList
-        }, () => {this.service.updateGuest(copyOfGuestList[index]._id, copyOfGuestList[index].freeTickets)})
-
-                
-        console.log('Guest checked-in')
-    }
+    console.log("Guest checked-in");
+  };
 
   render() {
-
     const { params } = this.props.match;
-    const copyOfGuestList = [...this.state.guestList]
-
+    const copyOfGuestList = [...this.state.guestList];
 
     const guestList = copyOfGuestList.map((guest, index) => {
-        return (
-            <div key={guest._id} >
-                <p>Name: {guest.guestFirstName}</p>
-                <p>Last name: {guest.guestLastName}</p>
-                <p>No. of ticket: {guest.ticketNumber}</p>
-                <p>Freetickets: {guest.freeTickets}</p>
-                {
-                    guest.ticketNumber === guest.freeTickets ? <h4>No more tickets left</h4> : null
-                }
-                <p>{guest.contact}</p>
-                <p>{guest.tag}</p>
+      return (
+        <div key={guest._id}>
+          <p>Name: {guest.guestFirstName}</p>
+          <p>Last name: {guest.guestLastName}</p>
+          <p>No. of ticket: {guest.ticketNumber}</p>
+          <p>Freetickets: {guest.freeTickets}</p>
 
-                <button>
-                    <Link to={`/events/${params.id}/guestlist/${guest._id}`}>
-                        Edit
-                    </Link>
-                </button>
+          <p>{guest.contact}</p>
+          <p>{guest.tag}</p>
 
-                <button onClick={ () => this.checkInGuest(index)}>
-                    Check-in
-                </button>
+          <button>
+            <Link to={`/events/${params.id}/guestlist/${guest._id}`}>Edit</Link>
+          </button>
 
-            </div>
-        ) 
-    
-    })
+          {guest.ticketNumber === guest.freeTickets ? (
+            <button
+              type="button"
+              disabled
+              onClick={() => this.checkInGuest(index)}
+            >
+              Check-in
+            </button>
+          ) : (
+            <button onClick={() => this.checkInGuest(index)}>Check-in</button>
+          )}
+        </div>
+      );
+    });
 
-    return ( 
-        
+    return (
       <div>
-
         <button>
-            <Link to={`/events`}>
-               Back to events
-            </Link>
+          <Link to={`/events`}>Back to events</Link>
         </button>
 
         <button>
-            <Link to={`/events/${params.id}`}>
-               Event Details
-            </Link>
+          <Link to={`/events/${params.id}`}>Event Details</Link>
         </button>
 
         <h1>It's the guestlist</h1>
 
         <AddGuest eventId={params.id} getGuest={() => this.getGuestList()} />
-        
-        {guestList}
 
+        {guestList}
       </div>
     );
   }
