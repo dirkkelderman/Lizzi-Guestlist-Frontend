@@ -40,7 +40,6 @@ export class EventList extends Component {
   };
 
   render() {
-      console.log(this.props.userInSession)
     const eventList = this.state.eventList.map((event) => {
       return (
         <div key={event._id}>

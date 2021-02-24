@@ -10,6 +10,7 @@ export class GuestList extends Component {
         super(props);
         this.state = {
             guestList: [],
+            checkedTickets: 0
             // ticketNumber: 0
         }
     }
@@ -19,9 +20,13 @@ export class GuestList extends Component {
     
 
     getGuestList = () => {
+        const { params } = this.props.match;
+
         
-        this.service.guestList()
+        this.service.guestList(params.id)
         .then( guestList => {
+            console.log(params.id)
+
             console.log(guestList)
             this.setState({
                 guestList,
@@ -38,29 +43,32 @@ export class GuestList extends Component {
     checkInGuest = (index) => {
         const copyOfGuestList = [...this.state.guestList]
 
-        copyOfGuestList[index].ticketNumber -= 1 
+        copyOfGuestList[index].freeTickets += 1 
 
         this.setState({
             guestList: copyOfGuestList
-        }, () => {this.service.updateGuest(copyOfGuestList[index]._id, copyOfGuestList[index].ticketNumber)})
+        }, () => {this.service.updateGuest(copyOfGuestList[index]._id, copyOfGuestList[index].freeTickets)})
 
-        
+                
         console.log('Guest checked-in')
     }
 
   render() {
 
     const { params } = this.props.match;
-    
-    
+    const copyOfGuestList = [...this.state.guestList]
 
 
-    const guestList = this.state.guestList.map((guest, index) => {
+    const guestList = copyOfGuestList.map((guest, index) => {
         return (
             <div key={guest._id} >
                 <p>Name: {guest.guestFirstName}</p>
                 <p>Last name: {guest.guestLastName}</p>
                 <p>No. of ticket: {guest.ticketNumber}</p>
+                <p>Freetickets: {guest.freeTickets}</p>
+                {
+                    guest.ticketNumber === guest.freeTickets ? <h4>No more tickets left</h4> : null
+                }
                 <p>{guest.contact}</p>
                 <p>{guest.tag}</p>
 

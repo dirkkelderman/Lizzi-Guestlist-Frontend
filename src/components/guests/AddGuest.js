@@ -10,19 +10,20 @@ export class AddGuest extends Component {
     guestLastName: "",
     contact: "",
     tag: "",
-    ticketNumber: 0
+    ticketNumber: 0,
+    freeTickets: 0
   };
 
   handleFormSubmit = (e) => {
     e.preventDefault();
 
-    const {guestFirstName, guestLastName, contact, tag, ticketNumber} = this.state
+    const {guestFirstName, guestLastName, contact, tag, ticketNumber, freeTickets} = this.state
     const event = this.props.eventId;
-    
+
     console.log(this.props.eventId)
 
     this.service
-      .addGuest(event, guestFirstName, guestLastName, contact, tag, ticketNumber)
+      .addGuest(event, guestFirstName, guestLastName, contact, tag, ticketNumber, freeTickets)
       .then(
         (res) => {
           this.props.getGuest();
@@ -33,6 +34,7 @@ export class AddGuest extends Component {
             contact: "",
             tag: "",
             ticketNumber: 0,
+            freeTickets: 0,
             status: "Your guest is created",
           });
         },
@@ -93,6 +95,14 @@ export class AddGuest extends Component {
             type="number"
             name="ticketNumber"
             value={this.state.ticketNumber}
+            onChange={this.handleChange}
+          />
+
+        <label>Free tickets</label>
+          <input
+            type="number"
+            name="freeTickets"
+            value={this.state.freeTickets}
             onChange={this.handleChange}
           />
 

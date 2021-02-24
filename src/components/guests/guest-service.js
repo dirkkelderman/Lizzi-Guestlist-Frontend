@@ -9,18 +9,18 @@ class GuestService {
         this.service = service
     }
 
-    guestList(){
-        return this.service.get('/guestlist')
+    guestList(eventId){
+        return this.service.get('/guestlist', {eventId})
         .then(respons => respons.data)
     }
 
-    addGuest(event, guestFirstName, guestLastName, contact, tag, ticketNumber){
-        return this.service.post('/guestlist', {event, guestFirstName, guestLastName, contact, tag, ticketNumber})
+    addGuest(event, guestFirstName, guestLastName, contact, tag, freeTickets, ticketNumber, ){
+        return this.service.post('/guestlist', {event, guestFirstName, guestLastName, contact, tag, freeTickets, ticketNumber})
         .then(respons => respons.data)
     }
 
-    updateGuest(_id, ticketNumber, guestFirstName, guestLastName, contact, tag, ){
-        return this.service.put(`/guestlist/${_id}`, {guestFirstName, guestLastName, contact, tag, ticketNumber})
+    updateGuest(_id, freeTickets, guestFirstName, guestLastName, contact, tag, ticketNumber ){
+        return this.service.put(`/guestlist/${_id}`, {guestFirstName, guestLastName, contact, tag, freeTickets, ticketNumber})
         .then(respons => respons.data)
     }
 
