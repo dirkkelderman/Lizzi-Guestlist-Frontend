@@ -14,7 +14,7 @@ export class GuestDetails extends Component {
         contact: "",
         tag: "",
         ticketNumber: 0,
-        freeTickets: 0
+        freeTickets: 0,
       },
     };
   }
@@ -35,47 +35,29 @@ export class GuestDetails extends Component {
   handleChange = (e) => {
     const { name, value } = e.target;
     this.setState({
-        guestObj: Object.assign({}, this.state.guestObj, { [name]: value })
-      });
-
-      const { params } = this.props.match;
-      const { freeTickets, guestFirstName, guestLastName, contact, tag, ticketNumber } = this.state.guestObj
-  
-      this.service
-        .updateGuest(params.guestId, freeTickets, guestFirstName, guestLastName, contact, tag, ticketNumber)
-        .then(
-          (res) => {
-            console.log(res);
-            this.setState({
-              guestFirstName: "",
-              guestLastName: "",
-              contact: "",
-              tag: "",
-              ticketNumber: 0,
-              freeTickets: 0,
-              status: "Your guest is editted",
-            })
-            // this.props.history.push(`/events/${params.id}/guestlist`);
-          },
-          (err) => {
-            console.log(err);
-            this.setState({
-              status: "Oops, something wrong",
-            });
-          }
-        );  
-  };
-
-
-
-  handleFormSubmit = (e) => {
-    e.preventDefault();
+      guestObj: Object.assign({}, this.state.guestObj, { [name]: value }),
+    });
 
     const { params } = this.props.match;
-    const { freeTickets, guestFirstName, guestLastName, contact, tag, ticketNumber } = this.state.guestObj
+    const {
+      freeTickets,
+      guestFirstName,
+      guestLastName,
+      contact,
+      tag,
+      ticketNumber,
+    } = this.state.guestObj;
 
     this.service
-      .updateGuest(params.guestId, freeTickets, guestFirstName, guestLastName, contact, tag, ticketNumber)
+      .updateGuest(
+        params.guestId,
+        freeTickets,
+        guestFirstName,
+        guestLastName,
+        contact,
+        tag,
+        ticketNumber
+      )
       .then(
         (res) => {
           console.log(res);
@@ -87,7 +69,52 @@ export class GuestDetails extends Component {
             ticketNumber: 0,
             freeTickets: 0,
             status: "Your guest is editted",
-          })
+          });
+        },
+        (err) => {
+          console.log(err);
+          this.setState({
+            status: "Oops, something wrong",
+          });
+        }
+      );
+  };
+
+  handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    const { params } = this.props.match;
+    const {
+      freeTickets,
+      guestFirstName,
+      guestLastName,
+      contact,
+      tag,
+      ticketNumber,
+    } = this.state.guestObj;
+
+    this.service
+      .updateGuest(
+        params.guestId,
+        freeTickets,
+        guestFirstName,
+        guestLastName,
+        contact,
+        tag,
+        ticketNumber
+      )
+      .then(
+        (res) => {
+          console.log(res);
+          this.setState({
+            guestFirstName: "",
+            guestLastName: "",
+            contact: "",
+            tag: "",
+            ticketNumber: 0,
+            freeTickets: 0,
+            status: "Your guest is editted",
+          });
           this.props.history.push(`/events/${params.id}/guestlist`);
         },
         (err) => {
@@ -102,14 +129,15 @@ export class GuestDetails extends Component {
   deleteGuest = () => {
     const { params } = this.props.match;
 
-    this.service.deleteGuest(params.guestId)
-    .then( () =>{
-        this.props.history.push(`/events/${params.guestId}/guestlist`);       
-    }, (err)=>{
-        console.log(err)
-    })
-  }
-
+    this.service.deleteGuest(params.guestId).then(
+      () => {
+        this.props.history.push(`/events/${params.guestId}/guestlist`);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  };
 
   render() {
     const {
@@ -118,7 +146,7 @@ export class GuestDetails extends Component {
       contact,
       tag,
       ticketNumber,
-      freeTickets
+      freeTickets,
     } = this.state.guestObj;
 
     const { params } = this.props.match;
@@ -142,7 +170,6 @@ export class GuestDetails extends Component {
             onChange={this.handleChange}
           />
 
-
           <label>Number of tickets</label>
           <input
             type="number"
@@ -151,7 +178,7 @@ export class GuestDetails extends Component {
             onChange={this.handleChange}
           />
 
-        <label>Free tickets</label>
+          <label>Free tickets</label>
           <input
             type="number"
             name="freeTickets"
@@ -159,42 +186,32 @@ export class GuestDetails extends Component {
             onChange={this.handleChange}
           />
 
-        {
-            this.state.showAdvancedForm ? 
+          {this.state.showAdvancedForm ? (
             <div>
-            <label>Contact</label>
-          <input
-            type="text"
-            name="contact"
-            value={contact}
-            onChange={this.handleChange}
-          />
+              <label>Contact</label>
+              <input
+                type="text"
+                name="contact"
+                value={contact}
+                onChange={this.handleChange}
+              />
 
-          <label>Tag</label>
-          <input
-            type="text"
-            name="tag"
-            value={tag}
-            onChange={this.handleChange}
-          />
-          </div>
-          : null
-        }
-        
+              <label>Tag</label>
+              <input
+                type="text"
+                name="tag"
+                value={tag}
+                onChange={this.handleChange}
+              />
+            </div>
+          ) : null}
 
-
-          {/* <input type="submit" value="Submit" /> */}
-          <span >
-          <input type="submit" value="Close"/>
-              <Link to={`/events/${params.id}/guestlist`} />
-         </span>
-
-
-
+          <span>
+            <input type="submit" value="Close" />
+            <Link to={`/events/${params.id}/guestlist`} />
+          </span>
         </form>
-        <button onClick={this.deleteGuest}>
-            Delete Guest
-        </button>
+        <button onClick={this.deleteGuest}>Delete Guest</button>
       </div>
     );
   }

@@ -1,33 +1,29 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import GuestService from "./guest-service";
-import EventService from '../events/event-service'
+import EventService from "../events/event-service";
 import AddGuest from "./AddGuest";
-import EditGuest from "./EditGuest";
 
 export class GuestList extends Component {
   constructor(props) {
     super(props);
     this.state = {
       guestList: [],
-      checkedTickets: 0,
-      // ticketNumber: 0
     };
   }
 
   service = new GuestService();
-  eventService = new EventService()
+  eventService = new EventService();
 
   getGuestList = () => {
     const { params } = this.props.match;
 
-    this.eventService.eventDetails(params.id)
-    .then(eventFromDb => {
-        console.log(eventFromDb)
-        this.setState({
-            guestList: eventFromDb.guest
-        })
-    })
+    this.eventService.eventDetails(params.id).then((eventFromDb) => {
+      console.log(eventFromDb);
+      this.setState({
+        guestList: eventFromDb.guest,
+      });
+    });
   };
 
   componentDidMount() {
@@ -62,8 +58,11 @@ export class GuestList extends Component {
       return (
         <div key={guest._id}>
           <p>Name: {guest.guestFirstName}</p>
-          <p>Last name: {guest.guestLastName}</p>
-          <p>No. of ticket: {guest.ticketNumber}</p>
+          {
+            guest.guestLastName ? <p>Last name: {guest.guestLastName}</p> : null
+          }
+          
+          <p>No. of ticket: {guest.ticketNumber}</p>    
           <p>Tickets left: {guest.freeTickets}</p>
 
           <p>{guest.contact}</p>

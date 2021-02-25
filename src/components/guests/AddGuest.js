@@ -37,8 +37,7 @@ export class AddGuest extends Component {
         contact,
         tag,
         ticketNumber,
-        freeTickets,
-        
+        freeTickets
       )
       .then(
         (res) => {
