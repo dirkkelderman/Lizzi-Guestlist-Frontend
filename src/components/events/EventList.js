@@ -35,7 +35,7 @@ export class EventList extends Component {
   showAddForm = () => {
     const statusAddForm = !this.state.showAddForm;
     this.setState({
-        showAddForm: statusAddForm,
+      showAddForm: statusAddForm,
     });
   };
 
@@ -43,9 +43,6 @@ export class EventList extends Component {
     const eventList = this.state.eventList.map((event) => {
       return (
         <div key={event._id}>
-          {/* <Link to={`/events/${event._id}`}>
-            <h2>{event.eventName}</h2>
-          </Link> */}
           <Link to={`/events/${event._id}/guestlist`}>
             <h2>{event.eventName}</h2>
           </Link>
@@ -61,12 +58,14 @@ export class EventList extends Component {
           {this.state.showAddForm ? "Hide add form" : "Add event"}
         </button>
 
-        {
-            this.state.showAddForm ? <AddEvent userinSession={this.props.userInSession} getEvent={() => this.getEventList()} /> : null
-        }
+        {this.state.showAddForm ? (
+          <AddEvent
+            userinSession={this.props.userInSession}
+            getEvent={() => this.getEventList()}
+          />
+        ) : null}
 
         {eventList}
-        
       </div>
     );
   }

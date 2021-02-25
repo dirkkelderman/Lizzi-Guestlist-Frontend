@@ -76,13 +76,15 @@ export class EventDetails extends Component {
   deleteEvent = () => {
     const { params } = this.props.match;
 
-    this.service.deleteEvent(params.id)
-    .then( () =>{
-        this.props.history.push('/events');       
-    }, (err)=>{
-        console.log(err)
-    })
-  }
+    this.service.deleteEvent(params.id).then(
+      () => {
+        this.props.history.push("/events");
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  };
 
   render() {
     return (
@@ -94,20 +96,14 @@ export class EventDetails extends Component {
         <p>Location: {this.state.location}</p>
         <p>Description: {this.state.description}</p>
 
-        
-
         <button onClick={this.showEditForm}>
           {this.state.showEditForm ? "Hide edit form" : "Edit event"}
         </button>
 
-        <button onClick={this.deleteEvent}>
-            Delete Event
-        </button>
+        <button onClick={this.deleteEvent}>Delete Event</button>
 
-        <Link to='/events'>
-            <button>
-                Back to events
-            </button>
+        <Link to="/events">
+          <button>Back to events</button>
         </Link>
 
         <div>
