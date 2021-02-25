@@ -94,6 +94,8 @@ export class EventDetails extends Component {
         <p>Location: {this.state.location}</p>
         <p>Description: {this.state.description}</p>
 
+        
+
         <button onClick={this.showEditForm}>
           {this.state.showEditForm ? "Hide edit form" : "Edit event"}
         </button>

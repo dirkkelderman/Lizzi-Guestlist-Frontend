@@ -37,6 +37,33 @@ export class GuestDetails extends Component {
     this.setState({
         guestObj: Object.assign({}, this.state.guestObj, { [name]: value })
       });
+
+      const { params } = this.props.match;
+      const { freeTickets, guestFirstName, guestLastName, contact, tag, ticketNumber } = this.state.guestObj
+  
+      this.service
+        .updateGuest(params.guestId, freeTickets, guestFirstName, guestLastName, contact, tag, ticketNumber)
+        .then(
+          (res) => {
+            console.log(res);
+            this.setState({
+              guestFirstName: "",
+              guestLastName: "",
+              contact: "",
+              tag: "",
+              ticketNumber: 0,
+              freeTickets: 0,
+              status: "Your guest is editted",
+            })
+            // this.props.history.push(`/events/${params.id}/guestlist`);
+          },
+          (err) => {
+            console.log(err);
+            this.setState({
+              status: "Oops, something wrong",
+            });
+          }
+        );  
   };
 
 
@@ -156,12 +183,11 @@ export class GuestDetails extends Component {
         
 
 
-          <input type="submit" value="Submit" />
-          <button>
-              <Link to={`/events/${params.id}/guestlist`} >
-                  Back
-              </Link>
-          </button>
+          {/* <input type="submit" value="Submit" /> */}
+          <span >
+          <input type="submit" value="Close"/>
+              <Link to={`/events/${params.id}/guestlist`} />
+         </span>
 
 
 
