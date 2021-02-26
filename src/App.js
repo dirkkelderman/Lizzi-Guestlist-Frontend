@@ -22,6 +22,7 @@ class App extends Component {
       loggedInUser: userObj,
     });
   };
+  
 
   render() {
     return (
