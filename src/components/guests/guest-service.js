@@ -10,7 +10,7 @@ class GuestService {
     }
 
     guestList(eventId){
-        return this.service.get('/guestlist', {eventId})
+        return this.service.get(`/events/${eventId}/guestList/:guestId`)
         .then(respons => respons.data)
     }
 

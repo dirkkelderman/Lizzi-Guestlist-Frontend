@@ -13,13 +13,13 @@ export class Profile extends Component {
   }
 
     render() {
-      console.log(this.props.userInSession.username)
+      console.log(this.props.userInSession)
       return (
           <div >
             <h1>User Profile</h1>
             <img src={this.props.userInSession.imageUrl} alt="Profile Pic" height="200px" width="180px" style={{borderRadius: "50%", border: "solid 1px black"}}/>
             <h2>
-            {this.props.userInSession.username}
+            {this.props.userInSession}
             </h2>
             <h2>
               {this.props.userInSession.email}

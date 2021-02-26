@@ -3,15 +3,24 @@ import AuthService from "./auth-service";
 import { Link } from "react-router-dom";
 
 class Login extends Component {
-  state = { username: "", password: "" };
+  state = { 
+      username: "", 
+      password: "",
+      rememberMe: false 
+    };
 
   service = new AuthService();
 
   handleFormSubmit = (event) => {
     event.preventDefault();
 
-    const username = this.state.username;
-    const password = this.state.password;
+    const { username, password, rememberMe } = this.state;
+
+    // const username = this.state.username;
+    // const password = this.state.password;
+
+    localStorage.setItem('rememberMe', rememberMe);
+    localStorage.setItem('user', rememberMe ? username : '');
 
     this.service
       .login(username, password)
@@ -24,8 +33,14 @@ class Login extends Component {
   };
 
   handleChange = (event) => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
+    // const { name } = event.target;
+    // const value = event.type === 'checkbox' ? event.checked : event.value;
+
+    // this.setState({ [name]: value });
+    const input = event.target;
+    const value = input.type === 'checkbox' ? input.checked : input.value;
+ 
+    this.setState({ [input.name]: value });
   };
 
   render() {
@@ -46,6 +61,10 @@ class Login extends Component {
             value={this.state.password}
             onChange={(e) => this.handleChange(e)}
           />
+
+          <label>
+        <input name="rememberMe" checked={this.state.rememberMe} onChange={this.handleChange} type="checkbox"/> Remember me
+      </label>
 
           <input type="submit" value="Login" />
         </form>

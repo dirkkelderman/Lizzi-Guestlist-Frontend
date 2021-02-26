@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import GuestService from "./guest-service";
 
 export class AddGuest extends Component {
-
   service = new GuestService();
 
   state = {
@@ -12,19 +11,34 @@ export class AddGuest extends Component {
     tag: "",
     ticketNumber: 0,
     freeTickets: 0,
-    showAdvancedForm: false
+    showAdvancedForm: false,
   };
 
   handleFormSubmit = (e) => {
     e.preventDefault();
 
-    const {guestFirstName, guestLastName, contact, tag, ticketNumber, freeTickets} = this.state
+    const {
+      guestFirstName,
+      guestLastName,
+      contact,
+      tag,
+      ticketNumber,
+      freeTickets,
+    } = this.state;
     const event = this.props.eventId;
 
-    console.log(this.props.eventId)
+    console.log(this.props.eventId);
 
     this.service
-      .addGuest(event, guestFirstName, guestLastName, contact, tag, ticketNumber, freeTickets)
+      .addGuest(
+        event,
+        guestFirstName,
+        guestLastName,
+        contact,
+        tag,
+        ticketNumber,
+        freeTickets
+      )
       .then(
         (res) => {
           this.props.getGuest();
@@ -56,7 +70,7 @@ export class AddGuest extends Component {
   showAdvancedForm = () => {
     const statusAdvancedForm = !this.state.showAdvancedForm;
     this.setState({
-        showAdvancedForm: statusAdvancedForm,
+      showAdvancedForm: statusAdvancedForm,
     });
   };
 
@@ -66,24 +80,26 @@ export class AddGuest extends Component {
         <h1>Add Guest</h1>
 
         <form onSubmit={this.handleFormSubmit}>
-          <label>First name</label>
+          <label>Name</label>
           <input
             type="text"
             name="guestFirstName"
             value={this.state.guestFirstName}
             onChange={this.handleChange}
           />
+          {this.state.showAdvancedForm ? (
+            <span>
+              <label>Last name</label>
+              <input
+                type="text"
+                name="guestLastName"
+                value={this.state.guestLastName}
+                onChange={this.handleChange}
+              />
+            </span>
+          ) : null}
 
-          <label>Last name</label>
-          <input
-            type="text"
-            name="guestLastName"
-            value={this.state.guestLastName}
-            onChange={this.handleChange}
-          />
-
-
-         <label>Number of tickets</label>
+          <label>Number of tickets</label>
           <input
             type="number"
             name="ticketNumber"
@@ -91,7 +107,7 @@ export class AddGuest extends Component {
             onChange={this.handleChange}
           />
 
-        <label>Free tickets</label>
+          <label>Free tickets</label>
           <input
             type="number"
             name="freeTickets"
@@ -99,27 +115,25 @@ export class AddGuest extends Component {
             onChange={this.handleChange}
           />
 
-{
-            this.state.showAdvancedForm ? 
-            <div>
-            <label>Contact</label>
-          <input
-            type="text"
-            name="contact"
-            value={this.state.contact}
-            onChange={this.handleChange}
-          />
+          {this.state.showAdvancedForm ? (
+            <span>
+              <label>Contact</label>
+              <input
+                type="text"
+                name="contact"
+                value={this.state.contact}
+                onChange={this.handleChange}
+              />
 
-          <label>Tag</label>
-          <input
-            type="text"
-            name="tag"
-            value={this.state.tag}
-            onChange={this.handleChange}
-          />
-          </div>
-          : null
-        }
+              <label>Tag</label>
+              <input
+                type="text"
+                name="tag"
+                value={this.state.tag}
+                onChange={this.handleChange}
+              />
+            </span>
+          ) : null}
 
           <input type="submit" value="Submit" />
         </form>

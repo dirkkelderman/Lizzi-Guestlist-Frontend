@@ -6,6 +6,7 @@ class Signup extends Component {
   state = {
     username: "",
     password: "",
+    rememberMe: false
   };
 
   service = new AuthService();
@@ -13,8 +14,13 @@ class Signup extends Component {
   handleFormSubmit = (event) => {
     event.preventDefault();
 
-    const username = this.state.username;
-    const password = this.state.password;
+    const { username, password, rememberMe } = this.state;
+
+    // const username = this.state.username;
+    // const password = this.state.password;
+
+    localStorage.setItem('rememberMe', rememberMe);
+    localStorage.setItem('user', rememberMe ? username : '');
 
     this.service
       .signup(username, password)
@@ -27,8 +33,14 @@ class Signup extends Component {
   };
 
   handleChange = (event) => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
+    // const { name } = event.target;
+    // const value = event.type === 'checkbox' ? event.checked : event.value;
+
+    // this.setState({ [name]: value });
+    const input = event.target;
+    const value = input.type === 'checkbox' ? input.checked : input.value;
+ 
+    this.setState({ [input.name]: value });
   };
 
   render() {
@@ -51,6 +63,10 @@ class Signup extends Component {
             value={this.state.password}
             onChange={(e) => this.handleChange(e)}
           />
+
+          <label>
+          <input name="rememberMe" checked={this.state.rememberMe} onChange={this.handleChange} type="checkbox" /> Remember me
+        </label>
 
           <input type="submit" value="Signup" />
         </form>

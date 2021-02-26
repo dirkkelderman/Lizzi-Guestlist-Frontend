@@ -1,20 +1,28 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-const protectedRoute  = ({component: Component, user, ...rest}) => {
-  console.log({component: Component, user, ...rest})
+const ProtectedRoute  = ({component: Component, user, ...rest}) => {
+
+  const isAuthenticated = localStorage.getItem('user');
+
+  console.log({component: Component, isAuthenticated, ...rest})
     return (
       <Route
         {...rest}
         render={ props  => {
-            if(user){
-              return <Component {...props} user={user}/>
-            } else {
-              return <Redirect to={{pathname: '/login', state: {from: props.location}}} />
-            }
+
+          return isAuthenticated ? 
+          (<Component {...props} userInSession={isAuthenticated}/>)
+          :
+          (<Redirect to={{pathname: '/login', state: {from: props.location}}} />)
+            // if(isAuthenticated){
+            //   return <Component {...props} userInSession={isAuthenticated}/>
+            // } else {
+            //   return <Redirect to={{pathname: '/login', state: {from: props.location}}} />
+            // }
           }
         }
       />
     )
 }
-export default protectedRoute;
+export default ProtectedRoute;
