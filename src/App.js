@@ -10,6 +10,7 @@ import { Component } from "react";
 import Navbar from "./components/navbar/Navbar"
 import GuestDetails from './components/guests/GuestDetails'
 import Profile from  './components/profile/Profile'
+import ProtectedRoute from "./components/auth/protected-route";
 
 class App extends Component {
   state = {
@@ -28,7 +29,6 @@ class App extends Component {
 
       <Navbar userInSession={this.state.loggedInUser} getUser={this.getTheUser} />
         <Switch>
-          {/* <Route exact path="/" /> */}
           <Route
             exact
             path="/signup"
@@ -39,28 +39,37 @@ class App extends Component {
             path="/login"
             render={(props) => <Login {...props} getUser={this.getTheUser} />}
           />
-          <Route exact path="/AddEvent">
-            <AddEvent />
-          </Route>
 
-          <Route
-            exact
-            path="/events"
-            render={(props) => (
-              <EventList {...props} userInSession={this.state.loggedInUser} />
-            )}
+          <ProtectedRoute
+            user={this.state.loggedInUser}
+            exact path="/events"
+            component={EventList}
           />
-          <Route exact path="/events/:id" component={EventDetails} />
-          <Route exact path="/events/:id/guestlist" component={GuestList} />
-          <Route exact path="/events/:id/guestlist/:guestId" component={GuestDetails} />
 
-          <Route
-            exact
-            path="/profile"
-            render={(props) => (
-              <Profile {...props} userInSession={this.state.loggedInUser} />
-            )}
+          <ProtectedRoute
+            user={this.state.loggedInUser}
+            exact path="/events/:id"
+            component={EventDetails}
           />
+
+          <ProtectedRoute
+            user={this.state.loggedInUser}
+            exact path="/events/:id/guestlist"
+            component={GuestList}
+          />
+
+          <ProtectedRoute
+            user={this.state.loggedInUser}
+            exact path="/events/:id/guestlist/:guestId"
+            component={GuestDetails}
+          />
+
+          <ProtectedRoute
+            user={this.state.loggedInUser}
+            exact path="/profile"
+            component={Profile}
+          />
+
         </Switch>
       </div>
     );
