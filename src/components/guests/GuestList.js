@@ -33,7 +33,7 @@ export class GuestList extends Component {
   checkInGuest = (index) => {
     const copyOfGuestList = [...this.state.guestList];
 
-    copyOfGuestList[index].freeTickets -= 1;
+    copyOfGuestList[index].ticketsCheckedIn += 1;
 
     this.setState(
       {
@@ -42,7 +42,7 @@ export class GuestList extends Component {
       () => {
         this.service.updateGuest(
           copyOfGuestList[index]._id,
-          copyOfGuestList[index].freeTickets
+          copyOfGuestList[index].ticketsCheckedIn
         );
       }
     );
@@ -63,7 +63,7 @@ export class GuestList extends Component {
           }
           
           <p>No. of ticket: {guest.ticketNumber}</p>    
-          <p>Tickets left: {guest.freeTickets}</p>
+          <p>Guest Checked: {guest.ticketsCheckedIn}</p>
 
           <p>{guest.contact}</p>
           <p>{guest.tag}</p>
@@ -72,7 +72,7 @@ export class GuestList extends Component {
             <Link to={`/events/${params.id}/guestlist/${guest._id}`}>Edit</Link>
           </button>
 
-          {guest.freeTickets <= 0 ? (
+          {guest.ticketsCheckedIn === guest.ticketNumber ? (
             <button
               type="button"
               disabled

@@ -18,6 +18,7 @@ class App extends Component {
   };
 
   getTheUser = (userObj) => {
+    console.log(this.state.loggedInUser)
     this.setState({
       loggedInUser: userObj,
     });
