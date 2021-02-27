@@ -12,7 +12,7 @@ class AddProfile extends Component {
   handleFormSubmit = (event) => {
     event.preventDefault();
 
-    axios.post('http://localhost:5000/api/profile', {
+    axios.get('http://localhost:5000/api/profile/:id', {
         username: this.state.username,
         email: this.state.email,
         imageUrl: this.state.imageUrl,
@@ -22,7 +22,7 @@ class AddProfile extends Component {
         this.setState({
             username: "",
             email: "",
-            imageUrl: ""
+            status: "your pprofile was created"
         });
     }, (err) => {
         console.log(err);

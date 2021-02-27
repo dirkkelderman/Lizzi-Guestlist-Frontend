@@ -1,28 +1,48 @@
 import React, { Component } from 'react';
-import AuthService from "../auth/auth-service"
+import ProfileService from "./profile-service"
 import EditProfile from "./EditProfile"
 import AddProfile from "./AddProfile"
 
 export class Profile extends Component {
+  service = new ProfileService()
   constructor(props) {
     super(props);
     this.state = {
       loggedInUser:null,
       data: {},
+      user: {}
+      
     };
   }
+  componentDidMount() {
+    this.getSingleUser();
+  }
 
+  getSingleUser() {
+    const { params } = this.props.match;
+
+    this.service.profile(params.id).then(
+      // console.log('works')
+      (responseFromApi) => {
+          this.setState({
+          user: responseFromApi,
+        });
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
     render() {
-      console.log(this.props.userInSession)
       return (
           <div >
             <h1>User Profile</h1>
-            <img src={this.props.userInSession.imageUrl} alt="Profile Pic" height="200px" width="180px" style={{borderRadius: "50%", border: "solid 1px black"}}/>
+            <img src={`${this.state.user.imageUrl}`} alt="Profile Pic" height="200px" width="180px" style={{borderRadius: "50%", border: "solid 1px black"}}/>
             <h2>
-            {this.props.userInSession}
+            {this.state.user.username}
             </h2>
             <h2>
-              {this.props.userInSession.email}
+              {this.state.user.email}
             </h2>
             <div>
                             <div>
