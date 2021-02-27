@@ -9,8 +9,8 @@ export class AddGuest extends Component {
     guestLastName: "",
     contact: "",
     tag: "",
-    ticketNumber: 0,
-    freeTickets: 0,
+    ticketNumber: 1,
+    // freeTickets: 0,
     showAdvancedForm: false,
   };
 
@@ -23,7 +23,7 @@ export class AddGuest extends Component {
       contact,
       tag,
       ticketNumber,
-      freeTickets,
+    //   freeTickets,
     } = this.state;
     const event = this.props.eventId;
 
@@ -37,7 +37,7 @@ export class AddGuest extends Component {
         contact,
         tag,
         ticketNumber,
-        freeTickets
+        // freeTickets
       )
       .then(
         (res) => {
@@ -48,8 +48,8 @@ export class AddGuest extends Component {
             guestLastName: "",
             contact: "",
             tag: "",
-            ticketNumber: 0,
-            freeTickets: 0,
+            ticketNumber: 1,
+            // freeTickets: 0,
             status: "Your guest is created",
           });
         },
@@ -104,14 +104,6 @@ export class AddGuest extends Component {
             type="number"
             name="ticketNumber"
             value={this.state.ticketNumber}
-            onChange={this.handleChange}
-          />
-
-          <label>Free tickets</label>
-          <input
-            type="number"
-            name="freeTickets"
-            value={this.state.freeTickets}
             onChange={this.handleChange}
           />
 
