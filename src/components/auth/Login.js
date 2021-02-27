@@ -48,7 +48,7 @@ class Login extends Component {
     return (
       <div>
         <form onSubmit={this.handleFormSubmit}>
-          <label>TEST Username:</label>
+          <label>Username:</label>
           <input
             type="text"
             name="username"
