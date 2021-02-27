@@ -20,7 +20,7 @@ class Login extends Component {
     // const password = this.state.password;
 
     localStorage.setItem('rememberMe', rememberMe);
-    localStorage.setItem('user', rememberMe ? username : '');
+    localStorage.setItem('username', rememberMe ? username : '');
 
     this.service
       .login(username, password)
@@ -28,6 +28,7 @@ class Login extends Component {
         console.log(response);
         this.props.getUser(response);
         this.props.history.push("/events");
+        
       })
       .catch((error) => console.log(error));
   };
@@ -47,7 +48,7 @@ class Login extends Component {
     return (
       <div>
         <form onSubmit={this.handleFormSubmit}>
-          <label>Username:</label>
+          <label>TEST Username:</label>
           <input
             type="text"
             name="username"
