@@ -15,7 +15,7 @@ class SearchBar extends Component {
         this.setState({
             searchInput: value
         });
-        this.props.filterEvent(value);
+        this.props.filteredSearch(value);
 
     }
 

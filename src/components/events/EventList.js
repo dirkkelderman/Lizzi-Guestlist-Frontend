@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import AddEvent from './AddEvent';
 import { Link } from 'react-router-dom';
 import EventService from './event-service';
-import SearchBar from './SearchBar';
+import SearchBar from '../searchbar/SearchBar';
+
 export class EventList extends Component {
   constructor(props) {
     super(props);
@@ -36,6 +37,7 @@ export class EventList extends Component {
       showAddForm: statusAddForm,
     });
   };
+
   handleEventSearch = (value) => {
     this.setState({ theValue: value }, () => {
       const newEventList =
@@ -50,10 +52,11 @@ export class EventList extends Component {
       });
     });
   };
+  
   render() {
     return (
       <div>
-        <SearchBar filterEvent={this.handleEventSearch} />
+        <SearchBar filteredSearch={this.handleEventSearch} />
         <h1>EventList</h1>
         {/* <h1>Hello user: {this.props.userInSession.username}</h1> */}
         <button onClick={this.showAddForm}>
