@@ -54,7 +54,6 @@ export class GuestList extends Component {
   };
 
   handleGuestSearch = (value) => {
-    console.log(value)
     this.setState({ theValue: value }, () => {
       const newGuestList =
         value &&
@@ -71,41 +70,6 @@ export class GuestList extends Component {
 
   render() {
     const { params } = this.props.match;
-    const copyOfGuestList = [...this.state.guestList];
-
-    const guestList = copyOfGuestList.map((guest, index) => {
-      return (
-        <div key={guest._id}>
-          <p>Name: {guest.guestFirstName}</p>
-          {
-            guest.guestLastName ? <p>Last name: {guest.guestLastName}</p> : null
-          }
-          
-          <p>No. of ticket: {guest.ticketNumber}</p>    
-          <p>Guest Checked: {guest.ticketsCheckedIn}</p>
-
-          <p>{guest.contact}</p>
-          <p>{guest.tag}</p>
-
-          <button>
-            <Link to={`/events/${params.id}/guestlist/${guest._id}`}>Edit</Link>
-          </button>
-
-          {guest.ticketsCheckedIn === guest.ticketNumber ? (
-            <button
-              type="button"
-              disabled
-              onClick={() => this.checkInGuest(index)}
-            >
-              Check-in
-            </button>
-          ) : (
-            <button onClick={() => this.checkInGuest(index)}>Check-in</button>
-          )}
-        </div>
-      );
-    });
-
     return (
       <div>
         <button>
@@ -122,7 +86,6 @@ export class GuestList extends Component {
 
         <AddGuest eventId={params.id} getGuest={() => this.getGuestList()} />
 
-        {/* {guestList} */}
 
         {this.state.filteredGuests.length !== 0 &&
           this.state.filteredGuests.map((guest, index) => {
