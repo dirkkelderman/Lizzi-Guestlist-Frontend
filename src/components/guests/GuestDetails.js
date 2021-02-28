@@ -131,7 +131,7 @@ export class GuestDetails extends Component {
 
     this.service.deleteGuest(params.guestId).then(
       () => {
-        this.props.history.push(`/events/${params.guestId}/guestlist`);
+        this.props.history.push(`/events/${params.id}/guestlist`);
       },
       (err) => {
         console.log(err);
