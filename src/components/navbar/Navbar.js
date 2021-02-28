@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import AuthService from '../auth/auth-service';
 
+
 export default class Navbar extends React.Component {
 
     constructor(props){
@@ -21,13 +22,15 @@ export default class Navbar extends React.Component {
         return (
             <>
                 {
-                    this.props.userInSession ?
-                        <div>
+                    this.props && this.props?.userInSession ?
+                        <div >
                             <Link to='/'>
                                 <button onClick={() => this.logoutUser()}> Logout </button>
                             </Link>
-                            <Link to="/profile">Profile </Link>
-                        </div> :
+                            <Link to={`/profile/${this.props.userInSession._id}`}>Profile </Link>
+                            <Link to="/events">Events</Link>
+                        </div> 
+                        :
                         <div>
                             <Link to="/Signup">Register</Link>
                             <Link to="/Login">Login</Link>

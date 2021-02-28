@@ -24,13 +24,13 @@ class App extends Component {
     });
   };
   
-
   render() {
+
+    //console.log(this.state?.loggedInUser)
     return (
       <div className="App">
 
-      <Navbar userInSession={this.state.loggedInUser} getUser={this.getTheUser} />
-      
+    <Navbar userInSession={this.state?.loggedInUser} getUser={this.getTheUser} />
         <Switch>
           <Route
             exact
@@ -69,8 +69,8 @@ class App extends Component {
 
           <ProtectedRoute
             user={this.state.loggedInUser}
-            exact path="/profile"
-            component={Profile}
+            exact path="/profile/:id"
+            component={Profile}  
           />
 
         </Switch>
