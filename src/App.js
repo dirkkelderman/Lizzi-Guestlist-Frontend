@@ -23,6 +23,12 @@ class App extends Component {
       loggedInUser: userObj,
     });
   };
+
+  // getTotalGuestNumber = ( ) => {
+  //   console.log('hello')
+  //   // console.log(guestTotal)
+  // }
+  
   
   render() {
 
@@ -31,6 +37,7 @@ class App extends Component {
       <div className="App">
 
     <Navbar userInSession={this.state?.loggedInUser} getUser={this.getTheUser} />
+
         <Switch>
           <Route
             exact
@@ -59,12 +66,14 @@ class App extends Component {
             user={this.state.loggedInUser}
             exact path="/events/:id/guestlist"
             component={GuestList}
+            // totalGuestNumber={this.getTotalGuestNumber()}
           />
 
           <ProtectedRoute
             user={this.state.loggedInUser}
             exact path="/events/:id/guestlist/:guestId"
             component={GuestDetails}
+            
           />
 
           <ProtectedRoute

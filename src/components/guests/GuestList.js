@@ -10,6 +10,8 @@ export class GuestList extends Component {
     super(props);
     this.state = {
       guestList: [],
+      totalGuests: 0,
+      totalGuestsCheckedIn: 0,
       filteredGuests: [],
       theValue: ''
     };
@@ -25,9 +27,30 @@ export class GuestList extends Component {
       console.log(eventFromDb);
       this.setState({
         guestList: eventFromDb.guest,
-      });
-    });
+      })
+      
+     this.getGuests() 
+      
+    })
+
   };
+
+  getGuests(){
+    let guestChecked = 0
+    let guestTotal = 0
+    for (let key in this.state.guestList) {
+      guestChecked += +this.state.guestList[key].ticketsCheckedIn
+      guestTotal += +this.state.guestList[key].ticketNumber
+
+      this.setState({
+        totalGuestsCheckedIn: guestChecked,
+        totalGuests: guestTotal
+
+      })
+      // this.props.totalGuestNumber()
+    }
+    
+  }
 
   componentDidMount() {
     this.getGuestList();
@@ -49,8 +72,8 @@ export class GuestList extends Component {
         );
       }
     );
+    this.getGuests() 
 
-    console.log("Guest checked-in");
   };
 
   handleGuestSearch = (value) => {
@@ -83,9 +106,12 @@ export class GuestList extends Component {
         <SearchBar filteredSearch={this.handleGuestSearch} />
 
         <h1>It's the guestlist</h1>
+        <h4>Guests: {this.state.totalGuestsCheckedIn}/{this.state.totalGuests}</h4>
+       
 
         <AddGuest eventId={params.id} getGuest={() => this.getGuestList()} />
 
+        {/* {guestList} */}
 
         {this.state.filteredGuests.length !== 0 &&
           this.state.filteredGuests.map((guest, index) => {

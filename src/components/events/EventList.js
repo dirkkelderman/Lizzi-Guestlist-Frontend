@@ -10,6 +10,8 @@ export class EventList extends Component {
     this.state = {
       eventList: [],
       filteredEvents: [],
+      totalGuests: 0,
+      totalGuestsCheckedIn: 0,
       loggedInUser: null,
       showAddForm: false,
       theValue: '',
@@ -28,6 +30,7 @@ export class EventList extends Component {
       }
     );
   };
+  
   componentDidMount() {
     this.getEventList();
   }
@@ -52,6 +55,12 @@ export class EventList extends Component {
       });
     });
   };
+
+    getTotalGuestNumber = ( ) => {
+    console.log('hello')
+    // console.log(guestTotal)
+  }
+  
   
   render() {
     return (
@@ -70,22 +79,24 @@ export class EventList extends Component {
         ) : null}
         {this.state.filteredEvents.length !== 0 &&
           this.state.filteredEvents.map((event) => {
+            let date =  new Date(event.date)
             return (
               <div key={event._id}>
-                <Link to={`/events/${event._id}/guestlist`}>
+                <Link to={`/events/${event._id}/guestlist`} totalGuestNumber={this.getTotalGuestNumber()} >
                   <h3>{event.eventName}</h3>
-                  <p>{event.date}</p>
+                  <p>{date.toDateString()}</p>
                 </Link>
               </div>
             );
           })}
         {this.state.theValue === '' &&
           this.state.eventList.map((event) => {
+            let date =  new Date(event.date)
             return (
               <div key={event._id}>
-                <Link to={`/events/${event._id}/guestlist`}>
+                <Link to={`/events/${event._id}/guestlist`} totalGuestNumber={this.getTotalGuestNumber()}>
                   <h3>{event.eventName}</h3>
-                  <p>{event.date}</p>
+                  <p>{date.toDateString()}</p>
                 </Link>
               </div>
             );
