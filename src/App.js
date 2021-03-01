@@ -11,6 +11,7 @@ import Navbar from "./components/navbar/Navbar"
 import GuestDetails from './components/guests/GuestDetails'
 import Profile from  './components/profile/Profile'
 import ProtectedRoute from "./components/auth/protected-route";
+import EditProfile from "./components/profile/EditProfile"
 
 class App extends Component {
   state = {
@@ -81,6 +82,7 @@ class App extends Component {
             exact path="/profile/:id"
             component={Profile}  
           />
+
 
         </Switch>
       </div>

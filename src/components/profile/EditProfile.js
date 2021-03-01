@@ -8,31 +8,60 @@ class EditProfile extends Component {
       imageUrl: ""
     }
    
-  handleFormSubmit = (event) => {
-    event.preventDefault();
+  // handleFormSubmit = (event) => {
+  //   event.preventDefault();
 
-    axios.post('http://localhost:5000/api/upload', {
-        username: this.state.username,
-        email: this.state.email,
-        imageUrl: this.state.imageUrl,
+  //   axios.patch('http://localhost:5000/api/upload', {
+  //       username: this.state.username,
+  //       email: this.state.email,
+  //       imageUrl: this.state.imageUrl,
 
-    }, {withCredentials:true})
-    .then( (res) => {
-        this.props.getData();
-        this.setState({
-            username: "",
-            email: "",
-            imageUrl: ""
-        });
-    }, (err) => {
-        console.log(err);
-        this.setState({
-            status: "Oops, something went wrong"
-        });
-    });
-  }
+  //   }, {withCredentials:true})
+  //   .then( (res) => {
+  //       this.props.getData();
+  //       this.setState({
+  //           username: "",
+  //           email: "",
+  //           imageUrl: ""
+  //       });
+  //   }, (err) => {
+  //       console.log(err);
+  //       this.setState({
+  //           status: "Oops, something went wrong"
+  //       });
+  //   });
+  // }
 
-  handleFileUpload = (event) => {
+  handleFormSubmit = ()=>{
+    
+    const user = localStorage.getItem('newUser')
+    console.log(user)
+     const userId = user._id
+            const url ="http://localhost:5000/api"  
+            fetch(`${url}/${userId}`, {
+              method: "PATCH",
+              headers: {
+                "Content-type": "application/json"
+              },
+              
+              body: JSON.stringify({
+                username: this.state.username,
+                email: this.state.email,
+                // imageUrl: this.state.imageUrl
+              })
+            })
+              .then(res => res.json())
+              .then(res => {
+                console.log('fetched', userId)
+                if (res.success === true) {
+                  // this.props.history.push("/Profile");   
+                  console.log('successfully updated')
+                }
+              })
+              .catch(err => console.log(err));
+            }
+          
+    handleFileUpload = (event) => {
     
     //console.log("The file to be uploaded is: ", event.target.files[0]);
 
@@ -71,8 +100,8 @@ class EditProfile extends Component {
           <label>Email:</label>
           <textarea name="email" value={this.state.email} onChange={ e => this.handleChange(e)} />
           
-          <label>Profile Image:</label>
-          <input type="file" alt="Profile Image"onChange={ (e) => this.handleFileUpload(e) } />
+          {/* <label>Profile Image:</label>
+          <input type="file" alt="Profile Image"onChange={ (e) => this.handleFileUpload(e) } /> */}
 
           <input type="submit" value="Submit" />
         </form>

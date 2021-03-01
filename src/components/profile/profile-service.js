@@ -10,8 +10,8 @@ class ProfileService {
     }
 
 
-    updateProfile(_id, username, email, imageUrl){
-        return this.service.put(`/profile/${_id}`, {username, email, imageUrl})
+    updateProfile(params){
+        return this.service.patch(`/profile/${params}`)
         .then(respons => respons.data)
     }
 
@@ -19,6 +19,7 @@ class ProfileService {
         return this.service.get(`/profile/${params}`)
         .then(respons => respons.data)
     }
+
 
 }
 

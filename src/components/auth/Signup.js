@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 class Signup extends Component {
   state = {
+    username: "",
     email: "",
     password: "",
     rememberMe: false
@@ -14,7 +15,7 @@ class Signup extends Component {
   handleFormSubmit = (event) => {
     event.preventDefault();
 
-    const { email, password, rememberMe } = this.state;
+    const { email, password, rememberMe, username } = this.state;
 
     // const username = this.state.username;
     // const password = this.state.password;
@@ -23,7 +24,7 @@ class Signup extends Component {
     localStorage.setItem('email', rememberMe ? email : '');
 
     this.service
-      .signup(email, password)
+      .signup(email, password, username)
       .then((response) => {
         console.log(response);
         this.props.getUser(response);
@@ -55,6 +56,13 @@ class Signup extends Component {
             value={this.state.email}
             onChange={(e) => this.handleChange(e)}
           />
+          {/* <label>Username:</label>
+          <input
+            type="text"
+            name="username"
+            value={this.state.username}
+            onChange={(e) => this.handleChange(e)}
+          /> */}
 
           <label>Password:</label>
           <input
