@@ -34,6 +34,7 @@ export class EventList extends Component {
   componentDidMount() {
     this.getEventList();
   }
+  
   showAddForm = () => {
     const statusAddForm = !this.state.showAddForm;
     this.setState({
