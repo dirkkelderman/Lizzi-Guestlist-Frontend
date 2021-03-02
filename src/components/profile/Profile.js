@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ProfileService from "./profile-service"
+import ProfileService from "../services/profile-service"
 import axios from "axios"
 
 export class Profile extends Component {

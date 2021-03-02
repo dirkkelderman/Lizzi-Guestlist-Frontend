@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AddEvent from './AddEvent';
 import { Link } from 'react-router-dom';
-import EventService from './event-service';
+import EventService from '../services/event-service';
 import SearchBar from '../searchbar/SearchBar';
 
 export class EventList extends Component {
@@ -34,7 +34,7 @@ export class EventList extends Component {
   componentDidMount() {
     this.getEventList();
   }
-  
+
   showAddForm = () => {
     const statusAddForm = !this.state.showAddForm;
     this.setState({

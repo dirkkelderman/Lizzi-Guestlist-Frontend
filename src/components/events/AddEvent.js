@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import EventService from "./event-service";
+import EventService from "../services/event-service";
 
 export class AddEvent extends Component {
   service = new EventService();

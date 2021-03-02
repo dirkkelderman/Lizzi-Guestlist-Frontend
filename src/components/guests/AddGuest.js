@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import GuestService from "./guest-service";
+import GuestService from "../services/guest-service";
 
 export class AddGuest extends Component {
   service = new GuestService();

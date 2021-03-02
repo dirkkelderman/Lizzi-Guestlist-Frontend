@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import GuestService from "./guest-service";
+import GuestService from "../services/guest-service";
 
 export class GuestDetails extends Component {
   service = new GuestService();

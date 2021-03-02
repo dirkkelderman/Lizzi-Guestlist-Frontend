@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import GuestService from "./guest-service";
-import EventService from "../events/event-service";
+import GuestService from "../services/guest-service";
+import EventService from "../services/event-service";
 import AddGuest from "./AddGuest";
 import SearchBar from "../searchbar/SearchBar";
 
