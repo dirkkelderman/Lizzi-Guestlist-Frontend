@@ -14,7 +14,7 @@ export class EventList extends Component {
       totalGuestsCheckedIn: 0,
       loggedInUser: null,
       showAddForm: false,
-      theValue: '',
+      search: ''
     };
   }
   service = new EventService();
@@ -42,27 +42,29 @@ export class EventList extends Component {
   };
 
   handleEventSearch = (value) => {
-    this.setState({ theValue: value }, () => {
-      const newEventList =
-        value &&
-        this.state.eventList.filter((item) => {
-          return item.eventName
-            .toLocaleUpperCase()
-            .includes(value.toLocaleUpperCase());
-        });
-      this.setState({
-        filteredEvents: newEventList,
-      });
-    });
+        this.setState({
+            search: value
+        }) 
+
   };
 
-    getTotalGuestNumber = ( ) => {
-    console.log('hello')
-    // console.log(guestTotal)
+    getTotalGuestNumber = (value) => {
+    // console.log('hello')
+    console.log(`This is the ${value}`)
+    // console.log('hello')
+
   }
   
   
   render() {
+
+      let filteredEvents = this.state.eventList.filter(
+          (event => {
+              return event.eventName.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
+          })
+      )
+
+
     return (
       <div>
         <SearchBar filteredSearch={this.handleEventSearch} />
@@ -77,30 +79,20 @@ export class EventList extends Component {
             getEvent={() => this.getEventList()}
           />
         ) : null}
-        {this.state.filteredEvents.length !== 0 &&
-          this.state.filteredEvents.map((event) => {
+
+        {
+            filteredEvents.map((event) => {
             let date =  new Date(event.date)
             return (
               <div key={event._id}>
-                <Link to={`/events/${event._id}/guestlist`} totalGuestNumber={this.getTotalGuestNumber()} >
+                <Link to={`/events/${event._id}/guestlist`} totalguestnumber={this.getTotalGuestNumber()} >
                   <h3>{event.eventName}</h3>
                   <p>{date.toDateString()}</p>
                 </Link>
               </div>
             );
-          })}
-        {this.state.theValue === '' &&
-          this.state.eventList.map((event) => {
-            let date =  new Date(event.date)
-            return (
-              <div key={event._id}>
-                <Link to={`/events/${event._id}/guestlist`} totalGuestNumber={this.getTotalGuestNumber()}>
-                  <h3>{event.eventName}</h3>
-                  <p>{date.toDateString()}</p>
-                </Link>
-              </div>
-            );
-          })}
+          })
+        }
       </div>
     );
   }

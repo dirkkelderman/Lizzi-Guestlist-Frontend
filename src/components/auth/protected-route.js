@@ -32,7 +32,7 @@ import { Route, Redirect } from 'react-router-dom';
 
 const ProtectedRoute  = ({component: Component, user, ...rest}) => {
 
-  const isAuthenticated = localStorage.getItem('user');
+  const isAuthenticated = localStorage.getItem('email');
 
   //console.log({component: Component, isAuthenticated, ...rest})
     return (

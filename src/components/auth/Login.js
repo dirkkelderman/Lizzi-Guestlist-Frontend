@@ -20,7 +20,7 @@ class Login extends Component {
     // const password = this.state.password;
 
     localStorage.setItem('rememberMe', rememberMe);
-    localStorage.setItem('username', rememberMe ? email : '');
+    localStorage.setItem('email', rememberMe ? email : '');
 
     this.service
       .login(email, password)
