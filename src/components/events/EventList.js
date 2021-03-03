@@ -13,6 +13,11 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import ImageIcon from "@material-ui/icons/Image";
 
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+
+import AddEventModal from './AddEventModal'
+
 export class EventList extends Component {
   constructor(props) {
     super(props);
@@ -77,7 +82,7 @@ export class EventList extends Component {
         <SearchBar filteredSearch={this.handleEventSearch} />
         <h1>EventList</h1>
         {/* <h1>Hello user: {this.props.userInSession.username}</h1> */}
-        <button onClick={this.showAddForm}>
+        {/* <button onClick={this.showAddForm}>
           {this.state.showAddForm ? "Hide add form" : "Add event"}
         </button>
         {this.state.showAddForm ? (
@@ -85,7 +90,7 @@ export class EventList extends Component {
             userinSession={this.props.userInSession}
             getEvent={() => this.getEventList()}
           />
-        ) : null}
+        ) : null} */}
 
         {filteredEvents.map((event) => {
           let date = new Date(event.date);
@@ -105,6 +110,15 @@ export class EventList extends Component {
             </List>
           );
         })}
+
+        {
+            this.state.showAddForm ? <AddEventModal getEvent={() => this.getEventList()} handleShow={this.showAddForm}/> : null
+        }
+        
+        <Fab color="primary" aria-label="add" onClick={this.showAddForm}>
+        <AddIcon />
+        </Fab>
+
       </div>
     );
   }
