@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import GuestService from "../services/guest-service";
+import Modal from './Modal'
 
 export class GuestDetails extends Component {
   service = new GuestService();

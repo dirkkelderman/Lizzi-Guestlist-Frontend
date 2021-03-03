@@ -12,6 +12,7 @@ import GuestDetails from './components/guests/GuestDetails'
 import Profile from  './components/profile/Profile'
 import ProtectedRoute from "./components/auth/protected-route";
 import EditProfile from "./components/profile/EditProfile"
+import Container from '@material-ui/core/Container';
 
 class App extends Component {
   state = {
@@ -35,6 +36,8 @@ class App extends Component {
 
     //console.log(this.state?.loggedInUser)
     return (
+      <Container maxWidth="sm">
+
       <div className="App">
 
     <Navbar userInSession={this.state?.loggedInUser} getUser={this.getTheUser} />
@@ -86,6 +89,7 @@ class App extends Component {
 
         </Switch>
       </div>
+      </Container>
     );
   }
 }

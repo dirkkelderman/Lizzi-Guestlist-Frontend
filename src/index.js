@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
 import {createBrowserHistory} from 'history';
+import { CssBaseline } from "@material-ui/core";
 
 const history = createBrowserHistory({
   basename: process.env.PUBLIC_URL,
@@ -12,6 +13,7 @@ const history = createBrowserHistory({
 
 ReactDOM.render(
   <React.StrictMode>
+    <CssBaseline />
     <Router history ={history}>
     <App />
     </Router>

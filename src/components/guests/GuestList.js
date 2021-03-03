@@ -4,6 +4,21 @@ import GuestService from "../services/guest-service";
 import EventService from "../services/event-service";
 import AddGuest from "./AddGuest";
 import SearchBar from "../searchbar/SearchBar";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import Divider from "@material-ui/core/Divider";
+import ListItemLink from "@material-ui/core/Divider";
+
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import Avatar from "@material-ui/core/Avatar";
+import ImageIcon from "@material-ui/icons/Image";
+import CheckCircleOutlinedIcon from '@material-ui/icons/CheckCircleOutlined';
+import DoneOutlinedIcon from '@material-ui/icons/DoneOutlined';
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 
 export class GuestList extends Component {
   constructor(props) {
@@ -89,17 +104,23 @@ export class GuestList extends Component {
     const { params } = this.props.match;
     return (
       <div>
-        <button>
+      <button>
           <Link to={`/events`}>Back to events</Link>
         </button>
+
+        <h4>Event Name</h4>
 
         <button>
           <Link to={`/events/${params.id}`}>Event Details</Link>
         </button>
+      <div>
+
+      </div>
+        
 
         <SearchBar filteredSearch={this.handleGuestSearch} />
 
-        <h1>It's the guestlist</h1>
+        
         <h4>
           Guests: {this.state.totalGuestsCheckedIn}/{this.state.totalGuests}
         </h4>
@@ -108,37 +129,48 @@ export class GuestList extends Component {
 
         {filteredGuests.map((guest, index) => {
           return (
-            <div key={guest._id}>
-              <p>Name: {guest.guestFirstName}</p>
-              {guest.guestLastName ? (
-                <p>Last name: {guest.guestLastName}</p>
-              ) : null}
+            <div>
+              <List key={guest._id}>
+                <ListItem>
+                  <ListItemText
+                    primary={guest.guestFirstName}
+                    secondary="CREW"
+                  />
+                  <ListItemText
+                    primary={guest.ticketsCheckedIn}
+                  />
+                  <ListItemText
+                    primary={guest.ticketNumber}
+                  />
+                  <ListItemAvatar>
+                    <Avatar component={Link}
+                  to={`/events/${params.id}/guestlist/${guest._id}`}>
+                      <EditOutlinedIcon />
+                    </Avatar>
+                  </ListItemAvatar>
 
-              <p>No. of ticket: {guest.ticketNumber}</p>
-              <p>Guest Checked: {guest.ticketsCheckedIn}</p>
+                  {guest.ticketsCheckedIn === guest.ticketNumber ? (
+                    <ListItemAvatar>
+
+                  </ListItemAvatar>
+
+              ) : (
+                <ListItemAvatar>
+                    <Avatar onClick={() => this.checkInGuest(index)}>
+                      <DoneOutlinedIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+              )}
+
+                </ListItem>
+                <Divider />
+              </List>
+
+
 
               <p>{guest.contact}</p>
-              <p>{guest.tag}</p>
+              <p>{guest.tag}</p> 
 
-              <button>
-                <Link to={`/events/${params.id}/guestlist/${guest._id}`}>
-                  Edit
-                </Link>
-              </button>
-
-              {guest.ticketsCheckedIn === guest.ticketNumber ? (
-                <button
-                  type="button"
-                  disabled
-                  onClick={() => this.checkInGuest(index)}
-                >
-                  Check-in
-                </button>
-              ) : (
-                <button onClick={() => this.checkInGuest(index)}>
-                  Check-in
-                </button>
-              )}
             </div>
           );
         })}

@@ -1,8 +1,17 @@
-import React, { Component } from 'react';
-import AddEvent from './AddEvent';
-import { Link } from 'react-router-dom';
-import EventService from '../services/event-service';
-import SearchBar from '../searchbar/SearchBar';
+import React, { Component } from "react";
+import AddEvent from "./AddEvent";
+import { Link } from "react-router-dom";
+import EventService from "../services/event-service";
+import SearchBar from "../searchbar/SearchBar";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import Divider from "@material-ui/core/Divider";
+import ListItemLink from "@material-ui/core/Divider";
+
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import Avatar from "@material-ui/core/Avatar";
+import ImageIcon from "@material-ui/icons/Image";
 
 export class EventList extends Component {
   constructor(props) {
@@ -14,7 +23,7 @@ export class EventList extends Component {
       totalGuestsCheckedIn: 0,
       loggedInUser: null,
       showAddForm: false,
-      search: ''
+      search: "",
     };
   }
   service = new EventService();
@@ -30,7 +39,7 @@ export class EventList extends Component {
       }
     );
   };
-  
+
   componentDidMount() {
     this.getEventList();
   }
@@ -43,28 +52,25 @@ export class EventList extends Component {
   };
 
   handleEventSearch = (value) => {
-        this.setState({
-            search: value
-        }) 
-
+    this.setState({
+      search: value,
+    });
   };
 
-    getTotalGuestNumber = (value) => {
+  getTotalGuestNumber = (value) => {
     // console.log('hello')
-    console.log(`This is the ${value}`)
+    console.log(`This is the ${value}`);
     // console.log('hello')
+  };
 
-  }
-  
-  
   render() {
-
-      let filteredEvents = this.state.eventList.filter(
-          (event => {
-              return event.eventName.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
-          })
-      )
-
+    let filteredEvents = this.state.eventList.filter((event) => {
+      return (
+        event.eventName
+          .toLowerCase()
+          .indexOf(this.state.search.toLowerCase()) !== -1
+      );
+    });
 
     return (
       <div>
@@ -72,7 +78,7 @@ export class EventList extends Component {
         <h1>EventList</h1>
         {/* <h1>Hello user: {this.props.userInSession.username}</h1> */}
         <button onClick={this.showAddForm}>
-          {this.state.showAddForm ? 'Hide add form' : 'Add event'}
+          {this.state.showAddForm ? "Hide add form" : "Add event"}
         </button>
         {this.state.showAddForm ? (
           <AddEvent
@@ -81,19 +87,24 @@ export class EventList extends Component {
           />
         ) : null}
 
-        {
-            filteredEvents.map((event) => {
-            let date =  new Date(event.date)
-            return (
-              <div key={event._id}>
-                <Link to={`/events/${event._id}/guestlist`} totalguestnumber={this.getTotalGuestNumber()} >
-                  <h3>{event.eventName}</h3>
-                  <p>{date.toDateString()}</p>
-                </Link>
-              </div>
-            );
-          })
-        }
+        {filteredEvents.map((event) => {
+          let date = new Date(event.date);
+          return (
+            <List key={event._id}>
+              <ListItem
+                button
+                component={Link}
+                to={`/events/${event._id}/guestlist`}
+              >
+                <ListItemText
+                  primary={event.eventName}
+                  secondary={date.toDateString()}
+                />
+              </ListItem>
+              <Divider />
+            </List>
+          );
+        })}
       </div>
     );
   }

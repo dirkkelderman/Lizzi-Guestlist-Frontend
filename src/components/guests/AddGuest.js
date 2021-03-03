@@ -27,8 +27,6 @@ export class AddGuest extends Component {
     } = this.state;
     const event = this.props.eventId;
 
-    console.log(this.props.eventId);
-
     this.service
       .addGuest(
         event,
