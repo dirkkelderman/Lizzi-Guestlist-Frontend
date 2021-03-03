@@ -1,20 +1,19 @@
-.event-list-body{
+.guest-list-body{
     /* color: white; */
     background-color: #20111e;
 }
 
-.event-list{
+.guest-list{
     background-color: #d2cfd2;
     border-radius: 15px;
     padding: 20px;
 }
 
-.event-list-item{
-    color: red;
+.guest-list-item{
     border-radius: 15px;
     padding: 10px;
 }
 
-.event-list-text {
+.guest-list-text {
     color: #fad974;
 }

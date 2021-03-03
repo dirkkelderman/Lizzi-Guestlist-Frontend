@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./AddEventModal.css";
 import EventService from "../services/event-service";
+import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl';
 
 class AddEventModal extends Component {
   service = new EventService();
@@ -70,52 +72,55 @@ class AddEventModal extends Component {
               Close
             </button>
           </div>
+          
           <div className="add-event-modal-body">
-            <form onSubmit={this.handleFormSubmit}>
-              <label>Event name</label>
-              <input
+            <FormControl onSubmit={this.handleFormSubmit}>
+              <TextField required
+                label="eventName" 
                 type="text"
                 name="eventName"
                 value={this.state.eventName}
-                onChange={this.handleChange}
-              />
+                onChange={this.handleChange}    
+                />
 
-              <label>Date</label>
-              <input
+            <TextField required
+                // label="Date" 
                 type="date"
                 name="date"
                 value={this.state.date}
-                onChange={this.handleChange}
-              />
+                onChange={this.handleChange}    
+                />   
 
-              <label>Number of guests</label>
-              <input
+            <TextField
+                label="Max amount guests" 
                 type="number"
                 name="guestNumber"
                 value={this.state.guestNumber}
-                onChange={this.handleChange}
-              />
+                onChange={this.handleChange}    
+                /> 
 
-              <label>location</label>
-              <input
+            <TextField
+                label="Location" 
                 type="text"
                 name="location"
                 value={this.state.location}
-                onChange={this.handleChange}
-              />
+                onChange={this.handleChange}    
+                />     
 
-              <label>description</label>
-              <textarea
+            <TextField
+                label="Description" 
                 type="text"
                 name="description"
                 value={this.state.description}
-                onChange={this.handleChange}
-              />
+                onChange={this.handleChange}    
+                /> 
+                
 
               <div className="add-event-modal-footer">
                 <input type="submit" value="Submit" />
               </div>
-            </form>
+
+            </FormControl>
           </div>
         </div>
       </div>

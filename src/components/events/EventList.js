@@ -17,6 +17,8 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
 import AddEventModal from './AddEventModal'
+import './EventList.css'
+
 
 export class EventList extends Component {
   constructor(props) {
@@ -78,9 +80,9 @@ export class EventList extends Component {
     });
 
     return (
-      <div>
+      <div className='event-list-body'>
         <SearchBar filteredSearch={this.handleEventSearch} />
-        <h1>EventList</h1>
+        <h1 className='event-list-text'>EventList</h1>
         {/* <h1>Hello user: {this.props.userInSession.username}</h1> */}
         {/* <button onClick={this.showAddForm}>
           {this.state.showAddForm ? "Hide add form" : "Add event"}
@@ -95,8 +97,10 @@ export class EventList extends Component {
         {filteredEvents.map((event) => {
           let date = new Date(event.date);
           return (
-            <List key={event._id}>
+            <List  className='event-list'>
               <ListItem
+                key={event._id}
+                className='event-list-item'
                 button
                 component={Link}
                 to={`/events/${event._id}/guestlist`}
@@ -106,7 +110,7 @@ export class EventList extends Component {
                   secondary={date.toDateString()}
                 />
               </ListItem>
-              <Divider />
+              {/* <Divider /> */}
             </List>
           );
         })}

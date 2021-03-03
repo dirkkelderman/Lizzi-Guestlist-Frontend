@@ -20,6 +20,8 @@ import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
+import './GuestList.css'
+
 export class GuestList extends Component {
   constructor(props) {
     super(props);
@@ -100,6 +102,7 @@ export class GuestList extends Component {
           .indexOf(this.state.search.toLowerCase()) !== -1
       );
     });
+    
 
     const { params } = this.props.match;
     return (
@@ -130,8 +133,8 @@ export class GuestList extends Component {
         {filteredGuests.map((guest, index) => {
           return (
             <div>
-              <List key={guest._id}>
-                <ListItem>
+              <List className="guest-list">
+                <ListItem key={guest._id} className="guest-list-item">
                   <ListItemText
                     primary={guest.guestFirstName}
                     secondary="CREW"
@@ -163,8 +166,7 @@ export class GuestList extends Component {
               )}
 
                 </ListItem>
-                <Divider />
-              </List>
+               </List>
 
 
 

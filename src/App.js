@@ -36,7 +36,7 @@ class App extends Component {
 
     //console.log(this.state?.loggedInUser)
     return (
-      <Container maxWidth="sm">
+      <Container maxWidth="sm" className='App-body'>
 
       <div className="App">
 
