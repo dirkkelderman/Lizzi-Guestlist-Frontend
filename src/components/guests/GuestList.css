@@ -17,3 +17,10 @@
 .guest-list-text {
     color: #fad974;
 }
+
+.guest-list-submenu {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+

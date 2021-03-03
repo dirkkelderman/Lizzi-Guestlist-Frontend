@@ -21,6 +21,7 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
 import './GuestList.css'
+import AddGuestModal from './AddGuestModal'
 
 export class GuestList extends Component {
   constructor(props) {
@@ -31,11 +32,19 @@ export class GuestList extends Component {
       totalGuestsCheckedIn: 0,
       filteredGuests: [],
       search: "",
+      showAddForm: false
     };
   }
 
   service = new GuestService();
   eventService = new EventService();
+
+  showAddForm = () => {
+    const statusAddForm = !this.state.showAddForm;
+    this.setState({
+      showAddForm: statusAddForm,
+    });
+  };
 
   getGuestList = () => {
     const { params } = this.props.match;
@@ -107,28 +116,25 @@ export class GuestList extends Component {
     const { params } = this.props.match;
     return (
       <div>
-      <button>
-          <Link to={`/events`}>Back to events</Link>
-        </button>
+        <div className="guest-list-submenu">
+          <button>
+            <Link to={`/events`}>Back to events</Link>
+          </button>
 
-        <h4>Event Name</h4>
+          <h4 className="guest-list-text">Event Name</h4>
 
-        <button>
-          <Link to={`/events/${params.id}`}>Event Details</Link>
-        </button>
-      <div>
+          <button>
+            <Link to={`/events/${params.id}`}>Event Details</Link>
+          </button>
+        </div>
 
-      </div>
-        
-
+      
         <SearchBar filteredSearch={this.handleGuestSearch} />
 
         
         <h4>
           Guests: {this.state.totalGuestsCheckedIn}/{this.state.totalGuests}
         </h4>
-
-        <AddGuest eventId={params.id} getGuest={() => this.getGuestList()} />
 
         {filteredGuests.map((guest, index) => {
           return (
@@ -176,6 +182,15 @@ export class GuestList extends Component {
             </div>
           );
         })}
+
+        {
+            this.state.showAddForm ? <AddGuestModal eventId={params.id} getGuest={() => this.getGuestList()} handleShow={this.showAddForm}/> : null
+        }
+        
+        <Fab color="primary" aria-label="add" onClick={this.showAddForm}>
+        <AddIcon />
+        </Fab>
+
       </div>
     );
   }

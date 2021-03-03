@@ -110,7 +110,6 @@ export class EventList extends Component {
                   secondary={date.toDateString()}
                 />
               </ListItem>
-              {/* <Divider /> */}
             </List>
           );
         })}

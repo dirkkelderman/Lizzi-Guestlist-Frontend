@@ -1,0 +1,35 @@
+
+
+.add-guest-modal{
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-guest-modal-content{
+    width: 500px;
+    background-color: white;
+}
+
+.add-guest-modal-header, .add-event-modal-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.add-guest-modal-title{
+    margin: 0;
+}
+
+.add-guest-modal-body{
+    padding: 10px;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
