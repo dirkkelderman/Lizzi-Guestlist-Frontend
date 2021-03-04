@@ -3,6 +3,8 @@ import "./AddEventModal.css";
 import EventService from "../services/event-service";
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
+import Button from '@material-ui/core/Button';
+
 
 class AddEventModal extends Component {
   service = new EventService();
@@ -72,9 +74,9 @@ class AddEventModal extends Component {
               Close
             </button>
           </div>
-
+          
           <div className="add-event-modal-body">
-            <FormControl >
+            <FormControl onSubmit={this.handleFormSubmit}>
               <TextField required
                 label="eventName" 
                 type="text"
@@ -117,7 +119,18 @@ class AddEventModal extends Component {
                 
 
               <div className="add-event-modal-footer">
-                <input onClick={this.handleFormSubmit} type="submit" value="Submit" />
+              <Button
+            type="submit"
+            value="Submit"
+            fullWidth
+            variant="contained"
+            style={{backgroundColor: "#fad974"}}
+            onClick={this.handleFormSubmit}
+          >
+            Add event
+          </Button>
+
+                {/* <input type="submit" value="Submit" /> */}
               </div>
 
             </FormControl>
