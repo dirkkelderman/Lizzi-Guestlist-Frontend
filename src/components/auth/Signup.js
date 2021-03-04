@@ -7,7 +7,7 @@ class Signup extends Component {
     username: "",
     email: "",
     password: "",
-    rememberMe: false
+    rememberMe: false,
   };
 
   service = new AuthService();
@@ -17,11 +17,8 @@ class Signup extends Component {
 
     const { email, password, rememberMe, username } = this.state;
 
-    // const username = this.state.username;
-    // const password = this.state.password;
-
-    localStorage.setItem('rememberMe', rememberMe);
-    localStorage.setItem('email', rememberMe ? email : '');
+    localStorage.setItem("rememberMe", rememberMe);
+    localStorage.setItem("email", rememberMe ? email : "");
 
     this.service
       .signup(email, password, username)
@@ -34,13 +31,9 @@ class Signup extends Component {
   };
 
   handleChange = (event) => {
-    // const { name } = event.target;
-    // const value = event.type === 'checkbox' ? event.checked : event.value;
-
-    // this.setState({ [name]: value });
     const input = event.target;
-    const value = input.type === 'checkbox' ? input.checked : input.value;
- 
+    const value = input.type === "checkbox" ? input.checked : input.value;
+
     this.setState({ [input.name]: value });
   };
 
@@ -56,13 +49,6 @@ class Signup extends Component {
             value={this.state.email}
             onChange={(e) => this.handleChange(e)}
           />
-          {/* <label>Username:</label>
-          <input
-            type="text"
-            name="username"
-            value={this.state.username}
-            onChange={(e) => this.handleChange(e)}
-          /> */}
 
           <label>Password:</label>
           <input
@@ -73,8 +59,14 @@ class Signup extends Component {
           />
 
           <label>
-          <input name="rememberMe" checked={this.state.rememberMe} onChange={this.handleChange} type="checkbox" /> Remember me
-        </label>
+            <input
+              name="rememberMe"
+              checked={this.state.rememberMe}
+              onChange={this.handleChange}
+              type="checkbox"
+            />{" "}
+            Remember me
+          </label>
 
           <input type="submit" value="Signup" />
         </form>
