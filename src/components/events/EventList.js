@@ -86,7 +86,7 @@ export class EventList extends Component {
             <h4 className='event-list-date-sort-button'>FUTURE</h4>
             <h4 className='event-list-date-sort-button'>PAST</h4>
         </div>
-        
+
         {filteredEvents.map((event, index) => {
           let date = new Date(event.date);
           return (
@@ -122,7 +122,7 @@ export class EventList extends Component {
           />
         ) : null}
 
-        <Fab color="primary" aria-label="add" onClick={this.showAddForm}>
+        <Fab className='fixedbutton' color="primary" aria-label="add" onClick={this.showAddForm}>
           <AddIcon />
         </Fab>
       </div>

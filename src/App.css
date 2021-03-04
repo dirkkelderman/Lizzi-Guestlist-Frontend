@@ -46,3 +46,9 @@
   color:  #fad974;
   background-color:  #fad974;
 }
+
+.fixedbutton {
+  position: fixed;
+  bottom: 0px;
+  right: 0px; 
+}
