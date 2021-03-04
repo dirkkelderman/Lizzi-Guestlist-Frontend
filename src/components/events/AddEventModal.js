@@ -72,9 +72,9 @@ class AddEventModal extends Component {
               Close
             </button>
           </div>
-          
+
           <div className="add-event-modal-body">
-            <FormControl onSubmit={this.handleFormSubmit}>
+            <FormControl >
               <TextField required
                 label="eventName" 
                 type="text"
@@ -117,7 +117,7 @@ class AddEventModal extends Component {
                 
 
               <div className="add-event-modal-footer">
-                <input type="submit" value="Submit" />
+                <input onClick={this.handleFormSubmit} type="submit" value="Submit" />
               </div>
 
             </FormControl>
