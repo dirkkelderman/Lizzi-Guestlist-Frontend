@@ -1,5 +1,12 @@
 import React, { Component } from 'react'
 
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+
+
 class SearchBar extends Component {
 
     constructor(props){
@@ -21,10 +28,20 @@ class SearchBar extends Component {
 
     render() {
         return(
-            
-            <label>
-                <input type="text" name="search" placeholder="Search" value={this.state.searchInput} onChange={this.handleSearch} />
-            </label>
+            <Container component="main" maxWidth="xs">
+                 <TextField
+                 fullWidth
+                 style={{backgroundColor: "white"}}
+                 margin="normal"
+                 type="text"
+                 name="search" 
+                 placeholder="Search" 
+                 value={this.state.searchInput} 
+                 onChange={this.handleSearch}
+                 >
+                 </TextField>
+            </Container>
+           
         )
     }
 }

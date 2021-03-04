@@ -30,6 +30,7 @@ class AddEventModal extends Component {
     const guestNumber = this.state.guestNumber;
     const location = this.state.location;
     const description = this.state.description;
+    
 
     this.service
       .addEvent(eventName, date, guestNumber, location, description)
@@ -45,6 +46,7 @@ class AddEventModal extends Component {
             description: "",
             status: "Your project is created",
           });
+          
         },
         (err) => {
           console.log(err);
@@ -53,7 +55,8 @@ class AddEventModal extends Component {
           });
         }
       )
-      .then(() => this.props.handleShow);
+      .then(() => this.props.handleShow());
+      
   };
 
   handleChange = (e) => {
