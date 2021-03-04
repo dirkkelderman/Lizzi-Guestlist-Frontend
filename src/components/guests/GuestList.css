@@ -6,7 +6,7 @@
 .guest-list{
     background-color: #d2cfd2;
     border-radius: 15px;
-    padding: 20px;
+    /* padding: 20px; */
 }
 
 .guest-list-item{

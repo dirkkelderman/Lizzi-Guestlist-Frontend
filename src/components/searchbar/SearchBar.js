@@ -21,12 +21,10 @@ class SearchBar extends Component {
 
     render() {
         return(
-            <div>
+            
             <label>
-                Search:
-                <input type="text" name="search" value={this.state.searchInput} onChange={this.handleSearch} />
+                <input type="text" name="search" placeholder="Search" value={this.state.searchInput} onChange={this.handleSearch} />
             </label>
-            </div>
         )
     }
 }

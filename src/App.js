@@ -13,6 +13,7 @@ import Profile from  './components/profile/Profile'
 import ProtectedRoute from "./components/auth/protected-route";
 import EditProfile from "./components/profile/EditProfile"
 import Container from '@material-ui/core/Container';
+import HomePage from "./components/home/HomePage";
 
 class App extends Component {
   state = {
@@ -41,6 +42,7 @@ class App extends Component {
       <div className="App">
 
     <Navbar userInSession={this.state?.loggedInUser} getUser={this.getTheUser} />
+
 
         <Switch>
           <Route

@@ -6,13 +6,13 @@
 .event-list{
     background-color: #d2cfd2;
     border-radius: 15px;
-    padding: 20px;
+    /* padding: 20px; */
 }
 
-.event-list-item{
+/* .event-list-item{
     border-radius: 15px;
     padding: 10px;
-}
+} */
 
 .event-list-text {
     color: #fad974;
