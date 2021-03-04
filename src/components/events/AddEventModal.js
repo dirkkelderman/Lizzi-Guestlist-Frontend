@@ -4,7 +4,20 @@ import EventService from "../services/event-service";
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
 
+import Container from '@material-ui/core/Container';
+import CloseIcon from '@material-ui/icons/Close';
+
+const styles = theme => ({
+    paper: {
+      marginTop: theme.spacing(8),
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      color: 'black'
+    },
+  });
 
 class AddEventModal extends Component {
   service = new EventService();
@@ -65,22 +78,29 @@ class AddEventModal extends Component {
   };
 
   render() {
+    const {classes} = this.props
+
     return (
+        <Container>
+        <div className={classes.paper}>
+
+            <h2>Testing</h2>
+
+        </div>
       <div className="add-event-modal" onClick={this.props.handleShow}>
         <div
           className="add-event-modal-content"
           onClick={(e) => e.stopPropagation()}
         >
           <div className="add-event-modal-header">
-            <h4 className="add-event-modal-title">Add Event</h4>
-            <button onClick={this.props.handleShow} className="button">
-              Close
-            </button>
+            <span></span>
+            <CloseIcon onClick={this.props.handleShow}/>
           </div>
           
           <div className="add-event-modal-body">
             <FormControl onSubmit={this.handleFormSubmit}>
               <TextField required
+              margin="normal"
                 label="eventName" 
                 type="text"
                 name="eventName"
@@ -89,7 +109,8 @@ class AddEventModal extends Component {
                 />
 
             <TextField required
-                // label="Date" 
+                // label="Date"
+                margin="normal" 
                 type="date"
                 name="date"
                 value={this.state.date}
@@ -97,6 +118,7 @@ class AddEventModal extends Component {
                 />   
 
             <TextField
+            margin="normal"
                 label="Max amount guests" 
                 type="number"
                 name="guestNumber"
@@ -105,6 +127,7 @@ class AddEventModal extends Component {
                 /> 
 
             <TextField
+            margin="normal"
                 label="Location" 
                 type="text"
                 name="location"
@@ -113,6 +136,7 @@ class AddEventModal extends Component {
                 />     
 
             <TextField
+            margin="normal"
                 label="Description" 
                 type="text"
                 name="description"
@@ -127,7 +151,7 @@ class AddEventModal extends Component {
             value="Submit"
             fullWidth
             variant="contained"
-            style={{backgroundColor: "#fad974"}}
+            style={{backgroundColor: "black", color: 'white'}}
             onClick={this.handleFormSubmit}
           >
             Add event
@@ -140,8 +164,10 @@ class AddEventModal extends Component {
           </div>
         </div>
       </div>
+      </Container>
     );
   }
 }
 
-export default AddEventModal;
+export default withStyles(styles)(AddEventModal);
+// export default AddEventModal;

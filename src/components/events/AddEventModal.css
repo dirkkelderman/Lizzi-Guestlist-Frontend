@@ -10,26 +10,41 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 15px;
 }
 
 .add-event-modal-content{
-    width: 500px;
-    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 95%;
+    height: auto;
+    background-color: #fad974;
+    border-radius: 15px;
 }
 
-.add-event-modal-header, .add-event-modal-footer {
+.add-event-modal-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+
+}
+
+.add-event-modal-footer {
     display: flex;
     justify-content: space-between;
     padding: 10px;
 }
 
 .add-event-modal-title{
+    color: white;
     margin: 0;
 }
 
 .add-event-modal-body{
     padding: 10px;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
+    border-radius: 15px;
+
 }
 

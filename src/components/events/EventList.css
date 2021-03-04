@@ -17,3 +17,18 @@
 .event-list-text {
     color: #fad974;
 }
+
+.event-list-date-sort{
+    display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+    background-color: #d2cfd2;
+    margin-bottom: 15px;
+}
+
+.event-list-date-sort-button{
+    /* padding: 10px; */
+    background-color: #d2cfd2;
+}
+

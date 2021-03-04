@@ -65,9 +65,8 @@ class Login extends Component {
 
     const {classes} = this.props
 
-    return (
-      <div>
-      <Container component="main" maxWidth="xs">
+    return (      
+      <Container  maxWidth="xs">
       <img src={LogoLizzi} style={{width: "100%"}} alt="Lizzi Yellow"/>
       <div className={classes.paper}>
         <Typography style={{color: "#fad974"}} component="h1" variant="h5">
@@ -135,9 +134,7 @@ class Login extends Component {
       <Box mt={8}>
         <Copyright />
       </Box>
-    </Container>
-
-      </div>
+    </Container>    
     );
   }
 }
