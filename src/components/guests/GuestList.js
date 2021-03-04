@@ -32,7 +32,8 @@ export class GuestList extends Component {
       totalGuestsCheckedIn: 0,
       filteredGuests: [],
       search: "",
-      showAddForm: false
+      showAddForm: false,
+      isLoading: true,
     };
   }
 
@@ -53,6 +54,7 @@ export class GuestList extends Component {
       // console.log(eventFromDb);
       this.setState({
         guestList: eventFromDb.guest,
+        isLoading: false
       });
 
       this.getGuests();
@@ -116,6 +118,7 @@ export class GuestList extends Component {
     const { params } = this.props.match;
     return (
       <div>
+
         <div className="guest-list-submenu">
           <button>
             <Link to={`/events`}>Back to events</Link>
@@ -132,9 +135,13 @@ export class GuestList extends Component {
         <SearchBar filteredSearch={this.handleGuestSearch} />
 
         
-        <h4>
+        <h4 className="guest-list-text">
           Guests: {this.state.totalGuestsCheckedIn}/{this.state.totalGuests}
         </h4>
+
+        {
+          this.state.isLoading ? <h1>LOADING </h1> : null
+        }
 
         {filteredGuests.map((guest, index) => {
           return (
@@ -187,7 +194,7 @@ export class GuestList extends Component {
             this.state.showAddForm ? <AddGuestModal eventId={params.id} getGuest={() => this.getGuestList()} handleShow={this.showAddForm}/> : null
         }
         
-        <Fab color="primary" aria-label="add" onClick={this.showAddForm}>
+        <Fab placement="bottom" color="primary" aria-label="add" onClick={this.showAddForm}>
         <AddIcon />
         </Fab>
 
