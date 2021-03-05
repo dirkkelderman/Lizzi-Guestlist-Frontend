@@ -33,7 +33,15 @@ const styles = theme => ({
         display: 'flex',
         justifyContent: 'space-around',
         marginBottom: '10px',
-    }
+    },
+    addButton: {
+        backgroundColor: '#fad974',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'sticky', 
+        bottom: 25,
+        fontSize: '40' 
+      },
   });
 
 
@@ -188,7 +196,7 @@ export class EventList extends Component {
           />
         ) : null}
 
-        <Fab className='fixedbutton' color="primary" aria-label="add" onClick={this.showAddForm}>
+        <Fab className={classes.addButton} color="primary" aria-label="add" onClick={this.showAddForm}>
           <AddIcon />
         </Fab>
       </div>

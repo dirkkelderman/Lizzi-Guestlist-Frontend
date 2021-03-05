@@ -31,14 +31,13 @@ const styles = theme => ({
     marginBottom: '10px',
     borderRadius: '15px',
   },
-  bottomView: {
-    // width: '100%',
-    // height: 50,
+  addButton: {
     backgroundColor: '#fad974',
     justifyContent: 'center',
     alignItems: 'center',
-    position: 'absolute', //Here is the trick
-    bottom: 0, //Here is the trick
+    position: 'sticky', 
+    bottom: 25,
+    fontSize: '40' 
   },
 });
 
@@ -172,7 +171,7 @@ export class GuestList extends Component {
         </h4>
 
         {
-          this.state.isLoading ? <h1>LOADING </h1> : null
+          this.state.isLoading ? <img src='../home/lizzilogo groot geel.png' alt='loading' /> : null
         }
 
         {filteredGuests.map((guest, index) => {
@@ -222,8 +221,8 @@ export class GuestList extends Component {
             this.state.showDetailsForm ? <GuestDetailsModal eventId={params.id} getGuest={() => this.getGuestList()} handleShow={this.showDetailsForm}/> : null
         }
         
-        <Fab className={classes.bottomView} color="primary" aria-label="add" onClick={this.showAddForm} >
-        <AddIcon style={{ fontSize: 40 }} />
+        <Fab className={classes.addButton} color="primary" aria-label="add" onClick={this.showAddForm} >
+        <AddIcon />
         </Fab>
 
       </div>
