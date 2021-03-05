@@ -30,7 +30,16 @@ const styles = theme => ({
     backgroundColor: '#d2cfd2',
     marginBottom: '10px',
     borderRadius: '15px',
-  }
+  },
+  bottomView: {
+    // width: '100%',
+    // height: 50,
+    backgroundColor: '#fad974',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute', //Here is the trick
+    bottom: 0, //Here is the trick
+  },
 });
 
 export class GuestList extends Component {
@@ -71,7 +80,6 @@ export class GuestList extends Component {
     const { params } = this.props.match;
 
     this.eventService.eventDetails(params.id).then((eventFromDb) => {
-      console.log(eventFromDb);
       this.setState({
         event: eventFromDb,
         guestList: eventFromDb.guest,
@@ -170,8 +178,8 @@ export class GuestList extends Component {
         {filteredGuests.map((guest, index) => {
           return (
             <div>
-              <List className={classes.form}>
-                <ListItem key={guest._id} className="guest-list-item">
+              <List className={classes.form} key={guest._id}>
+                <ListItem  className="guest-list-item">
                   <ListItemText
                     primary={guest.guestFirstName + ' ' + guest.guestLastName}
                     secondary={guest.tag}
@@ -214,8 +222,8 @@ export class GuestList extends Component {
             this.state.showDetailsForm ? <GuestDetailsModal eventId={params.id} getGuest={() => this.getGuestList()} handleShow={this.showDetailsForm}/> : null
         }
         
-        <Fab placement="bottom" color="primary" aria-label="add" onClick={this.showAddForm}>
-        <AddIcon />
+        <Fab className={classes.bottomView} color="primary" aria-label="add" onClick={this.showAddForm} >
+        <AddIcon style={{ fontSize: 40 }} />
         </Fab>
 
       </div>

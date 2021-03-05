@@ -113,11 +113,6 @@ export class EventList extends Component {
       <div className={classes.root}>
         <SearchBar filteredSearch={this.handleEventSearch} />
         <h1 className="event-list-text">EventList</h1>
-        {/* <h1>Hello user: {this.props.userInSession.username}</h1> */}
-        {/* <div className='event-list-date-sort'>
-            <h4 className='event-list-date-sort-button'>FUTURE</h4>
-            <h4 className='event-list-date-sort-button'>PAST</h4>
-        </div> */}
         
         {
                 this.state.sortDate ? (
@@ -163,11 +158,11 @@ export class EventList extends Component {
           let date = new Date(event.date);
           return (
             <div>
-              <List className={classes.form}>
+              <List className={classes.form} key={event._id}>
                 <ListItem
                 
                   style={{ color: "black" }}
-                  key={event._id}
+                  
                   component={Link}
                   to={`/events/${event._id}/guestlist`}
                 >
