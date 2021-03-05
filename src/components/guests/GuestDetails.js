@@ -1,7 +1,31 @@
+// React or componnents import
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import GuestService from "../services/guest-service";
-import Modal from './Modal'
+
+// Material UI import
+import { withStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import FormControl from "@material-ui/core/FormControl";
+import Button from "@material-ui/core/Button";
+import Avatar from "@material-ui/core/Avatar";
+import Container from "@material-ui/core/Container";
+import CloseIcon from "@material-ui/icons/Close";
+
+const styles = (theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    color: "black",
+    backgroundColor: "#fad974",
+    borderRadius: "15px",
+  },
+  form: {
+    backgroundColor: "#fad974",
+  },
+});
 
 export class GuestDetails extends Component {
   service = new GuestService();
@@ -15,7 +39,6 @@ export class GuestDetails extends Component {
         contact: "",
         tag: "",
         ticketNumber: 0,
-        freeTickets: 0,
       },
     };
   }
@@ -147,75 +170,72 @@ export class GuestDetails extends Component {
       contact,
       tag,
       ticketNumber,
-      freeTickets,
     } = this.state.guestObj;
 
     const { params } = this.props.match;
+    const { classes } = this.props;
 
     return (
-      <div>
-        <form onSubmit={this.handleFormSubmit}>
-          <label>First name</label>
-          <input
+      <Container className={classes.paper}>
+        <div className="add-event-modal-header">
+          <Avatar
+            onClick={this.handleFormSubmit}
+            component={Link}
+            to={`/events/${params.id}/guestlist`}
+          >
+            <CloseIcon />
+          </Avatar>
+        </div>
+        <FormControl className={classes.form} onSubmit={this.handleFormSubmit}>
+          <TextField
+            margin="normal"
+            label="First name"
             type="text"
             name="guestFirstName"
             value={guestFirstName}
             onChange={this.handleChange}
           />
 
-          <label>Last name</label>
-          <input
+          <TextField
+            margin="normal"
+            label="Last name"
             type="text"
             name="guestLastName"
             value={guestLastName}
             onChange={this.handleChange}
           />
 
-          <label>Number of tickets</label>
-          <input
+          <TextField
+            margin="normal"
+            label="Number of tickets"
             type="number"
             name="ticketNumber"
             value={ticketNumber}
             onChange={this.handleChange}
           />
-
-          <label>Free tickets</label>
-          <input
-            type="number"
-            name="freeTickets"
-            value={freeTickets}
+          <TextField
+            margin="normal"
+            label="Contact"
+            type="text"
+            name="contact"
+            value={contact}
             onChange={this.handleChange}
           />
-
-          {this.state.showAdvancedForm ? (
-            <div>
-              <label>Contact</label>
-              <input
-                type="text"
-                name="contact"
-                value={contact}
-                onChange={this.handleChange}
-              />
-
-              <label>Tag</label>
-              <input
-                type="text"
-                name="tag"
-                value={tag}
-                onChange={this.handleChange}
-              />
-            </div>
-          ) : null}
-
-          <span>
-            <input type="submit" value="Close" />
-            <Link to={`/events/${params.id}/guestlist`} />
-          </span>
-        </form>
-        <button onClick={this.deleteGuest}>Delete Guest</button>
-      </div>
+          <TextField
+            margin="normal"
+            label="Tag"
+            type="text"
+            name="tag"
+            value={tag}
+            onChange={this.handleChange}
+          />
+        </FormControl>
+        <Button color="secondary" onClick={this.deleteGuest}>
+          Delete Guest
+        </Button>
+      </Container>
     );
   }
 }
 
-export default GuestDetails;
+export default withStyles(styles)(GuestDetails);
