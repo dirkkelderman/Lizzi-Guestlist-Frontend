@@ -40,8 +40,9 @@ class App extends Component {
       <Container  className='App-body'>
 
       <div className="App">
-
-    <Navbar userInSession={this.state?.loggedInUser} getUser={this.getTheUser} />
+      { this.state?.loggedInUser  ? 
+        <Navbar userInSession={this.state?.loggedInUser} getUser={this.getTheUser} />
+      : null}
 
 
         <Switch>
@@ -86,6 +87,7 @@ class App extends Component {
             user={this.state.loggedInUser}
             exact path="/profile/:id"
             component={Profile}  
+            getUser={this.getTheUser}
           />
 
 

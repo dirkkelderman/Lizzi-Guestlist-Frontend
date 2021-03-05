@@ -1,110 +1,125 @@
 import React, { Component } from 'react';
 import axios from 'axios';
- 
+import ProfileService from "../services/profile-service";
+
 class EditProfile extends Component {
-  state = { 
-      username: "", 
-      email: "",
-      imageUrl: ""
+  
+    constructor(props){
+      super(props);
+      this.state = {
+        userId: props.user._id,
+        firstName: props.user.firstName,
+        lastName: props.user.lastName,
+        email: props.user.email,
+        imageUrl: props.user.imageUrl
+      }
     }
-   
-  // handleFormSubmit = (event) => {
-  //   event.preventDefault();
 
-  //   axios.patch('http://localhost:5000/api/upload', {
-  //       username: this.state.username,
-  //       email: this.state.email,
-  //       imageUrl: this.state.imageUrl,
 
-  //   }, {withCredentials:true})
-  //   .then( (res) => {
-  //       this.props.getData();
-  //       this.setState({
-  //           username: "",
-  //           email: "",
-  //           imageUrl: ""
-  //       });
-  //   }, (err) => {
-  //       console.log(err);
-  //       this.setState({
-  //           status: "Oops, something went wrong"
-  //       });
-  //   });
-  // }
+  handleChange = (event) => {
+    const {value, name} = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
 
-  handleFormSubmit = ()=>{
-    
-    const user = localStorage.getItem('newUser')
-    console.log(user)
-     const userId = user._id
-            const url ="http://localhost:5000/api"  
-            fetch(`${url}/${userId}`, {
-              method: "PATCH",
-              headers: {
-                "Content-type": "application/json"
-              },
-              
-              body: JSON.stringify({
-                username: this.state.username,
-                email: this.state.email,
-                // imageUrl: this.state.imageUrl
-              })
-            })
-              .then(res => res.json())
-              .then(res => {
-                console.log('fetched', userId)
-                if (res.success === true) {
-                  // this.props.history.push("/Profile");   
-                  console.log('successfully updated')
-                }
-              })
-              .catch(err => console.log(err));
-            }
-          
-    handleFileUpload = (event) => {
-    
-    //console.log("The file to be uploaded is: ", event.target.files[0]);
 
+  handleFormSubmit = (e) => {
+    e.preventDefault();
+    localStorage.setItem('user', this.state.user);
+    //console.log(user._id)
+    const userId = this.state.userId;
+    const url = "http://localhost:5000/api";
+    const saveUser = {
+      firstName: this.state.firstName || this.state.user.firstName,
+      lastName: this.state.lastName || this.state.user.lastName,
+      email: this.state.email || this.state.user.email,
+      imageUrl: this.state.imageUrl || this.state.user.imageUrl,
+    };
+    fetch(`${url}/profile/${userId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json",
+      },
+
+      body: JSON.stringify(saveUser),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log("fetched", this);
+        if (res.success === true) {
+          this.props.onSubmit(saveUser);
+          this.props.parentProps.history.push(`/Profile/${userId}`);
+          // window.location = "/Profile"
+          console.log("successfully updated");
+          // this.props.getSingleUser()
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  handleFileUpload = (event) => {
     const uploadData = new FormData();
-    // imageUrl => this name has to be the same as in the model since we pass
-    // req.body to .create() method when creating a new thing in '/api/projects' POST route
     uploadData.append("imageUrl", event.target.files[0]);
 
-    axios.post('http://localhost:5000/api/upload', uploadData)
-      .then(response => {
-        // response.image_url --> this must be the same name than the property we receive from the api
-        // if it doesn't work, try to console.log response we get from the api ;)
-        console.log('response from the api: ', response);
-        this.setState({ imageUrl: response.data.image_url });
+    axios
+      .post("http://localhost:5000/api/upload", uploadData)
+      .then((response) => {
+        console.log("response from the api: ", response);
+        this.setState({ imageUrl: response.data.imageUrl });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log("Error while uploading the file: ", err);
       });
-  }
- 
-  handleChange = (event) => {  
-      const {name, value} = event.target;
-      this.setState({[name]: value});
-  }
- 
+  };
+
   render(){
+    const {imageUrl} = this.props
     return(
       <React.Fragment>
 
-        { this.state.status !== '' ? <div>{this.state.status}</div> : null }
-
         <form onSubmit={this.handleFormSubmit}>
-          <label>Username:</label>
-          <input type="text" name="username" value={this.state.username} onChange={ e => this.handleChange(e)}/>
-          
-          <label>Email:</label>
-          <textarea name="email" value={this.state.email} onChange={ e => this.handleChange(e)} />
-          
-          {/* <label>Profile Image:</label>
-          <input type="file" alt="Profile Image"onChange={ (e) => this.handleFileUpload(e) } /> */}
+        <div>
+            <label>First Name:</label>
+            <input
+              type="text"
+              name="firstName"
+              value={this.state.firstName}
+              onChange={this.handleChange}
+            />
+            </div>
+            <div>
+            <label>Last Name:</label>
+            <input
+              type="text"
+              name="lastName"
+              value={this.state.lastName}
+              onChange={this.handleChange}
+            />
+            </div>
 
-          <input type="submit" value="Submit" />
-        </form>
+            <div>
+            <label>Email:</label>
+            <input
+              type="email"
+              name="email"
+              value={this.state.email}
+              onChange={this.handleChange}
+            />
+            </div>
+
+            <div>
+              <label>Profile Image:</label>
+              <input
+                type="file"
+                name="imageUrl"
+                value ={imageUrl}
+                alt="Profile Image"
+                onChange={this.handleFileUpload}
+              />
+            </div>
+            <input type="submit" value="Submit" />
+          </form>
       </React.Fragment>
     )
   }
