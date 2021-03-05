@@ -3,6 +3,61 @@ import "./AddGuestModal.css"
 import GuestService from "../services/guest-service";
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import CloseIcon from '@material-ui/icons/Close';
+
+
+const styles = theme => ({
+    paper: {
+      marginTop: theme.spacing(8),
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      color: 'black'
+    },
+    modal:{
+        position: 'fixed',
+        left: '0',
+        top: '0',
+        right: '0',
+        bottom: '0',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    modalContent: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        width: '95%',
+        height: 'auto',
+        backgroundColor: '#fad974',
+        borderRadius: '15px',
+    },
+    modalHeader: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        padding: '10px',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalSubHeader: {
+        display: 'flex',
+        justifyContent: 'space-around',
+        padding: '10px',
+        // backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalBody: {
+        padding: '10px',
+        borderRadius: '15px',
+    },
+    modalFooter: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        padding: '10px',
+    },
+  });
 
 class AddGuestModal extends Component {
   service = new GuestService();
@@ -83,122 +138,152 @@ class AddGuestModal extends Component {
 
 
   render() {
+    const {classes} = this.props
+
     return (
-      <div className="add-guest-modal" onClick={this.props.handleShow}>
+      <div className={classes.modal} onClick={this.props.handleShow}>
         <div
-          className="add-guest-modal-content"
+          className={classes.modalContent}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="add-guest-modal-header">
-            <h4 className="add-guest-modal-title">Add Guest</h4>
-            <button onClick={this.props.handleShow} className="button">
-              Close
-            </button>
-            <button onClick={this.showAdvancedForm}>{ this.state.showAdvancedForm ? "Simple Form" : "Advanced Form"}</button>
+          <div className={classes.modalHeader}>
+          <span></span>
+            <CloseIcon onClick={this.props.handleShow}/>
+
+
           </div>
-          
-          <div className="add-guest-modal-body">
-          {
-            this.state.showAdvancedForm ? (
-            <FormControl onSubmit={this.handleFormSubmit}>
-              <TextField required
-                label="guestFirstName" 
-                type="text"
-                name="guestFirstName"
-                value={this.state.guestFirstName}
-                onChange={this.handleChange}    
-                />
+
+          <div className={classes.modalBody}>
             
-            <TextField 
-                label="guestLastName" 
-                type="text"
-                name="guestLastName"
-                value={this.state.guestLastName}
-                onChange={this.handleChange}    
+            {
+                this.state.showAdvancedForm ? (
+                <div className={classes.modalSubHeader}>
+                <Button
+                fullWidth
+                variant="contained"
+                style={{ backgroundColor: "black", color: "white" }}
+                onClick={this.showAdvancedForm}
+              >
+                Simple
+              </Button>
+              <Button
+                fullWidth
+                variant="contained"
+                style={{ backgroundColor: "white", color: "black" }}
+                onClick={this.showAdvancedForm}
+              >
+                Advanced
+              </Button>
+              </div>) : (
+                <div className={classes.modalSubHeader}>
+                  <Button
+                fullWidth
+                variant="contained"
+                style={{ backgroundColor: "white", color: "black" }}
+                onClick={this.showAdvancedForm}
+              >
+                Simple
+              </Button>
+              <Button
+                fullWidth
+                variant="contained"
+                style={{ backgroundColor: "black", color: "white" }}
+                onClick={this.showAdvancedForm}
+              >
+                Advanced
+              </Button>
+              </div>)
+            }
+
+            {this.state.showAdvancedForm ? (
+              <FormControl onSubmit={this.handleFormSubmit}>
+                <TextField
+                  required
+                  label="Guest name"
+                  type="text"
+                  name="guestFirstName"
+                  value={this.state.guestFirstName}
+                  onChange={this.handleChange}
                 />
 
-            <TextField
-                label="Number of tickets" 
-                type="number"
-                name="ticketNumber"
-                value={this.state.ticketNumber}
-                onChange={this.handleChange}    
-                /> 
- 
-            <TextField
-                label="Contact" 
-                type="text"
-                name="contact"
-                value={this.state.contact}
-                onChange={this.handleChange}    
-                /> 
+                <TextField
+                  label="Last name"
+                  type="text"
+                  name="guestLastName"
+                  value={this.state.guestLastName}
+                  onChange={this.handleChange}
+                />
 
-            <TextField
-                label="Tag" 
-                type="text"
-                name="tag"
-                value={this.state.tag}
-                onChange={this.handleChange}    
-                /> 
-                
+                <TextField
+                  label="Number of tickets"
+                  type="number"
+                  name="ticketNumber"
+                  value={this.state.ticketNumber}
+                  onChange={this.handleChange}
+                />
 
-              <div className="add-guest-modal-footer">
-                <input type="submit" value="Submit" onClick={this.handleFormSubmit}/>
-              </div>
+                <TextField
+                  label="Contact"
+                  type="text"
+                  name="contact"
+                  value={this.state.contact}
+                  onChange={this.handleChange}
+                />
 
-            </FormControl>
+                <TextField
+                  label="Tag"
+                  type="text"
+                  name="tag"
+                  value={this.state.tag}
+                  onChange={this.handleChange}
+                />
 
+                <div className={classes.modalFooter}>
+                <Button
+                    type="submit"
+                    value="Submit"
+                    fullWidth
+                    variant="contained"
+                    style={{ backgroundColor: "black", color: "white" }}
+                    onClick={this.handleFormSubmit}
+                  >
+                    Add Guest
+                  </Button>
+                </div>
+              </FormControl>
             ) : (
-            <FormControl onSubmit={this.handleFormSubmit}>
-              <TextField required
-                label="guestFirstName" 
-                type="text"
-                name="guestFirstName"
-                value={this.state.guestFirstName}
-                onChange={this.handleChange}    
+              <FormControl onSubmit={this.handleFormSubmit}>
+                <TextField
+                  required
+                  label="Guest name"
+                  type="text"
+                  name="guestFirstName"
+                  value={this.state.guestFirstName}
+                  onChange={this.handleChange}
                 />
 
-            <TextField
-                label="Number of tickets" 
-                type="number"
-                name="ticketNumber"
-                value={this.state.ticketNumber}
-                onChange={this.handleChange}    
-                /> 
- 
-                
-
-              <div className="add-guest-modal-footer">
-                <input type="submit" value="Submit" onClick={this.handleFormSubmit} />
-              </div>
-
-            </FormControl> 
-            )
-          }
-            {/* <FormControl onSubmit={this.handleFormSubmit}>
-              <TextField required
-                label="guestFirstName" 
-                type="text"
-                name="guestFirstName"
-                value={this.state.guestFirstName}
-                onChange={this.handleChange}    
+                <TextField
+                  label="Number of tickets"
+                  type="number"
+                  name="ticketNumber"
+                  value={this.state.ticketNumber}
+                  onChange={this.handleChange}
                 />
 
-            <TextField
-                label="Number of tickets" 
-                type="number"
-                name="ticketNumber"
-                value={this.state.ticketNumber}
-                onChange={this.handleChange}    
-                /> 
- 
-                
-
-              <div className="add-guest-modal-footer">
-                <input type="submit" value="Submit" />
-              </div>
-
-            </FormControl> */}
+                <div className={classes.modalFooter}>
+                  <Button
+                    type="submit"
+                    value="Submit"
+                    fullWidth
+                    variant="contained"
+                    style={{ backgroundColor: "black", color: "white" }}
+                    onClick={this.handleFormSubmit}
+                  >
+                    Add Guest
+                  </Button>
+                </div>
+              </FormControl>
+            )}
           </div>
         </div>
       </div>
@@ -206,4 +291,5 @@ class AddGuestModal extends Component {
   }
 }
 
-export default AddGuestModal;
+export default withStyles(styles)(AddGuestModal);
+
