@@ -15,6 +15,20 @@ import Avatar from "@material-ui/core/Avatar";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+    root: {
+      width: '100%',
+      maxWidth: 360,
+    },
+    form: {
+      backgroundColor: '#d2cfd2',
+      marginBottom: '10px',
+      borderRadius: '15px',
+    }
+  });
+
 
 export class EventList extends Component {
   constructor(props) {
@@ -77,8 +91,11 @@ export class EventList extends Component {
       );
     });
 
+    const {classes} = this.props
+
+
     return (
-      <div className="event-list-body">
+      <div className={classes.root}>
         <SearchBar filteredSearch={this.handleEventSearch} />
         <h1 className="event-list-text">EventList</h1>
         {/* <h1>Hello user: {this.props.userInSession.username}</h1> */}
@@ -91,8 +108,9 @@ export class EventList extends Component {
           let date = new Date(event.date);
           return (
             <div>
-              <List className="event-list">
+              <List className={classes.form}>
                 <ListItem
+                
                   style={{ color: "black" }}
                   key={event._id}
                   component={Link}
@@ -109,8 +127,6 @@ export class EventList extends Component {
                   </ListItemAvatar>
                 </ListItem>
               </List>
-              <p></p>
-              <p></p>
             </div>
           );
         })}
@@ -129,4 +145,7 @@ export class EventList extends Component {
     );
   }
 }
-export default EventList;
+
+export default withStyles(styles)(EventList);
+
+// export default EventList;

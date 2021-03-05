@@ -1,11 +1,18 @@
 import React, { Component } from 'react'
 
-import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 
+const styles = theme => ({
+    form: {
+      backgroundColor: 'rgba(210, 207, 210, 0.644)',
+      borderLeft: '5px solid white',
+      placeholder: 'white',
+      marginBottom: '10px',
+      borderRadius: '5px',
+    },
+  });
 
 class SearchBar extends Component {
 
@@ -27,17 +34,20 @@ class SearchBar extends Component {
     }
 
     render() {
+        const {classes} = this.props
+
         return(
             <Container component="main" maxWidth="xs">
                  <TextField
+                 className={classes.form}
                  fullWidth
-                 style={{backgroundColor: "white"}}
                  margin="normal"
                  type="text"
                  name="search" 
                  placeholder="Search" 
                  value={this.state.searchInput} 
                  onChange={this.handleSearch}
+                
                  >
                  </TextField>
             </Container>
@@ -46,4 +56,5 @@ class SearchBar extends Component {
     }
 }
 
-export default SearchBar;
+export default withStyles(styles)(SearchBar);
+

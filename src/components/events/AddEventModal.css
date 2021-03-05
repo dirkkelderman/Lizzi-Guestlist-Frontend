@@ -10,7 +10,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 15px;
 }
 
 .add-event-modal-content{
@@ -20,6 +19,8 @@
     width: 95%;
     height: auto;
     background-color: #fad974;
+    border-radius: 15px;
+
 }
 
 .add-event-modal-header {
