@@ -13,20 +13,6 @@
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: #ffffff;
-}
-
-.App-link {
-  color: rgba(210, 207, 210, 0.644);
-}
 
 @keyframes App-logo-spin {
   from {
@@ -37,10 +23,10 @@
   }
 }
 
-.App-body {
+/* .App-body {
   background-color: #20111e;
 
-}
+} */
 
 .fload-add-button {
   color:  #fad974;
