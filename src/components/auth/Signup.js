@@ -1,6 +1,6 @@
 // React or componnents import
 import React, { Component } from "react";
-import AuthService from "./auth-service";
+import AuthService from "../services/auth-service";
 import { Link } from "react-router-dom";
 import LogoLizzi from '../home/lizzilogo groot geel.png'
 

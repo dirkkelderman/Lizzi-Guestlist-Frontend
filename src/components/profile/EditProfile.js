@@ -30,23 +30,25 @@ class EditProfile extends Component {
     //console.log(user._id)
     const userId = this.state.userId;
     const url = "http://localhost:5000/api";
+    const saveUser = {
+      firstName: this.state.firstName || this.state.user.firstName,
+      lastName: this.state.lastName || this.state.user.lastName,
+      email: this.state.email || this.state.user.email,
+      imageUrl: this.state.imageUrl || this.state.user.imageUrl,
+    };
     fetch(`${url}/profile/${userId}`, {
       method: "PATCH",
       headers: {
         "Content-type": "application/json",
       },
 
-      body: JSON.stringify({
-        firstName: this.state.firstName || this.state.user.firstName,
-        lastName: this.state.lastName || this.state.user.lastName,
-        email: this.state.email || this.state.user.email,
-        imageUrl: this.state.imageUrl || this.state.user.imageUrl,
-      }),
+      body: JSON.stringify(saveUser),
     })
       .then((res) => res.json())
       .then((res) => {
         console.log("fetched", this);
         if (res.success === true) {
+          this.props.onSubmit(saveUser);
           this.props.parentProps.history.push(`/Profile/${userId}`);
           // window.location = "/Profile"
           console.log("successfully updated");

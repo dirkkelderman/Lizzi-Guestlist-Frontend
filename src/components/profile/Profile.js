@@ -2,9 +2,12 @@ import React, { Component } from "react";
 import ProfileService from "../services/profile-service";
 import axios from "axios";
 import EditProfile from './EditProfile'
+import AuthService from "../services/auth-service";
 
 export class Profile extends Component {
   service = new ProfileService();
+  serviceAuth = new AuthService();
+
   constructor(props) {
     super(props);
     this.state = {
@@ -38,6 +41,24 @@ export class Profile extends Component {
     );
   }
 
+  onEditProfileSubmit = (user) => {
+    this.setState(state => {
+      return {
+        user: {
+          ...state.user, ...user
+        },
+        showForm: false
+      }
+    })
+  }
+
+  logoutUser = () => {
+    this.serviceAuth.logout()
+        .then(() => {
+            this.props.getUser(null);
+        })
+}
+
   render() {
     return (
       <div>
@@ -52,6 +73,12 @@ export class Profile extends Component {
         <h2>{this.state.user.firstName}</h2>
         <h2>{this.state.user.lastName}</h2>
         <h2>{this.state.user.email}</h2>
+
+        <div>
+        <button onClick={this.logoutUser}>
+          Logout 
+        </button>
+        </div>
         <div>
           <button
             onClick={() => this.setState({ showForm: !this.state.showForm })}
@@ -62,6 +89,7 @@ export class Profile extends Component {
         <br />
         {this.state.showForm && <EditProfile
              handleChange={this.handleChange}
+             onSubmit={this.onEditProfileSubmit}
              handleFileUpload = {this.handleFileUpload}
              user = {this.state.user}
              parentProps = {this.props}
