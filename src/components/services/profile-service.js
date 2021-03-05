@@ -10,9 +10,9 @@ class ProfileService {
     }
 
 
-    updateProfile(params){
+    updateProfile(params, firstName, lastName, imageUrl, email){
         return this.service.patch(`/profile/${params}`)
-        .then(respons => respons.data)
+        .then(respons => respons.data, {firstName, lastName, imageUrl, email })
     }
 
     profile(params){

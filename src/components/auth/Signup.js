@@ -26,7 +26,8 @@ const styles = theme => ({
 
 class Signup extends Component {
   state = {
-    username: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
     rememberMe: false,
@@ -37,13 +38,13 @@ class Signup extends Component {
   handleFormSubmit = (event) => {
     event.preventDefault();
 
-    const { email, password, rememberMe, username } = this.state;
+    const { email, password, rememberMe, firstName, lastName } = this.state;
 
     localStorage.setItem("rememberMe", rememberMe);
     localStorage.setItem("email", rememberMe ? email : "");
 
     this.service
-      .signup(email, password, username)
+      .signup(email, password, firstName, lastName)
       .then((response) => {
         console.log(response);
         this.props.getUser(response);
@@ -71,6 +72,34 @@ class Signup extends Component {
           Sign Up
         </Typography>
         <form className={classes.form} noValidate>
+        <TextField
+            type="text"
+            name="firstName"
+            margin="normal"
+            required
+            fullWidth
+            id="firstName"
+            label="First Name"
+            autoComplete="firstName"
+            autoFocus
+            style={{backgroundColor: "white"}}
+            value={this.state.firstName}
+            onChange={this.handleChange}
+          />
+          <TextField
+            type="text"
+            name="lastName"
+            margin="normal"
+            required
+            fullWidth
+            id="lastName"
+            label="Last Name Address"
+            autoComplete="lastName"
+            autoFocus
+            style={{backgroundColor: "white"}}
+            value={this.state.lastName}
+            onChange={this.handleChange}
+          />
           <TextField
             type="email"
             name="email"
