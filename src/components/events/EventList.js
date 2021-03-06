@@ -17,12 +17,14 @@ import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
+
 
 
 const styles = theme => ({
     root: {
       width: '100%',
-      maxWidth: 360,
+    //   maxWidth: 360,
     },
     form: {
       backgroundColor: '#d2cfd2',
@@ -118,6 +120,8 @@ export class EventList extends Component {
 
 
     return (
+        <Container  >
+
       <div className={classes.root}>
         <SearchBar filteredSearch={this.handleEventSearch} />
         <h1 className="event-list-text">EventList</h1>
@@ -200,6 +204,7 @@ export class EventList extends Component {
           <AddIcon />
         </Fab>
       </div>
+      </Container>
     );
   }
 }

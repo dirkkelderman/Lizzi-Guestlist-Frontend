@@ -20,11 +20,12 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { withStyles } from '@material-ui/core/styles';
 import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined';
+import Container from '@material-ui/core/Container';
 
 const styles = theme => ({
   root: {
     width: '100%',
-    maxWidth: 360,
+    // maxWidth: 360,
   },
   form: {
     backgroundColor: '#d2cfd2',
@@ -146,6 +147,7 @@ export class GuestList extends Component {
     const { params } = this.props.match;
 
     return (
+      <Container>
       <div className={classes.root}>
 
         <div className="guest-list-submenu">
@@ -210,6 +212,7 @@ export class GuestList extends Component {
                 </ListItem>
                </List>
             </div>
+            
           );
         })}
 
@@ -226,6 +229,7 @@ export class GuestList extends Component {
         </Fab>
 
       </div>
+      </Container>
     );
   }
 }
