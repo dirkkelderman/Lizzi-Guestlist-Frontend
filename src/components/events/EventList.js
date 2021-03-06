@@ -90,10 +90,19 @@ export class EventList extends Component {
   };
 
   sortDate = () => {
+
+    const currentDate = new Date()
+
+    const filterDate = this.state.eventList.filter(event => event).map(event => {
+        return event.date 
+    }) 
+
+    console.log(filterDate.sort())
+
     const statusSortDate = !this.state.sortDate;
-    this.setState({
-        sortDate: statusSortDate,
-    });
+        this.setState({
+            sortDate: statusSortDate,
+        })   
   };
   
   handleEventSearch = (value) => {
@@ -118,6 +127,7 @@ export class EventList extends Component {
     });
 
     const {classes} = this.props
+    const currentDate = new Date()
 
 
     return (
@@ -136,7 +146,7 @@ export class EventList extends Component {
                 style={{ backgroundColor: "black", color: "white", border: '1px solid white' }}
                 onClick={this.sortDate}
               >
-                Past
+                Future
               </Button>
               <Button
                 fullWidth
@@ -144,7 +154,7 @@ export class EventList extends Component {
                 style={{ backgroundColor: "white", color: "black", border: '1px solid white' }}
                 onClick={this.sortDate}
               >
-                Future
+                Past
               </Button>
               </div>) : (
                 <div className={classes.sortButton}>
@@ -154,7 +164,7 @@ export class EventList extends Component {
                 style={{ backgroundColor: "white", color: "black", border: '1px solid white' }}
                 onClick={this.sortDate}
               >
-                Past
+                Future
               </Button>
               <Button
                 fullWidth
@@ -162,12 +172,38 @@ export class EventList extends Component {
                 style={{ backgroundColor: "black", color: "white", border: '1px solid white' }}
                 onClick={this.sortDate}
               >
-                Future
+                Past
               </Button>
               </div>)
             }
 
-        {filteredEvents.map((event, index) => {
+        {/* {
+            this.state.sortDate ? filteredEvents.filter(event => (event < currentDate)).map(filteredEvent => {
+                let date = new Date(filteredEvent.date);
+                return (
+                    <div>
+                    <List className={classes.form} key={filteredEvent._id}>
+                        <ListItem
+                        
+                        style={{ color: "black" }}
+                        
+                        component={Link}
+                        to={`/events/${filteredEvent._id}/guestlist`}
+                        >
+                        <ListItemText
+                            primary={filteredEvent.eventName}
+                            secondary={date.toDateString()}
+                        />
+                        <ListItemAvatar>
+                            <Avatar>
+                            <EditOutlinedIcon />
+                            </Avatar>
+                        </ListItemAvatar>
+                        </ListItem>
+                    </List>
+                    </div>
+                );
+            }) : filteredEvents.map((event, index) => {
           let date = new Date(event.date);
           return (
             <div>
@@ -192,7 +228,37 @@ export class EventList extends Component {
               </List>
             </div>
           );
-        })}
+        })
+        }   */}
+        {
+            filteredEvents.map((event, index) => {
+          let date = new Date(event.date);
+          return (
+            <div>
+              <List className={classes.form} key={event._id}>
+                <ListItem
+                
+                  style={{ color: "black" }}
+                  
+                  component={Link}
+                  to={`/events/${event._id}/guestlist`}
+                >
+                  <ListItemText
+                    primary={event.eventName}
+                    secondary={date.toDateString()}
+                  />
+                  <ListItemAvatar>
+                    <Avatar>
+                      <EditOutlinedIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                </ListItem>
+              </List>
+            </div>
+          );
+        })
+        }
+        
 
         {this.state.showAddForm ? (
           <AddEventModal
@@ -212,4 +278,3 @@ export class EventList extends Component {
 
 export default withStyles(styles)(EventList);
 
-// export default EventList;
