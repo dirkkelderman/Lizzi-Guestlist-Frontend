@@ -87,7 +87,7 @@ class AddEventModal extends Component {
             <h2>Testing</h2>
 
         </div>
-      <div className="add-event-modal" onClick={this.props.handleShow}>
+      <div className="add-event-modal" >
         <div
           className="add-event-modal-content"
           onClick={(e) => e.stopPropagation()}
