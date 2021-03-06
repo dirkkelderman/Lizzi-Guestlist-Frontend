@@ -2,6 +2,29 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import ProfileService from "../services/profile-service";
 
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+
+const styles = theme => ({
+  root: {
+    backgroundColor: "#FAD974",
+    color: '#20111f',
+    display: 'center',
+  },
+  button: {
+    backgroundColor: '#20111e',
+    color: '#fad974',
+    '&:hover': {
+      backgroundColor: "#483745",
+      color: '#c5a845'
+  },
+  border: "solid 1px black",
+
+  }
+});
+
 class EditProfile extends Component {
   
     constructor(props){
@@ -75,13 +98,16 @@ class EditProfile extends Component {
 
   render(){
     const {imageUrl} = this.props
+    const {classes} = this.props
     return(
       <React.Fragment>
 
         <form onSubmit={this.handleFormSubmit}>
         <div>
-            <label>First Name:</label>
-            <input
+            <TextField
+              id="filled-basic" 
+              label="First Name"
+              variant="filled" 
               type="text"
               name="firstName"
               value={this.state.firstName}
@@ -89,8 +115,10 @@ class EditProfile extends Component {
             />
             </div>
             <div>
-            <label>Last Name:</label>
-            <input
+            <TextField
+              id="filled-basic"
+              label="Last Name" 
+              variant="filled"
               type="text"
               name="lastName"
               value={this.state.lastName}
@@ -99,30 +127,46 @@ class EditProfile extends Component {
             </div>
 
             <div>
-            <label>Email:</label>
-            <input
+            <TextField
+              id="filled-basic" 
+              label="email"
+              variant="filled"
               type="email"
               name="email"
               value={this.state.email}
               onChange={this.handleChange}
             />
             </div>
-
+            <br />
             <div>
-              <label>Profile Image:</label>
-              <input
+            <Button
+              className={classes.button}
+              variant="contained"
+              component="label"
+              startIcon={<PhotoCameraIcon />}
+            >Upload
+            <input
                 type="file"
                 name="imageUrl"
                 value ={imageUrl}
                 alt="Profile Image"
                 onChange={this.handleFileUpload}
+                hidden
               />
-            </div>
-            <input type="submit" value="Submit" />
+          </Button>
+          </div>
+          <br />
+          <Button
+          className={classes.button} 
+          type="submit" 
+          value="Submit"
+          >
+            Submit
+          </Button>
           </form>
       </React.Fragment>
     )
   }
 }
 
-export default EditProfile;
+export default withStyles(styles)(EditProfile);
