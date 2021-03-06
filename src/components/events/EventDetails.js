@@ -1,7 +1,50 @@
+// React or componnents import
 import React, { Component } from "react";
 import EventService from "../services/event-service";
 import EditEvent from "./EditEvent";
 import { Link } from "react-router-dom";
+
+// Material UI import
+import { withStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import FormControl from "@material-ui/core/FormControl";
+import Button from "@material-ui/core/Button";
+import Avatar from "@material-ui/core/Avatar";
+import Container from "@material-ui/core/Container";
+import CloseIcon from "@material-ui/icons/Close";
+
+const styles = theme => ({
+  detailsContent: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      width: '100%',
+      height: 'auto',
+      backgroundColor: '#fad974',
+      borderRadius: '15px',
+  },
+  detailsHeader: {
+      display: 'flex',
+      justifyContent: 'flex-end',
+      padding: '10px',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  detailsSubHeader: {
+      display: 'flex',
+      justifyContent: 'space-around',
+      padding: '10px',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  detailsBody: {
+      padding: '10px',
+      borderRadius: '15px',
+  },
+  detailsFooter: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      padding: '10px',
+  },
+});
 
 export class EventDetails extends Component {
   service = new EventService();
@@ -9,13 +52,15 @@ export class EventDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      eventName: "",
-      date: "",
-      guestNumber: 0,
-      location: "",
-      description: "",
-      _id: "",
-      status: "",
+      eventObj: {
+        eventName: "",
+        date: "",
+        guestNumber: 0,
+        location: "",
+        description: "",
+        _id: "",
+        status: "",
+      },      
       showEditForm: false,
     };
   }
@@ -28,23 +73,9 @@ export class EventDetails extends Component {
     const { params } = this.props.match;
     this.service.eventDetails(params.id).then(
       (responseFromApi) => {
-        const {
-          eventName,
-          date,
-          guestNumber,
-          location,
-          description,
-          _id,
-        } = responseFromApi;
         this.setState({
-          eventName: eventName,
-          date: date,
-          guestNumber: guestNumber,
-          location: location,
-          description: description,
-          status: "",
-          _id: _id,
-        });
+          eventObj: responseFromApi
+        })
       },
       (err) => {
         console.log(err);
@@ -52,25 +83,84 @@ export class EventDetails extends Component {
     );
   }
 
-  renderEditForm = () => {
-    if (!this.state.eventName) {
-      this.getSingleEvent();
-    } else {
-      return (
-        <EditEvent
-          theEvent={this.state}
-          getEvent={this.getSingleEvent}
-          {...this.props}
-        />
+  handleChange = (e) => {
+    const { name, value } = e.target;
+    this.setState({
+      eventObj: Object.assign({}, this.state.eventObj, { [name]: value }),
+    });
+
+    const { params } = this.props.match;
+    const {
+      eventName,
+      date,
+      guestNumber,
+      location,
+      description,
+      _id
+    } = this.state.eventObj;
+
+    this.service
+      .updateEvent(
+        _id,
+        eventName,
+      date,
+      guestNumber,
+      location,
+      description,
+      )
+      .then(
+        (res) => {
+          console.log(res);
+          this.setState({
+            status: "Event updated",
+          });
+        },
+        (err) => {
+          console.log(err);
+          this.setState({
+            status: "Oops, something wrong",
+          });
+        }
       );
-    }
   };
 
-  showEditForm = () => {
-    const statusEditForm = !this.state.showEditForm;
-    this.setState({
-      showEditForm: statusEditForm,
-    });
+  handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    const { params } = this.props.match;
+    const {
+      eventName,
+      date,
+      guestNumber,
+      location,
+      description,
+      _id
+    } = this.state.eventObj;
+
+    this.service
+      .updateEvent(
+        _id,
+        eventName,
+      date,
+      guestNumber,
+      location,
+      description,
+      )
+      .then(
+        (res) => {
+          console.log(res);
+          this.setState({
+            status: "Event updated",
+          })
+          this.props.history.push(`/events/${params.id}/guestlist`);
+        },
+        (err) => {
+          console.log(err);
+          this.setState({
+            status: "Oops, something wrong",
+          });
+        }
+      );
   };
 
   deleteEvent = () => {
@@ -87,31 +177,107 @@ export class EventDetails extends Component {
   };
 
   render() {
+    const {classes} = this.props
+    const { params } = this.props.match;
+    const { eventName, date, guestNumber, location, description} = this.state.eventObj;
+
     return (
-      <div>
-        <h1>Event Details</h1>
-        <p>Event Name:{this.state.eventName}</p>
-        <p>Date: {this.state.date}</p>
-        <p>Number of guestes: {this.state.guestNumber}</p>
-        <p>Location: {this.state.location}</p>
-        <p>Description: {this.state.description}</p>
+    <Container>
+      <div className={classes.details}>
+        <div className={classes.detailsContent}>
+        <div className={classes.detailsHeader}>
+        <Avatar
+            onClick={this.handleFormSubmit}
+            component={Link}
+            to={`/events/${params.id}/guestlist`}
+          >
+                        <CloseIcon/>
 
-        <button onClick={this.showEditForm}>
-          {this.state.showEditForm ? "Hide edit form" : "Edit event"}
-        </button>
+          </Avatar>
 
-        <button onClick={this.deleteEvent}>Delete Event</button>
 
-        <Link to="/events">
-          <button>Back to events</button>
-        </Link>
-
-        <div>
-          {this.state.showEditForm ? <div>{this.renderEditForm()} </div> : null}
         </div>
+        <div className={classes.detailsBody}>
+          <FormControl>
+          <TextField required
+              margin="normal"
+                label="Event Name" 
+                type="text"
+                name="eventName"
+                value={eventName}
+                onChange={this.handleChange}    
+                />
+
+            <TextField required
+                // label="Date"
+                margin="normal" 
+                type="date"
+                name="date"
+                value={date}
+                onChange={this.handleChange}    
+                />   
+
+            <TextField
+            margin="normal"
+                label="Max amount guests" 
+                type="number"
+                name="guestNumber"
+                value={guestNumber}
+                onChange={this.handleChange}    
+                /> 
+
+            <TextField
+            margin="normal"
+                label="Location" 
+                type="text"
+                name="location"
+                value={location}
+                onChange={this.handleChange}    
+                />     
+
+            <TextField
+            margin="normal"
+                label="Description" 
+                type="text"
+                name="description"
+                value={description}
+                onChange={this.handleChange}    
+                /> 
+          </FormControl>
+        </div>
+        <div className={classes.detailsFooter}>
+                  <Button
+                    type="submit"
+                    value="Submit"
+                    fullWidth
+                    variant="contained"
+                    style={{ backgroundColor: "red", color: "white" }}
+                    onClick={this.deleteEvent}
+                  >
+                    Delete
+                  </Button>
+        <Button
+                    type="submit"
+                    value="Submit"
+                    fullWidth
+                    variant="contained"
+                    style={{ backgroundColor: "black", color: "white" }}
+                    onClick={this.handleFormSubmit}
+                  >
+                    Save
+                  </Button>
+        </div>
+        </div>
+        
       </div>
+      </Container>
+      
+      
+
     );
   }
 }
 
-export default EventDetails;
+export default withStyles(styles)(EventDetails);
+
+     

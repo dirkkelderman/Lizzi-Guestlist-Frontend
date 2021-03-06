@@ -40,8 +40,9 @@ const styles = theme => ({
         backgroundColor: '#fad974',
         justifyContent: 'center',
         alignItems: 'center',
-        position: 'sticky', 
+        position: 'fixed', 
         bottom: 25,
+        right: 25,
         fontSize: '40' 
       },
   });
@@ -124,7 +125,7 @@ export class EventList extends Component {
 
       <div className={classes.root}>
         <SearchBar filteredSearch={this.handleEventSearch} />
-        <h1 className="event-list-text">EventList</h1>
+        <h2 className="event-list-text">Events</h2>
         
         {
                 this.state.sortDate ? (

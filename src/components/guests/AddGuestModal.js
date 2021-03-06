@@ -71,7 +71,6 @@ class AddGuestModal extends Component {
         contact: "",
         tag: "",
         ticketNumber: 1,
-        // freeTickets: 0,
         showAdvancedForm: false,
     };
   }
@@ -86,8 +85,8 @@ class AddGuestModal extends Component {
         contact,
         tag,
         ticketNumber,
-      //   freeTickets,
       } = this.state;
+
       const event = this.props.eventId;
 
     this.service
@@ -98,21 +97,18 @@ class AddGuestModal extends Component {
         contact,
         tag,
         ticketNumber,
-        // freeTickets
       )
       .then(
         (res) => {
           this.props.getGuest();
-          console.log(res);
           this.setState({
             guestFirstName: "",
             guestLastName: "",
             contact: "",
             tag: "",
             ticketNumber: 1,
-            // freeTickets: 0,
             status: "Your guest is created",
-          });
+          })
         },
         (err) => {
           console.log(err);
@@ -145,7 +141,7 @@ class AddGuestModal extends Component {
         <div
           className={classes.modalContent}
           onClick={(e) => e.stopPropagation()}
-        >
+         >
           <div className={classes.modalHeader}>
           <span></span>
             <CloseIcon onClick={this.props.handleShow}/>

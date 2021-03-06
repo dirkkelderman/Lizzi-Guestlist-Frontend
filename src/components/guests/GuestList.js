@@ -36,8 +36,9 @@ const styles = theme => ({
     backgroundColor: '#fad974',
     justifyContent: 'center',
     alignItems: 'center',
-    position: 'sticky', 
+    position: 'fixed', 
     bottom: 25,
+    right: 25,
     fontSize: '40' 
   },
 });
@@ -156,7 +157,7 @@ export class GuestList extends Component {
                       <ArrowBackIosOutlinedIcon />
                     </Avatar>
  
-          <h4 className="guest-list-text">{this.state.event.eventName}</h4>
+          <h2 className="guest-list-text">{this.state.event.eventName}</h2>
           <Avatar component={Link}
                   to={`/events/${params.id}`}>
                       <EditOutlinedIcon />
@@ -224,11 +225,12 @@ export class GuestList extends Component {
             this.state.showDetailsForm ? <GuestDetailsModal eventId={params.id} getGuest={() => this.getGuestList()} handleShow={this.showDetailsForm}/> : null
         }
         
-        <Fab className={classes.addButton} color="primary" aria-label="add" onClick={this.showAddForm} >
-        <AddIcon />
-        </Fab>
+        
 
       </div>
+      <Fab className={classes.addButton} color="primary" aria-label="add" onClick={this.showAddForm} >
+        <AddIcon />
+        </Fab>
       </Container>
     );
   }

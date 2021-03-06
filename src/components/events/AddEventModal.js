@@ -59,7 +59,7 @@ class AddEventModal extends Component {
             description: "",
             status: "Your project is created",
           });
-          
+          this.props.history.push(`/events`);
         },
         (err) => {
           console.log(err);
@@ -101,7 +101,7 @@ class AddEventModal extends Component {
             <FormControl onSubmit={this.handleFormSubmit}>
               <TextField required
               margin="normal"
-                label="eventName" 
+                label="Event Name" 
                 type="text"
                 name="eventName"
                 value={this.state.eventName}
