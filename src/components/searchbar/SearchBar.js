@@ -6,12 +6,15 @@ import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
     form: {
-      backgroundColor: 'rgba(210, 207, 210, 0.644)',
-      borderLeft: '5px solid white',
+    //   backgroundColor: 'rgba(210, 207, 210, 0.644)',
+      borderLeft: '3px solid white',
       placeholder: 'white',
       marginBottom: '10px',
-      borderRadius: '5px',
+      borderRadius: '2px',
     },
+    input: {
+        color: "white"
+      }
   });
 
 class SearchBar extends Component {
@@ -44,9 +47,12 @@ class SearchBar extends Component {
                  margin="normal"
                  type="text"
                  name="search" 
-                 placeholder="Search" 
+                 placeholder="   Search" 
                  value={this.state.searchInput} 
                  onChange={this.handleSearch}
+                 InputProps={{
+                    className: classes.input
+                }}
                 
                  >
                  </TextField>

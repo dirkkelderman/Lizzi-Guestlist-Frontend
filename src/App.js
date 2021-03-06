@@ -5,7 +5,7 @@ import Signup from "./components/auth/Signup";
 import Login from "./components/auth/Login";
 import EventDetails from "./components/events/EventDetails";
 import GuestList from './components/guests/GuestList'
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 import { Component } from "react";
 import Navbar from "./components/navbar/Navbar"
 import GuestDetails from './components/guests/GuestDetails'
@@ -18,6 +18,7 @@ import HomePage from "./components/home/HomePage";
 class App extends Component {
   state = {
     loggedInUser: null,
+    showSplashScreen: true,
   };
 
   getTheUser = (userObj) => {
@@ -27,6 +28,18 @@ class App extends Component {
     });
   };
 
+  splashScreenTime(){
+    setTimeout(() => {
+      this.setState({
+        showSplashScreen: false
+      })
+    }, 3000)
+    // this.props.history.push(`/login`)
+  }
+  
+  componentDidMount(){
+    this.splashScreenTime()
+  }
   // getTotalGuestNumber = ( ) => {
   //   console.log('hello')
   //   // console.log(guestTotal)
@@ -34,10 +47,10 @@ class App extends Component {
   
   
   render() {
-
-    //console.log(this.state?.loggedInUser)
     return (
       <Container  className='App-body'>
+
+      {this.state.showSplashScreen ? <h1 style={{color: 'white'}} >HELLO</h1> : <Redirect to={{pathname: '/login' }}/>}
 
       <div className="App">
       { this.state?.loggedInUser  ? 
@@ -98,4 +111,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

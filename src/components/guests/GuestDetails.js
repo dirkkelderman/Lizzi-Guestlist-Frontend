@@ -13,17 +13,35 @@ import Container from "@material-ui/core/Container";
 import CloseIcon from "@material-ui/icons/Close";
 
 const styles = (theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
+  detailsContent: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
-    color: "black",
+    justifyContent: "center",
+    width: "100%",
+    height: "auto",
     backgroundColor: "#fad974",
     borderRadius: "15px",
   },
-  form: {
-    backgroundColor: "#fad974",
+  detailsHeader: {
+    display: "flex",
+    justifyContent: "flex-end",
+    padding: "10px",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  detailsSubHeader: {
+    display: "flex",
+    justifyContent: "space-around",
+    padding: "10px",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  detailsBody: {
+    padding: "10px",
+    borderRadius: "15px",
+  },
+  detailsFooter: {
+    display: "flex",
+    justifyContent: "space-between",
+    padding: "10px",
   },
 });
 
@@ -176,63 +194,88 @@ export class GuestDetails extends Component {
     const { classes } = this.props;
 
     return (
-      <Container className={classes.paper}>
-        <div className="add-event-modal-header">
-          <Avatar
-            onClick={this.handleFormSubmit}
-            component={Link}
-            to={`/events/${params.id}/guestlist`}
-          >
-            <CloseIcon />
-          </Avatar>
+      <Container>
+        <div className={classes.details}>
+          <div className={classes.detailsContent}>
+            <div className={classes.detailsHeader}>
+              <Avatar
+                onClick={this.handleFormSubmit}
+                component={Link}
+                to={`/events/${params.id}/guestlist`}
+              >
+                <CloseIcon />
+              </Avatar>
+            </div>
+            <div className={classes.detailsBody}>
+              <FormControl onSubmit={this.handleFormSubmit}>
+                <TextField
+                  margin="normal"
+                  label="First name"
+                  type="text"
+                  name="guestFirstName"
+                  value={guestFirstName}
+                  onChange={this.handleChange}
+                />
+
+                <TextField
+                  margin="normal"
+                  label="Last name"
+                  type="text"
+                  name="guestLastName"
+                  value={guestLastName}
+                  onChange={this.handleChange}
+                />
+
+                <TextField
+                  margin="normal"
+                  label="Number of tickets"
+                  type="number"
+                  name="ticketNumber"
+                  value={ticketNumber}
+                  onChange={this.handleChange}
+                />
+                <TextField
+                  margin="normal"
+                  label="Contact"
+                  type="text"
+                  name="contact"
+                  value={contact}
+                  onChange={this.handleChange}
+                />
+                <TextField
+                  margin="normal"
+                  label="Tag"
+                  type="text"
+                  name="tag"
+                  value={tag}
+                  onChange={this.handleChange}
+                />
+              </FormControl>
+            </div>
+            <div className={classes.detailsFooter}>
+              <Button
+                type="submit"
+                value="Submit"
+                fullWidth
+                variant="contained"
+                style={{ backgroundColor: "red", color: "white" }}
+                onClick={this.deleteEvent}
+              >
+                Delete
+              </Button>
+              <Button
+                type="submit"
+                value="Submit"
+                fullWidth
+                variant="contained"
+                style={{ backgroundColor: "black", color: "white" }}
+                onClick={this.handleFormSubmit}
+              >
+                Save
+              </Button>
+            </div>
+          </div>
         </div>
-        <FormControl className={classes.form} onSubmit={this.handleFormSubmit}>
-          <TextField
-            margin="normal"
-            label="First name"
-            type="text"
-            name="guestFirstName"
-            value={guestFirstName}
-            onChange={this.handleChange}
-          />
-
-          <TextField
-            margin="normal"
-            label="Last name"
-            type="text"
-            name="guestLastName"
-            value={guestLastName}
-            onChange={this.handleChange}
-          />
-
-          <TextField
-            margin="normal"
-            label="Number of tickets"
-            type="number"
-            name="ticketNumber"
-            value={ticketNumber}
-            onChange={this.handleChange}
-          />
-          <TextField
-            margin="normal"
-            label="Contact"
-            type="text"
-            name="contact"
-            value={contact}
-            onChange={this.handleChange}
-          />
-          <TextField
-            margin="normal"
-            label="Tag"
-            type="text"
-            name="tag"
-            value={tag}
-            onChange={this.handleChange}
-          />
-        </FormControl>
-        <Button color="secondary" onClick={this.deleteGuest}>
-          Delete Guest
-        </Button>
       </Container>
     );
   }

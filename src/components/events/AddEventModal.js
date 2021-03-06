@@ -8,6 +8,8 @@ import { withStyles } from '@material-ui/core/styles';
 
 import Container from '@material-ui/core/Container';
 import CloseIcon from '@material-ui/icons/Close';
+import { withRouter } from "react-router-dom";
+
 
 const styles = theme => ({
     paper: {
