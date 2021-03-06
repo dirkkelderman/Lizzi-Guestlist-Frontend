@@ -119,22 +119,19 @@ class Login extends Component {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Link href="#" variant="body2" style={{color: "#fad974"}}>
                 Forgot password?
               </Link>
             </Grid>
             <Grid item>
-              <Link to={"/signup"} variant="body2">
+              <Link to={"/signup"} variant="body2" style={{color: "#fad974"}}>
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
           </Grid>
         </form>
       </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
-    </Container>    
+   </Container>    
     );
   }
 }
@@ -142,16 +139,4 @@ class Login extends Component {
 export default withStyles(styles)(Login);
 
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 

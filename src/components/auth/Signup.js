@@ -93,7 +93,7 @@ class Signup extends Component {
             required
             fullWidth
             id="lastName"
-            label="Last Name Address"
+            label="Last Name"
             autoComplete="lastName"
             autoFocus
             style={{backgroundColor: "white"}}
@@ -146,15 +146,13 @@ class Signup extends Component {
           </Button>
           <Grid container>
             <Grid item>
-              <Link to={"/Login"} variant="body2">
+              <Link to={"/Login"} variant="body2" style={{color: "#fad974"}}>
                 {"Already have account?"}
               </Link>
             </Grid>
           </Grid>
         </form>
       </div>
-      <Box mt={8}>
-      </Box>
     </Container>
 
       </div>
