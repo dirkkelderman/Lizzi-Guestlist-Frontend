@@ -9,13 +9,14 @@ import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import EditIcon from '@material-ui/icons/Edit';
 import { Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
+import Box from '@material-ui/core/Box'
+import Container from '@material-ui/core/Container';
+
 
 
 
 const styles = theme => ({
   root: {
-    width: '100%',
     backgroundColor: "#FAD974",
     color: '#20111f',
     display: 'center',
@@ -29,10 +30,7 @@ const styles = theme => ({
   profileInfo: {
     backgroundColor: '#FEF7E3',
     color: '#20111f',
-    justify:"space-around",
-    display: 'flex',
     borderRadius: "16px",
-    width: '50%'
   },
   button: {
     backgroundColor: '#20111e',
@@ -104,6 +102,7 @@ export class Profile extends Component {
   render() {
     const {classes} = this.props
     return (
+      <Container>
       <div className={classes.root}>
         <h1 >User Profile</h1>
         <img
@@ -112,24 +111,19 @@ export class Profile extends Component {
           alt="Profile Pic"
         />
         <br></br>
-        <div  >
-          <div className={classes.profileInfo}>
-            <Box component="h1" display="inline-block" p={1} m={0}> {this.state.user.firstName}</Box>
-            <Box component="h1" display="inline-block" p={1} m={0}>{this.state.user.lastName}</Box>
-            <Box component="h1" display="block" p={1} m={0}>{this.state.user.email}</Box>
-          </div>
-        </div>
-        <div  >
-        <Button 
-          className={classes.button} 
-          onClick={this.logoutUser}
-          variant="contained"
-          startIcon={<MeetingRoomIcon />}
-          >
-           Logout
-        </Button>
+        <div  display="flex" justifyContent="center">
+          <Box className={classes.profileInfo} margin="Auto" justifyContent="center" width="50%">
+            <Box >
+              <Box component="h1" display="block" p={1} m={0}> {this.state.user.firstName}</Box>
+              <Box component="h1" display="block" p={1} m={0}>{this.state.user.lastName}</Box>
+            </Box>
+            <Box >
+            <Box  component="h1" display="block" p={1} m={0}>{this.state.user.email}</Box> 
+            </Box>
+          </Box>
         </div>
         <div>
+        <br />
           <Button
             className={classes.button}
             onClick={() => this.setState({ showForm: !this.state.showForm })}
@@ -148,7 +142,20 @@ export class Profile extends Component {
              parentProps = {this.props}
              getSingleUser = {this.getSingleUser}
         />}
+        <div  >
+        <br />
+
+        <Button 
+          className={classes.button} 
+          onClick={this.logoutUser}
+          variant="contained"
+          startIcon={<MeetingRoomIcon />}
+          >
+           Logout
+        </Button>
+        </div>
       </div>
+      </Container>
     );
   }
 }
