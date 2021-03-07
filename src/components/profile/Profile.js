@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ProfileService from "../services/profile-service";
 import axios from "axios";
 import EditProfile from './EditProfile'
+import EditProfileModal from './EditProfileModal'
 import AuthService from "../services/auth-service";
 
 // Material UI import
@@ -134,7 +135,7 @@ export class Profile extends Component {
           </Button>
         </div>
         <br />
-        {this.state.showForm && <EditProfile
+        {this.state.showForm && <EditProfileModal
              handleChange={this.handleChange}
              onSubmit={this.onEditProfileSubmit}
              handleFileUpload = {this.handleFileUpload}
