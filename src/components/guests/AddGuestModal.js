@@ -268,12 +268,11 @@ class AddGuestModal extends Component {
 
                 <div className={classes.modalFooter}>
                   <Button
-                    cursor= 'pointer'
                     type="submit"
                     value="Submit"
                     fullWidth
                     variant="contained"
-                    style={{ backgroundColor: "black", color: "white" }}
+                    style={{ backgroundColor: "black", color: "white", cursor: 'pointer'}}
                     onClick={this.handleFormSubmit}
                   >
                     Add Guest

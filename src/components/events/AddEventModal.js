@@ -154,7 +154,7 @@ class AddEventModal extends Component {
             value="Submit"
             fullWidth
             variant="contained"
-            style={{backgroundColor: "black", color: 'white'}}
+            style={{backgroundColor: "black", color: 'white', cursor: 'pointer'}}
             onClick={this.handleFormSubmit}
           >
             Add event
