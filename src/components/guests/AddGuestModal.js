@@ -268,6 +268,7 @@ class AddGuestModal extends Component {
 
                 <div className={classes.modalFooter}>
                   <Button
+                    cursor= 'pointer'
                     type="submit"
                     value="Submit"
                     fullWidth

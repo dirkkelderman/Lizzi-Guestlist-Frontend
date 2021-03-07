@@ -149,6 +149,7 @@ class AddEventModal extends Component {
 
               <div className="add-event-modal-footer">
               <Button
+              cursor= 'pointer'
             type="submit"
             value="Submit"
             fullWidth
