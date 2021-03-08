@@ -22,6 +22,16 @@ const styles = theme => ({
     flexDirection: 'column',
     alignItems: 'center',
   },
+  form: {
+    //   backgroundColor: 'rgba(210, 207, 210, 0.644)',
+      borderLeft: '3px solid white',
+      placeholder: 'white',
+      marginBottom: '10px',
+      borderRadius: '2px',
+    },
+    input: {
+        color: "white"
+      }
 });
 
 class Signup extends Component {
@@ -71,59 +81,71 @@ class Signup extends Component {
         <Typography style={{color: "#fad974"}} component="h1" variant="h5">
           Sign Up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form noValidate>
         <TextField
+            className={classes.form}
+            placeholder="   First Name" 
+            InputProps={{
+                    className: classes.input
+                }} 
             type="text"
             name="firstName"
             margin="normal"
             required
             fullWidth
             id="firstName"
-            label="First Name"
             autoComplete="firstName"
             autoFocus
-            style={{backgroundColor: "white"}}
             value={this.state.firstName}
             onChange={this.handleChange}
           />
           <TextField
+            className={classes.form}
+            placeholder="   Last Name" 
+            InputProps={{
+                    className: classes.input
+                }} 
             type="text"
             name="lastName"
             margin="normal"
             required
             fullWidth
             id="lastName"
-            label="Last Name"
             autoComplete="lastName"
             autoFocus
-            style={{backgroundColor: "white"}}
             value={this.state.lastName}
             onChange={this.handleChange}
           />
           <TextField
+            className={classes.form}
+            placeholder="   Email Address" 
+            InputProps={{
+                    className: classes.input
+                }} 
             type="email"
             name="email"
             margin="normal"
             required
             fullWidth
             id="email"
-            label="Email Address"
             autoComplete="email"
             autoFocus
-            style={{backgroundColor: "white"}}
             value={this.state.email}
             onChange={this.handleChange}
           />
           <TextField
+            className={classes.form}
+            placeholder="   Password" 
+            InputProps={{
+                    className: classes.input
+                }} 
             margin="normal"
             required
             fullWidth
             name="password"
-            label="Password"
             type="password"
             id="password"
             autoComplete="current-password"
-            style={{backgroundColor: "white"}}
             value={this.state.password}
             onChange={this.handleChange}
 
