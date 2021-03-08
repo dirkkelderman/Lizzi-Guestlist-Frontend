@@ -22,6 +22,16 @@ const styles = theme => ({
     flexDirection: 'column',
     alignItems: 'center',
   },
+  form: {
+    //   backgroundColor: 'rgba(210, 207, 210, 0.644)',
+      borderLeft: '3px solid white',
+      placeholder: 'white',
+      marginBottom: '10px',
+      borderRadius: '2px',
+    },
+    input: {
+        color: "white"
+      }
 });
 
 
@@ -72,31 +82,36 @@ class Login extends Component {
         <Typography style={{color: "#fad974"}} component="h1" variant="h5">
           Log in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form noValidate>
           <TextField
-            type="email"
+            className={classes.form}
+            placeholder="   Email Address" 
+            InputProps={{
+                    className: classes.input
+                }}             type="email"
             name="email"
             margin="normal"
             required
             fullWidth
             id="email"
-            label="Email Address"
             autoComplete="email"
             autoFocus
-            style={{backgroundColor: "white"}}
             value={this.state.email}
             onChange={this.handleChange}
           />
           <TextField
+            className={classes.form}
+            placeholder="   Password" 
+            InputProps={{
+                    className: classes.input
+                }} 
             margin="normal"
             required
             fullWidth
             name="password"
-            label="Password"
             type="password"
             id="password"
             autoComplete="current-password"
-            style={{backgroundColor: "white"}}
             value={this.state.password}
             onChange={this.handleChange}
 
