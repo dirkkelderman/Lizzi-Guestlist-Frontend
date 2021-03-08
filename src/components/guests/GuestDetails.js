@@ -259,7 +259,7 @@ export class GuestDetails extends Component {
                 fullWidth
                 variant="contained"
                 style={{ backgroundColor: "red", color: "white" }}
-                onClick={this.deleteEvent}
+                onClick={this.deleteGuest}
               >
                 Delete
               </Button>

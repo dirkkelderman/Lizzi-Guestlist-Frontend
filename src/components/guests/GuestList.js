@@ -205,6 +205,7 @@ export class GuestList extends Component {
                       component={Link}
                       to={`/events/${params.id}/guestlist/${guest._id}`}
                       style={{ backgroundColor: "black" }}
+                      guestId={guest._id}
                     >
                       <EditOutlinedIcon />
                     </Avatar>

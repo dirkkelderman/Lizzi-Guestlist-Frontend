@@ -132,9 +132,9 @@ class GuestDetailsModal extends Component {
   };
 
   deleteGuest = () => {
-    const { params } = this.props.match;
+    const { params } = this.props.guestId;
 
-    this.service.deleteGuest(params.guestId).then(
+    this.service.deleteGuest(this.props.guestId).then(
       () => {
         this.props.history.push(`/events/${params.id}/guestlist`);
       },
