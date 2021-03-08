@@ -53,7 +53,7 @@ const Navbar = (props) => {
           <Typography variant="h6" className={classes.title}>
             Lizzi
           </Typography>
-          <IconButton edge="start" className={classes.menuButton} color="secondary" aria-label="menu" onClick={e => {
+          <IconButton edge="end" className={classes.menuButton} color="secondary" aria-label="menu" onClick={e => {
               history.push(`/profile/${props.userInSession._id}`)
           }}>
             <AccountCircleIcon className={classes.logo} />

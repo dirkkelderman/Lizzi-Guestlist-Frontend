@@ -21,6 +21,8 @@ import { withStyles } from "@material-ui/core/styles";
 import ArrowBackIosOutlinedIcon from "@material-ui/icons/ArrowBackIosOutlined";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
+import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
 
 
 const styles = (theme) => ({
@@ -43,6 +45,14 @@ const styles = (theme) => ({
     fontSize: "40",
     color: 'black'
   },
+  checkIn: {
+    backgroundColor: "#fad974",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: "10px",
+    borderRadius: "15px",
+
+  }
 });
 
 export class GuestList extends Component {
@@ -150,16 +160,17 @@ export class GuestList extends Component {
     return (
       <Container>
         <div className={classes.root}>
-          <div >
+          <div>
             <h2 className="guest-list-text">{this.state.event.eventName}</h2>
             <Button
-            variant="contained"
-            className={classes.submit}
-            style={{backgroundColor: "#fad974"}}
-            component={Link} to={`/events/${params.id}`}
-          >
-            Edit Event
-          </Button>
+              variant="contained"
+              className={classes.submit}
+              style={{ backgroundColor: "#fad974" }}
+              component={Link}
+              to={`/events/${params.id}`}
+            >
+              Edit Event
+            </Button>
           </div>
 
           <SearchBar filteredSearch={this.handleGuestSearch} />
@@ -175,41 +186,84 @@ export class GuestList extends Component {
           {filteredGuests.map((guest, index) => {
             return (
               <div>
-                <List className={classes.form}>
-                  <ListItem key={guest._id} className="guest-list-item">
-                    <ListItemText
+            { guest.ticketsCheckedIn === guest.ticketNumber ? (
+              <Grid container>
+              <Grid item xs={12} className={classes.form}>
+              <List>
+                <ListItem>
+                  <ListItemText 
                       primary={guest.guestFirstName + " " + guest.guestLastName}
                       secondary={guest.tag}
-                    />
-                    <ListItemText
+                  />
+                  <ListItemText
                       primary={
                         guest.ticketsCheckedIn + "/" + guest.ticketNumber
                       }
                     />
-
-                    <ListItemAvatar>
-                      <Avatar
-                        component={Link}
-                        to={`/events/${params.id}/guestlist/${guest._id}`}
-                      >
-                        <EditOutlinedIcon />
-                      </Avatar>
-                    </ListItemAvatar>
-
-                    {guest.ticketsCheckedIn === guest.ticketNumber ? (
-                      <ListItemAvatar></ListItemAvatar>
-                    ) : (
-                      <ListItemAvatar>
-                        <Avatar onClick={() => this.checkInGuest(index)}>
-                          <DoneOutlinedIcon />
-                        </Avatar>
-                      </ListItemAvatar>
-                    )}
-                  </ListItem>
-                </List>
-              </div>
+                  <ListItemAvatar>
+                    <Avatar
+                      component={Link}
+                      to={`/events/${params.id}/guestlist/${guest._id}`}
+                      style={{ backgroundColor: "black" }}
+                    >
+                      <EditOutlinedIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                </ListItem>
+              </List>
+            </Grid>
+            
+            
+            </Grid>) : 
+            <Grid container>
+        
+            <Grid item xs={10} className={classes.form}>
+              <List>
+                <ListItem>
+                  <ListItemText 
+                      primary={guest.guestFirstName + " " + guest.guestLastName}
+                      secondary={guest.tag}
+                  />
+                  <ListItemText
+                      primary={
+                        guest.ticketsCheckedIn + "/" + guest.ticketNumber
+                      }
+                    />
+                  <ListItemAvatar>
+                    <Avatar
+                      component={Link}
+                      to={`/events/${params.id}/guestlist/${guest._id}`}
+                      style={{ backgroundColor: "black" }}
+                    >
+                      <EditOutlinedIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                </ListItem>
+              </List>
+            </Grid>
+            <Grid
+              item
+              xs={2}
+              className={classes.checkIn}
+              container
+              justify="center"
+              alignItems="center"
+            >
+              <Avatar
+                style={{ backgroundColor: "black" }}
+                onClick={() => this.checkInGuest(index)}
+              >
+                <DoneOutlinedIcon />
+              </Avatar>
+            </Grid>
+          </Grid>
+            
+            }
+            </div>
             );
           })}
+
+          
 
           {this.state.showAddForm ? (
             <AddGuestModal
