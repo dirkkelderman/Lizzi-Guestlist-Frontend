@@ -151,6 +151,10 @@ export class GuestList extends Component {
         guest.guestFirstName
           .toLowerCase()
           .indexOf(this.state.search.toLowerCase()) !== -1
+        || guest.guestLastName
+          .toLowerCase()
+          .indexOf(this.state.search.toLowerCase()) !== -1
+  
       );
     });
 
