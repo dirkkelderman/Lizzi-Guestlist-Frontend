@@ -4,9 +4,8 @@ import { Link } from "react-router-dom";
 import GuestService from "../services/guest-service";
 import EventService from "../services/event-service";
 import SearchBar from "../searchbar/SearchBar";
-import './GuestList.css'
-import AddGuestModal from './AddGuestModal'
-import GuestDetailsModal from './GuestDetailsModal'
+import "./GuestList.css";
+import AddGuestModal from "./AddGuestModal";
 
 // Material UI import
 import List from "@material-ui/core/List";
@@ -14,32 +13,32 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
-import DoneOutlinedIcon from '@material-ui/icons/DoneOutlined';
-import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import { withStyles } from '@material-ui/core/styles';
-import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined';
-import Container from '@material-ui/core/Container';
+import DoneOutlinedIcon from "@material-ui/icons/DoneOutlined";
+import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/Add";
+import { withStyles } from "@material-ui/core/styles";
+import ArrowBackIosOutlinedIcon from "@material-ui/icons/ArrowBackIosOutlined";
+import Container from "@material-ui/core/Container";
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
-    width: '100%',
+    width: "100%",
     // maxWidth: 360,
   },
   form: {
-    backgroundColor: '#d2cfd2',
-    marginBottom: '10px',
-    borderRadius: '15px',
+    backgroundColor: "#d2cfd2",
+    marginBottom: "10px",
+    borderRadius: "15px",
   },
   addButton: {
-    backgroundColor: '#fad974',
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'fixed', 
+    backgroundColor: "#fad974",
+    justifyContent: "center",
+    alignItems: "center",
+    position: "fixed",
     bottom: 25,
     right: 25,
-    fontSize: '40' 
+    fontSize: "40",
   },
 });
 
@@ -76,7 +75,6 @@ export class GuestList extends Component {
     });
   };
 
-
   getGuestList = () => {
     const { params } = this.props.match;
 
@@ -84,7 +82,7 @@ export class GuestList extends Component {
       this.setState({
         event: eventFromDb,
         guestList: eventFromDb.guest,
-        isLoading: false
+        isLoading: false,
       });
 
       this.getGuests();
@@ -102,7 +100,6 @@ export class GuestList extends Component {
         totalGuestsCheckedIn: guestChecked,
         totalGuests: guestTotal,
       });
-      // this.props.totalguestnumber(guestTotal)
     }
   }
 
@@ -143,93 +140,89 @@ export class GuestList extends Component {
           .indexOf(this.state.search.toLowerCase()) !== -1
       );
     });
-    
-    const {classes} = this.props
+
+    const { classes } = this.props;
     const { params } = this.props.match;
 
     return (
       <Container>
-      <div className={classes.root}>
+        <div className={classes.root}>
+          <div className="guest-list-submenu">
+            <Avatar component={Link} to={`/events`}>
+              <ArrowBackIosOutlinedIcon />
+            </Avatar>
 
-        <div className="guest-list-submenu">
-        <Avatar component={Link}
-                  to={`/events`}>
-                      <ArrowBackIosOutlinedIcon />
-                    </Avatar>
- 
-          <h2 className="guest-list-text">{this.state.event.eventName}</h2>
-          <Avatar component={Link}
-                  to={`/events/${params.id}`}>
-                      <EditOutlinedIcon />
-                    </Avatar>
+            <h2 className="guest-list-text">{this.state.event.eventName}</h2>
+            <Avatar component={Link} to={`/events/${params.id}`}>
+              <EditOutlinedIcon />
+            </Avatar>
+          </div>
 
+          <SearchBar filteredSearch={this.handleGuestSearch} />
+
+          <h4 className="guest-list-text">
+            Guests: {this.state.totalGuestsCheckedIn}/{this.state.totalGuests}
+          </h4>
+
+          {this.state.isLoading ? (
+            <img src="../home/lizzilogo groot geel.png" alt="loading" />
+          ) : null}
+
+          {filteredGuests.map((guest, index) => {
+            return (
+              <div>
+                <List className={classes.form}>
+                  <ListItem key={guest._id} className="guest-list-item">
+                    <ListItemText
+                      primary={guest.guestFirstName + " " + guest.guestLastName}
+                      secondary={guest.tag}
+                    />
+                    <ListItemText
+                      primary={
+                        guest.ticketsCheckedIn + "/" + guest.ticketNumber
+                      }
+                    />
+
+                    <ListItemAvatar>
+                      <Avatar
+                        component={Link}
+                        to={`/events/${params.id}/guestlist/${guest._id}`}
+                      >
+                        <EditOutlinedIcon />
+                      </Avatar>
+                    </ListItemAvatar>
+
+                    {guest.ticketsCheckedIn === guest.ticketNumber ? (
+                      <ListItemAvatar></ListItemAvatar>
+                    ) : (
+                      <ListItemAvatar>
+                        <Avatar onClick={() => this.checkInGuest(index)}>
+                          <DoneOutlinedIcon />
+                        </Avatar>
+                      </ListItemAvatar>
+                    )}
+                  </ListItem>
+                </List>
+              </div>
+            );
+          })}
+
+          {this.state.showAddForm ? (
+            <AddGuestModal
+              eventId={params.id}
+              getGuest={() => this.getGuestList()}
+              handleShow={this.showAddForm}
+            />
+          ) : null}
         </div>
 
-      
-        <SearchBar filteredSearch={this.handleGuestSearch} />
-
-        
-        <h4 className="guest-list-text">
-          Guests: {this.state.totalGuestsCheckedIn}/{this.state.totalGuests}
-        </h4>
-
-        {
-          this.state.isLoading ? <img src='../home/lizzilogo groot geel.png' alt='loading' /> : null
-        }
-
-        {filteredGuests.map((guest, index) => {
-          return (
-            <div>
-              <List className={classes.form} key={guest._id}>
-                <ListItem  className="guest-list-item">
-                  <ListItemText
-                    primary={guest.guestFirstName + ' ' + guest.guestLastName}
-                    secondary={guest.tag}
-                  />
-                  <ListItemText
-                    primary={guest.ticketsCheckedIn + '/' + guest.ticketNumber}
-                  />
-
-                  <ListItemAvatar>
-                    <Avatar component={Link}
-                  to={`/events/${params.id}/guestlist/${guest._id}`}>
-                      <EditOutlinedIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-
-                  {guest.ticketsCheckedIn === guest.ticketNumber ? (
-                    <ListItemAvatar>
-
-                  </ListItemAvatar>
-
-              ) : (
-                <ListItemAvatar>
-                    <Avatar onClick={() => this.checkInGuest(index)}>
-                      <DoneOutlinedIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-              )}
-
-                </ListItem>
-               </List>
-            </div>
-            
-          );
-        })}
-
-        {
-            this.state.showAddForm ? <AddGuestModal eventId={params.id} getGuest={() => this.getGuestList()} handleShow={this.showAddForm}/> : null
-        }
-
-        {
-            this.state.showDetailsForm ? <GuestDetailsModal eventId={params.id} getGuest={() => this.getGuestList()} handleShow={this.showDetailsForm}/> : null
-        }
-        
-        
-
-      </div>
-      <Fab className={classes.addButton} color="primary" aria-label="add" onClick={this.showAddForm} >
-        <AddIcon />
+        <Fab
+          className={classes.addButton}
+          color="primary"
+          aria-label="add"
+          onClick={this.showAddForm}
+        >
+          <AddIcon />
         </Fab>
       </Container>
     );

@@ -1,5 +1,4 @@
 import "./App.css";
-import AddEvent from "./components/events/AddEvent";
 import EventList from "./components/events/EventList";
 import Signup from "./components/auth/Signup";
 import Login from "./components/auth/Login";
@@ -11,9 +10,9 @@ import Navbar from "./components/navbar/Navbar"
 import GuestDetails from './components/guests/GuestDetails'
 import Profile from  './components/profile/Profile'
 import ProtectedRoute from "./components/auth/protected-route";
-import EditProfile from "./components/profile/EditProfile"
-import Container from '@material-ui/core/Container';
 import HomePage from "./components/home/HomePage";
+
+import Container from '@material-ui/core/Container';
 
 class App extends Component {
   state = {
@@ -22,7 +21,6 @@ class App extends Component {
   };
 
   getTheUser = (userObj) => {
-    console.log(this.state.loggedInUser)
     this.setState({
       loggedInUser: userObj,
     });
@@ -34,16 +32,11 @@ class App extends Component {
         showSplashScreen: false
       })
     }, 3000)
-    // this.props.history.push(`/login`)
   }
   
   componentDidMount(){
     this.splashScreenTime()
   }
-  // getTotalGuestNumber = ( ) => {
-  //   console.log('hello')
-  //   // console.log(guestTotal)
-  // }
   
   
   render() {
@@ -86,7 +79,6 @@ class App extends Component {
             user={this.state.loggedInUser}
             exact path="/events/:id/guestlist"
             component={GuestList}
-            // totalGuestNumber={this.getTotalGuestNumber()}
           />
 
           <ProtectedRoute
