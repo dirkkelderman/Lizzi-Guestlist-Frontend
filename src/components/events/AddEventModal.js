@@ -110,13 +110,18 @@ class AddEventModal extends Component {
                 onChange={this.handleChange}    
                 />
 
+
+
             <TextField required
-                // label="Date"
+                label="Event Date"
                 margin="normal" 
-                type="date"
+                type="datetime-local"
                 name="date"
                 value={this.state.date}
-                onChange={this.handleChange}    
+                onChange={this.handleChange}
+                InputLabelProps={{
+                    shrink: true,
+                    }}    
                 />   
 
             <TextField
