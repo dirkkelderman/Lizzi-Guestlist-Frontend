@@ -20,6 +20,8 @@ import AddIcon from "@material-ui/icons/Add";
 import { withStyles } from "@material-ui/core/styles";
 import ArrowBackIosOutlinedIcon from "@material-ui/icons/ArrowBackIosOutlined";
 import Container from "@material-ui/core/Container";
+import Button from "@material-ui/core/Button";
+
 
 const styles = (theme) => ({
   root: {
@@ -39,6 +41,7 @@ const styles = (theme) => ({
     bottom: 25,
     right: 25,
     fontSize: "40",
+    color: 'black'
   },
 });
 
@@ -147,15 +150,16 @@ export class GuestList extends Component {
     return (
       <Container>
         <div className={classes.root}>
-          <div className="guest-list-submenu">
-            <Avatar component={Link} to={`/events`}>
-              <ArrowBackIosOutlinedIcon />
-            </Avatar>
-
+          <div >
             <h2 className="guest-list-text">{this.state.event.eventName}</h2>
-            <Avatar component={Link} to={`/events/${params.id}`}>
-              <EditOutlinedIcon />
-            </Avatar>
+            <Button
+            variant="contained"
+            className={classes.submit}
+            style={{backgroundColor: "#fad974"}}
+            component={Link} to={`/events/${params.id}`}
+          >
+            Edit Event
+          </Button>
           </div>
 
           <SearchBar filteredSearch={this.handleGuestSearch} />

@@ -43,7 +43,9 @@ const styles = theme => ({
         position: 'fixed', 
         bottom: 25,
         right: 25,
-        fontSize: '40' 
+        fontSize: '40',
+        color: 'black'
+
       },
   });
 
