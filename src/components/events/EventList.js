@@ -250,7 +250,9 @@ export class EventList extends Component {
                     secondary={date.toDateString()}
                   />
                   <ListItemAvatar>
-                    <Avatar>
+                    <Avatar 
+                    style={{ backgroundColor: "black" }}
+                        >
                       <EditOutlinedIcon />
                     </Avatar>
                   </ListItemAvatar>
