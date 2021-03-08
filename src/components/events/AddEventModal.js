@@ -61,7 +61,7 @@ class AddEventModal extends Component {
             description: "",
             status: "Your project is created",
           });
-          this.props.history.push(`/events`);
+        //   this.props.history.push(`/events`);
         },
         (err) => {
           console.log(err);
@@ -152,7 +152,7 @@ class AddEventModal extends Component {
                 /> 
                 
 
-              <div className="add-event-modal-footer">
+              {/* <div className="add-event-modal-footer">
               <Button
               cursor= 'pointer'
             type="submit"
@@ -165,8 +165,19 @@ class AddEventModal extends Component {
             Add event
           </Button>
 
-                {/* <input type="submit" value="Submit" /> */}
-              </div>
+              </div> */}
+              <div className={classes.modalFooter}>
+                <Button
+                    type="submit"
+                    value="Submit"
+                    fullWidth
+                    variant="contained"
+                    style={{ backgroundColor: "black", color: "white" }}
+                    onClick={this.handleFormSubmit}
+                  >
+                    Add Guest
+                  </Button>
+                </div>
 
             </FormControl>
           </div>
