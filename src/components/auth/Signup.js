@@ -1,6 +1,7 @@
 // React or componnents import
 import React, { Component } from "react";
 import AuthService from "../services/auth-service";
+import EmailService from "../services/auth-service";
 import { Link } from "react-router-dom";
 import LogoLizzi from '../home/lizzilogo groot geel.png'
 
@@ -14,6 +15,8 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { notify } from 'react-notify-toast'
+import Spinner from '../email/Spinner'
 
 const styles = theme => ({
   paper: {
@@ -41,28 +44,39 @@ class Signup extends Component {
     email: "",
     password: "",
     rememberMe: false,
+    sendingEmail: false
+
   };
 
   service = new AuthService();
+  emailService = new EmailService()
 
   handleFormSubmit = (event) => {
     event.preventDefault();
+    this.setState({ sendingEmail: true})
 
     const { email, password, rememberMe, firstName, lastName } = this.state;
 
     localStorage.setItem("rememberMe", rememberMe);
     localStorage.setItem("email", rememberMe ? email : "");
 
+    this.emailService
+      .confirmationEmail(email)
+      .then(response => {
+        this.setState({ sendingEmail: false})
+        notify.show(response.msg)
+      })
+
     this.service
       .signup(email, password, firstName, lastName)
       .then((response) => {
         console.log(response);
         this.props.getUser(response);
-        this.props.history.push("/events");
+        // this.props.history.push("/events");
       })
       .catch((error) => console.log(error));
   };
-
+  response
   handleChange = (event) => {
     const input = event.target;
     const value = input.type === "checkbox" ? input.checked : input.value;
@@ -72,6 +86,7 @@ class Signup extends Component {
 
   render() {
     const {classes} = this.props
+    const { sendingEmail } = this.state
 
     return (
       <div>
@@ -163,7 +178,12 @@ class Signup extends Component {
             className={classes.submit}
             style={{backgroundColor: "#fad974"}}
             onClick={this.handleFormSubmit}
+            disabled={sendingEmail}
           >
+          {sendingEmail 
+              ? <Spinner size='lg' spinning='spinning' /> 
+              : "Let's Go!"
+            }
             Sign up
           </Button>
           <Grid container>

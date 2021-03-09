@@ -9,6 +9,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import CloseIcon from '@material-ui/icons/Close';
 import { withRouter } from "react-router-dom";
+import { notify } from 'react-notify-toast'
 
 
 const styles = theme => ({
@@ -60,7 +61,8 @@ class AddEventModal extends Component {
             location: "",
             description: "",
             status: "Your project is created",
-          });
+          })
+          notify.show(res.msg)
         //   this.props.history.push(`/events`);
         },
         (err) => {

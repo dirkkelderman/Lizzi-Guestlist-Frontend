@@ -10,14 +10,25 @@ import Navbar from "./components/navbar/Navbar"
 import GuestDetails from './components/guests/GuestDetails'
 import Profile from  './components/profile/Profile'
 import ProtectedRoute from "./components/auth/protected-route";
-import HomePage from "./components/home/HomePage";
 
 import Container from '@material-ui/core/Container';
+
+//Mail confirmation imports
+import Notifications from 'react-notify-toast'
+// import 'react-toastify/dist/ReactToastify.css'
+
+import Landing from './components/email/Landing'
+import Confirm from './components/email/Confirm'
+import Spinner from './components/email/Spinner'
+// import Footer from './components/Footer/Footer'
+// import { API_URL } from './config'
 
 class App extends Component {
   state = {
     loggedInUser: null,
     showSplashScreen: true,
+    loading: true
+
   };
 
   getTheUser = (userObj) => {
@@ -34,24 +45,47 @@ class App extends Component {
     }, 3000)
   }
   
-  componentDidMount(){
-    this.splashScreenTime()
+  componentDidMount = () => {
+    fetch(`http://localhost:5000/api/wake-up`)
+      .then(res => res.json())
+      .then(() => {
+        this.setState({ loading: false })
+      })
+      .catch(err => console.log(err))
+
+    // this.splashScreenTime()
+
   }
   
   
   render() {
+
+    if (this.state.loading) {
+      return <Spinner size='8x' spinning='spinning' />
+    }
+
     return (
       <Container  className='App-body'>
 
-      {this.state.showSplashScreen ? <h1 style={{color: 'white'}} >HELLO</h1> : <Redirect to={{pathname: '/login' }}/>}
+        <Notifications />
+
+
+      {/* {this.state.showSplashScreen ? <h1 style={{color: 'white'}} >HELLO</h1> : <Redirect to={{pathname: '/login' }}/>} */}
 
       <div className="App">
+      
       { this.state?.loggedInUser  ? 
         <Navbar userInSession={this.state?.loggedInUser} getUser={this.getTheUser} />
       : null}
 
 
         <Switch>
+
+            <Route exact path='/confirm/:id' component={Confirm} />
+            {/* <Route exact path='/' component={Landing} /> */}
+            {/* <Redirect from='*' to='/'/> */}
+
+
           <Route
             exact
             path="/signup"

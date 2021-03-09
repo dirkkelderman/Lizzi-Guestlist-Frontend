@@ -26,6 +26,11 @@ class AuthService {
     .then(response => response.data)
   }
 
+  confirmationEmail = (email) => {
+    return this.service.post('email', {email})
+    .then(response => response.data)
+  }
+
 }
  
 export default AuthService;
