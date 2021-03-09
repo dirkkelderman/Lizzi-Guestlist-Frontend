@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from 'axios';
-// import "./EditProfile.css"
 import ProfileService from "../services/profile-service"
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
@@ -8,6 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import CloseIcon from '@material-ui/icons/Close';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 const styles = theme => ({
@@ -59,6 +59,20 @@ const styles = theme => ({
       justifyContent: 'space-between',
       padding: '10px',
   },
+  button: {
+    backgroundColor: '#20111e',
+    color: '#fad974',
+    '&:hover': {
+      backgroundColor: "#483745",
+      color: '#c5a845'
+  },
+  border: "solid 1px black",
+  },
+  loadingAnimation:{
+    color: '#20111e',
+    display: 'flex',
+    justifyContent: 'center'
+  }
 });
 class EditProfileModal extends Component {
   
@@ -69,23 +83,23 @@ class EditProfileModal extends Component {
         firstName: props.user.firstName,
         lastName: props.user.lastName,
         email: props.user.email,
-        imageUrl: props.user.imageUrl
+        imageUrl: props.user.imageUrl,
+        loading: false
       }
     }
 
 
-  handleChange = (event) => {
-    const {value, name} = event.target;
-    this.setState({
-      [name]: value
-    });
-  };
+    handleChange = (event) => {
+      const {value, name} = event.target;
+      this.setState({
+        [name]: value
+      });
+    };
 
 
   handleFormSubmit = (e) => {
     e.preventDefault();
     localStorage.setItem('user', this.state.user);
-    //console.log(user._id)
     const userId = this.state.userId;
     const url = "http://localhost:5000/api";
     const saveUser = {
@@ -108,28 +122,34 @@ class EditProfileModal extends Component {
         if (res.success === true) {
           this.props.onSubmit(saveUser);
           this.props.parentProps.history.push(`/Profile/${userId}`);
-          // window.location = "/Profile"
           console.log("successfully updated");
-          // this.props.getSingleUser()
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        this.setState({
+          status: "Oops, something wrong",
+        });
+      }
+      )
   };
 
   handleFileUpload = (event) => {
     const uploadData = new FormData();
     uploadData.append("imageUrl", event.target.files[0]);
-
+    this.setState({ loading: true})
     axios
       .post("http://localhost:5000/api/upload", uploadData)
       .then((response) => {
         console.log("response from the api: ", response);
-        this.setState({ imageUrl: response.data.imageUrl });
+        this.setState({ imageUrl: response.data.imageUrl, loading: false });
       })
       .catch((err) => {
         console.log("Error while uploading the file: ", err);
       });
   };
+
+
 
   render(){
     const {imageUrl} = this.props
@@ -137,13 +157,16 @@ class EditProfileModal extends Component {
 
 
     return(
-      <div className={classes.modal} onClick={this.props.handleShow}>
+      <div className={classes.modal}>
         <div
           className={classes.modalContent}
           onClick={(e) => e.stopPropagation()}
          >
           <div className={classes.modalHeader}>
-            <CloseIcon onClick={this.props.handleShow}/>
+          <Button onClick={this.props.closeModal}>
+          <span></span>
+            <CloseIcon />
+          </Button>
           </div>
 
 
@@ -180,6 +203,7 @@ class EditProfileModal extends Component {
             <br />
             <div>
             <Button
+              className={classes.button}
               variant="contained"
               component="label"
               startIcon={<PhotoCameraIcon />}
@@ -195,14 +219,19 @@ class EditProfileModal extends Component {
           </Button>
           </div>
           <br />
-          <Button
-           className="edit-profile-modal-footer"
-          type="submit" 
-          value="Submit"
-          onClick={this.handleFormSubmit}
-          >
-            Submit
-          </Button>
+
+          {this.state.loading ? <CircularProgress 
+            className={classes.loadingAnimation}
+          /> :
+            <Button
+            className={classes.button}
+            type="submit" 
+            value="Submit"
+            onClick={this.handleFormSubmit}
+            >
+              Submit
+            </Button>
+          }
 
           </FormControl>
           </div>

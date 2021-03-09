@@ -92,6 +92,7 @@ export class Profile extends Component {
       }
     })
   }
+  handleCloseModal = () => this.setState({showForm: false})
 
   logoutUser = () => {
     this.serviceAuth.logout()
@@ -142,6 +143,7 @@ export class Profile extends Component {
              user = {this.state.user}
              parentProps = {this.props}
              getSingleUser = {this.getSingleUser}
+             closeModal={this.handleCloseModal}
         />}
         <div  >
         <br />
