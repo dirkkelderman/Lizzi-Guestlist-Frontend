@@ -47,7 +47,7 @@ class App extends Component {
   }
   
   componentDidMount = () => {
-    fetch(`http://localhost:5000/api/wake-up`)
+    fetch(`${process.env.REACT_APP_API_URL}/wake-up`)
       .then(res => res.json())
       .then(() => {
         this.setState({ loading: false })
