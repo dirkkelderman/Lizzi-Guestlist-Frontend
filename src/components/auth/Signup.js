@@ -184,7 +184,6 @@ class Signup extends Component {
               ? <Spinner size='lg' spinning='spinning' /> 
               : "Let's Go!"
             }
-            Sign up
           </Button>
           <Grid container>
             <Grid item>

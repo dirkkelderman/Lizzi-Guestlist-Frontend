@@ -46,20 +46,17 @@ class Login extends Component {
 
   handleFormSubmit = (event) => {
     event.preventDefault();
-    console.log(event)
 
-    const { email, password, rememberMe } = this.state;
+    const { email } = this.state;
 
-    localStorage.setItem('rememberMe', rememberMe);
-    localStorage.setItem('email', rememberMe ? email : '');
+    // localStorage.setItem('rememberMe', rememberMe);
+    // localStorage.setItem('email', rememberMe ? email : '');
 
     this.service
-      .login(email, password)
+      .forgot(email)
       .then((response) => {
         console.log(response);
-        this.props.getUser(response);
-        this.props.history.push("/events");
-        
+        this.props.getUser(response);        
       })
       .catch((error) => console.log(error));
   };
@@ -80,7 +77,7 @@ class Login extends Component {
       <img src={LogoLizzi} style={{width: "100%"}} alt="Lizzi Yellow"/>
       <div className={classes.paper}>
         <Typography style={{color: "#fad974"}} component="h1" variant="h5">
-          Log in
+          Forgot Password
         </Typography>
         <form noValidate>
           <TextField
@@ -99,29 +96,7 @@ class Login extends Component {
             value={this.state.email}
             onChange={this.handleChange}
           />
-          <TextField
-            className={classes.form}
-            placeholder="   Password" 
-            InputProps={{
-                    className: classes.input
-                }} 
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            value={this.state.password}
-            onChange={this.handleChange}
-
-          />
-          <FormControlLabel
-            control={<Checkbox  value="remember" style={{color: "#fad974"}} />}
-            label="Remember me"
-            style={{color: "#fad974"}}
-            
-          />
+          
           <Button
             type="submit"
             fullWidth
@@ -130,20 +105,8 @@ class Login extends Component {
             style={{backgroundColor: "#fad974"}}
             onClick={this.handleFormSubmit}
           >
-            Log In
+            Reset Password
           </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link to={"/forgot"} variant="body2" style={{color: "#fad974"}}>
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link to={"/signup"} variant="body2" style={{color: "#fad974"}}>
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
         </form>
       </div>
    </Container>    

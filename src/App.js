@@ -10,6 +10,7 @@ import Navbar from "./components/navbar/Navbar"
 import GuestDetails from './components/guests/GuestDetails'
 import Profile from  './components/profile/Profile'
 import ProtectedRoute from "./components/auth/protected-route";
+import Forgot  from './components/auth/Forgot'
 
 import Container from '@material-ui/core/Container';
 
@@ -82,6 +83,8 @@ class App extends Component {
         <Switch>
 
             <Route exact path='/confirm/:id' component={Confirm} />
+            <Route exact path='/forgot' component={Forgot} />
+            
             {/* <Route exact path='/' component={Landing} /> */}
             {/* <Redirect from='*' to='/'/> */}
 
