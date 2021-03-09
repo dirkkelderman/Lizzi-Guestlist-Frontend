@@ -31,6 +31,11 @@ class AuthService {
     .then(response => response.data)
   }
 
+  forgot = (email) => {
+    return this.service.post('/forgot', {email})
+    .then(response => response.data)
+  }
+
 }
  
 export default AuthService;
