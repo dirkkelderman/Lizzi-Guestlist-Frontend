@@ -29,7 +29,6 @@ class GuestDetailsModal extends Component {
 
   getSingleGuest() {
     const { params } = this.props.eventId;
-    console.log(this.props)
     this.service.guestDetails(params.guestId).then((responseFromApi) => {
       this.setState({
         guestObj: responseFromApi,
@@ -151,7 +150,6 @@ class GuestDetailsModal extends Component {
       contact,
       tag,
       ticketNumber,
-      freeTickets,
     } = this.state.guestObj;
 
     const { params } = this.props.eventId;

@@ -52,7 +52,7 @@ class EditProfile extends Component {
     localStorage.setItem('user', this.state.user);
     //console.log(user._id)
     const userId = this.state.userId;
-    const url = "http://localhost:5000/api";
+    const url = process.env.REACT_APP_API_URL;
     const saveUser = {
       firstName: this.state.firstName || this.state.user.firstName,
       lastName: this.state.lastName || this.state.user.lastName,
@@ -86,7 +86,7 @@ class EditProfile extends Component {
     uploadData.append("imageUrl", event.target.files[0]);
 
     axios
-      .post("http://localhost:5000/api/upload", uploadData)
+      .post(`${process.env.REACT_APP_API_URL}/upload`, uploadData)
       .then((response) => {
         console.log("response from the api: ", response);
         this.setState({ imageUrl: response.data.imageUrl });

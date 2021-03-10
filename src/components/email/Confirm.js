@@ -11,7 +11,7 @@ export default class Confirm extends Component {
   componentDidMount = () => {
     const { id } = this.props.match.params
 
-    fetch(`http://localhost:5000/api/email/confirm/${id}`)
+    fetch(`${process.env.REACT_APP_API_URL}/email/confirm/${id}`)
       .then(res => res.json())
       .then(data => {
         this.setState({ confirming: false })

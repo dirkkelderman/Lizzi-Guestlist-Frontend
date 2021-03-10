@@ -101,7 +101,7 @@ class EditProfileModal extends Component {
     e.preventDefault();
     localStorage.setItem('user', this.state.user);
     const userId = this.state.userId;
-    const url = "http://localhost:5000/api";
+    const url = process.env.REACT_APP_API_URL;
     const saveUser = {
       firstName: this.state.firstName || this.state.user.firstName,
       lastName: this.state.lastName || this.state.user.lastName,
@@ -139,7 +139,7 @@ class EditProfileModal extends Component {
     uploadData.append("imageUrl", event.target.files[0]);
     this.setState({ loading: true})
     axios
-      .post("http://localhost:5000/api/upload", uploadData)
+      .post(`${process.env.REACT_APP_API_URL}/upload`, uploadData)
       .then((response) => {
         console.log("response from the api: ", response);
         this.setState({ imageUrl: response.data.imageUrl, loading: false });

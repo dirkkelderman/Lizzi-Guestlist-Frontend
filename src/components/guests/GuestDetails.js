@@ -147,7 +147,6 @@ export class GuestDetails extends Component {
       )
       .then(
         (res) => {
-          console.log(res);
           this.setState({
             guestFirstName: "",
             guestLastName: "",
