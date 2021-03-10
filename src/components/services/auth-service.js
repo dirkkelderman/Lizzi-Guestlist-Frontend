@@ -36,6 +36,11 @@ class AuthService {
     .then(response => response.data)
   }
 
+  reset = (params, password) => {
+    return this.service.post(`/reset/${params}`, {password})
+    .then(response => response.data)
+  }
+
 }
  
 export default AuthService;

@@ -11,6 +11,7 @@ import GuestDetails from './components/guests/GuestDetails'
 import Profile from  './components/profile/Profile'
 import ProtectedRoute from "./components/auth/protected-route";
 import Forgot  from './components/auth/Forgot'
+import Reset from './components/auth/Reset'
 
 import Container from '@material-ui/core/Container';
 
@@ -47,7 +48,7 @@ class App extends Component {
   }
   
   componentDidMount = () => {
-    fetch(`${process.env.REACT_APP_API_URL}/wake-up`)
+    fetch(`http://localhost:5000/api/wake-up`)
       .then(res => res.json())
       .then(() => {
         this.setState({ loading: false })
@@ -84,7 +85,8 @@ class App extends Component {
 
             <Route exact path='/confirm/:id' component={Confirm} />
             <Route exact path='/forgot' component={Forgot} />
-            
+            <Route exact path='/reset/:token' component={Reset} />
+
             {/* <Route exact path='/' component={Landing} /> */}
             {/* <Redirect from='*' to='/'/> */}
 
