@@ -6,6 +6,7 @@ import FormControl from '@material-ui/core/FormControl';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import CloseIcon from '@material-ui/icons/Close';
+import ChipInput from "material-ui-chip-input";
 
 
 const styles = theme => ({
@@ -69,7 +70,7 @@ class AddGuestModal extends Component {
         guestFirstName: "",
         guestLastName: "",
         contact: "",
-        tag: "",
+        tag: [],
         ticketNumber: 1,
         showAdvancedForm: false,
     };
@@ -78,7 +79,6 @@ class AddGuestModal extends Component {
   handleFormSubmit = (e) => {
     e.preventDefault();
 
-    console.log('Guest created')
     const {
         guestFirstName,
         guestLastName,
@@ -124,6 +124,24 @@ class AddGuestModal extends Component {
     const { name, value } = e.target;
     this.setState({ [name]: value });
   };
+
+  // Add Chips
+  handleAddChip = (chip) => {
+    this.setState({
+      tag: [...this.state.tag, chip]
+    });
+  }
+
+  // Delete Chips
+  handleDeleteChip = (chip) => {
+    const value = chip
+    const filteredChips = this.state.tag.filter((chip) => {
+        return chip !== value
+    })
+    this.setState({
+      tag: filteredChips
+    });
+  }
 
   showAdvancedForm = () => {
     const statusAdvancedForm = !this.state.showAdvancedForm;
@@ -226,12 +244,19 @@ class AddGuestModal extends Component {
                   onChange={this.handleChange}
                 />
 
-                <TextField
+                {/* <TextField
                   label="Tag"
                   type="text"
                   name="tag"
                   value={this.state.tag}
                   onChange={this.handleChange}
+                /> */}
+
+                <ChipInput
+                    label="Guest Tags"
+                    value={this.state.tag}
+                    onAdd={(chip) => this.handleAddChip(chip)}
+                    onDelete={(chip, index) => this.handleDeleteChip(chip, index)}
                 />
 
                 <div className={classes.modalFooter}>

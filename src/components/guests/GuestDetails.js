@@ -11,6 +11,8 @@ import Button from "@material-ui/core/Button";
 import Avatar from "@material-ui/core/Avatar";
 import Container from "@material-ui/core/Container";
 import CloseIcon from "@material-ui/icons/Close";
+import ChipInput from "material-ui-chip-input";
+
 
 const styles = (theme) => ({
   detailsContent: {
@@ -55,7 +57,7 @@ export class GuestDetails extends Component {
         guestFirstName: "",
         guestLastName: "",
         contact: "",
-        tag: "",
+        tag: [],
         ticketNumber: 0,
       },
     };
@@ -107,7 +109,7 @@ export class GuestDetails extends Component {
             guestFirstName: "",
             guestLastName: "",
             contact: "",
-            tag: "",
+            // tag: [],
             ticketNumber: 0,
             freeTickets: 0,
             status: "Your guest is editted",
@@ -151,7 +153,7 @@ export class GuestDetails extends Component {
             guestFirstName: "",
             guestLastName: "",
             contact: "",
-            tag: "",
+            // tag: [],
             ticketNumber: 0,
             freeTickets: 0,
             status: "Your guest is editted",
@@ -179,6 +181,23 @@ export class GuestDetails extends Component {
       }
     );
   };
+// Add Chips
+handleAddChip = (chip) => {
+  this.setState({
+    guestObj: {tag: [...this.state.guestObj.tag, chip]}
+  });
+}
+
+// Delete Chips
+handleDeleteChip = (chip) => {
+  const value = chip
+  const filteredChips = this.state.guestObj.tag.filter((chip) => {
+      return chip !== value
+  })
+  this.setState({
+    guestObj: {tag: filteredChips}
+  });
+}
 
   render() {
     const {
@@ -241,14 +260,15 @@ export class GuestDetails extends Component {
                   value={contact}
                   onChange={this.handleChange}
                 />
-                <TextField
-                  margin="normal"
-                  label="Tag"
-                  type="text"
-                  name="tag"
-                  value={tag}
-                  onChange={this.handleChange}
+
+
+                <ChipInput
+                    label="Guest Tags"
+                    value={tag}
+                    onAdd={(chip) => this.handleAddChip(chip)}
+                    onDelete={(chip, index) => this.handleDeleteChip(chip, index)}
                 />
+
               </FormControl>
             </div>
             <div className={classes.detailsFooter}>

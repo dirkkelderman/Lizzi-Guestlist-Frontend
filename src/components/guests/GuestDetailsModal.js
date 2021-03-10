@@ -4,6 +4,7 @@ import GuestService from "../services/guest-service";
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import { Link } from "react-router-dom";
+import ChipInput from "material-ui-chip-input";
 
 
 class GuestDetailsModal extends Component {
@@ -16,7 +17,7 @@ class GuestDetailsModal extends Component {
         guestFirstName: "",
         guestLastName: "",
         contact: "",
-        tag: "",
+        tag: [],
         ticketNumber: 0,
         freeTickets: 0,
       },
@@ -69,7 +70,7 @@ class GuestDetailsModal extends Component {
             guestFirstName: "",
             guestLastName: "",
             contact: "",
-            tag: "",
+            tag: [],
             ticketNumber: 0,
             freeTickets: 0,
             status: "Your guest is editted",
@@ -114,7 +115,7 @@ class GuestDetailsModal extends Component {
             guestFirstName: "",
             guestLastName: "",
             contact: "",
-            tag: "",
+            tag: [],
             ticketNumber: 0,
             freeTickets: 0,
             status: "Your guest is editted",
@@ -142,6 +143,8 @@ class GuestDetailsModal extends Component {
       }
     );
   };
+
+  
 
   render() {
     const {
@@ -202,13 +205,20 @@ class GuestDetailsModal extends Component {
                 onChange={this.handleChange}    
                 /> 
 
-            <TextField
+            {/* <TextField
                 label="Tag" 
                 type="text"
                 name="tag"
                 value={tag}
                 onChange={this.handleChange}    
-                /> 
+                />  */}
+
+            <ChipInput
+                    label="Guest Tags"
+                    value={tag}
+                    onAdd={(chip) => this.handleAddChip(chip)}
+                    onDelete={(chip, index) => this.handleDeleteChip(chip, index)}
+                />
                 
 
               <div className="add-guest-modal-footer">
