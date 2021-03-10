@@ -1,16 +1,11 @@
 // React or componnents import
 import React, { Component } from "react";
 import AuthService from "../services/auth-service";
-import { Link } from "react-router-dom";
 import LogoLizzi from '../home/lizzilogo groot geel.png'
 
 // Material UI import
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -23,7 +18,6 @@ const styles = theme => ({
     alignItems: 'center',
   },
   form: {
-    //   backgroundColor: 'rgba(210, 207, 210, 0.644)',
       borderLeft: '3px solid white',
       placeholder: 'white',
       marginBottom: '10px',
@@ -38,8 +32,6 @@ const styles = theme => ({
 class Login extends Component {
   state = { 
       email: "", 
-      password: "",
-      rememberMe: false 
     };
 
   service = new AuthService();
@@ -105,7 +97,7 @@ class Login extends Component {
             style={{backgroundColor: "#fad974"}}
             onClick={this.handleFormSubmit}
           >
-            Reset Password
+            Send Reset Link
           </Button>
         </form>
       </div>
