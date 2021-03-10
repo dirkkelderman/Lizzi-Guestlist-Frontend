@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import AuthService from "../services/auth-service";
 import { Link } from "react-router-dom";
 import LogoLizzi from '../home/lizzilogo groot geel.png'
+import { notify } from 'react-notify-toast'
 
 // Material UI import
 import Button from '@material-ui/core/Button';
@@ -44,7 +45,6 @@ class Login extends Component {
 
   handleFormSubmit = (event) => {
     event.preventDefault();
-    console.log(event)
 
     const { email, password, rememberMe } = this.state;
 
@@ -54,11 +54,14 @@ class Login extends Component {
     this.service
       .login(email, password)
       .then((response) => {
-        console.log(response);
         this.props.getUser(response);
         this.props.history.push("/events");
+        notify.show(`Welcome ${response.firstName}`)
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        notify.show(error.message)
+        console.log(error)
+      });
   };
 
   handleChange = (event) => {
