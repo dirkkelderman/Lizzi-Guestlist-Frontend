@@ -133,7 +133,6 @@ export class EventDetails extends Component {
       .updateEvent(_id, eventName, date, guestNumber, location, description)
       .then(
         (res) => {
-          console.log(res);
           this.setState({
             status: "Event updated",
           });
@@ -197,15 +196,18 @@ export class EventDetails extends Component {
                   onChange={this.handleChange}
                 />
 
-                <TextField
-                  required
-                  // label="Date"
-                  margin="normal"
-                  type="date"
-                  name="date"
-                  value={date}
-                  onChange={this.handleChange}
-                />
+                <TextField required
+                label="Event Date"
+                margin="normal" 
+                type="datetime-local"
+                name="date"
+                value={date}
+                onChange={this.handleChange}
+                InputLabelProps={{
+                    shrink: true,
+                    }}    
+                />   
+
 
                 <TextField
                   margin="normal"

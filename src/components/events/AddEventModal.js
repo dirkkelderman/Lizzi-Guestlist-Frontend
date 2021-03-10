@@ -153,21 +153,6 @@ class AddEventModal extends Component {
                 onChange={this.handleChange}    
                 /> 
                 
-
-              {/* <div className="add-event-modal-footer">
-              <Button
-              cursor= 'pointer'
-            type="submit"
-            value="Submit"
-            fullWidth
-            variant="contained"
-            style={{backgroundColor: "black", color: 'white', }}
-            onClick={this.handleFormSubmit}
-          >
-            Add event
-          </Button>
-
-              </div> */}
               <div className={classes.modalFooter}>
                 <Button
                     type="submit"
@@ -177,7 +162,7 @@ class AddEventModal extends Component {
                     style={{ backgroundColor: "black", color: "white" }}
                     onClick={this.handleFormSubmit}
                   >
-                    Add Guest
+                    Add Event
                   </Button>
                 </div>
 
