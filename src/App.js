@@ -12,6 +12,7 @@ import Profile from  './components/profile/Profile'
 import ProtectedRoute from "./components/auth/protected-route";
 import Forgot  from './components/auth/Forgot'
 import Reset from './components/auth/Reset'
+import SplashScreen from './components/home/SplashScreen'
 
 import Container from '@material-ui/core/Container';
 
@@ -55,7 +56,7 @@ class App extends Component {
       })
       .catch(err => console.log(err))
 
-    // this.splashScreenTime()
+    this.splashScreenTime()
 
   }
   
@@ -72,7 +73,7 @@ class App extends Component {
         <Notifications />
 
 
-      {/* {this.state.showSplashScreen ? <h1 style={{color: 'white'}} >HELLO</h1> : <Redirect to={{pathname: '/login' }}/>} */}
+      {this.state.showSplashScreen ? <SplashScreen /> : <Redirect to={{pathname: '/login' }}/>}
 
       <div className="App">
       
