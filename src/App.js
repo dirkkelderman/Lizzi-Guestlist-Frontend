@@ -51,7 +51,7 @@ class App extends Component {
   
   componentDidMount = () => {
     axios.get(`${process.env.REACT_APP_API_URL}/wake-up`)
-      .then(res => res.json())
+      // .then(res => res.json())
       .then(() => {
         this.setState({ loading: false })
       })
