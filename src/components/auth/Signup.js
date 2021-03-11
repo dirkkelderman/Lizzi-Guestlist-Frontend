@@ -179,7 +179,7 @@ class Signup extends Component {
             disabled={sendingEmail}
           >
           {sendingEmail 
-              ? <Spinner size='lg' spinning='spinning' /> 
+              ? "Email has been sent" 
               : "Let's Go!"
             }
           </Button>

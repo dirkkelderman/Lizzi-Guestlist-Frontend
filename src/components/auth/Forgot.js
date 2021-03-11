@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import AuthService from "../services/auth-service";
 import LogoLizzi from '../home/lizzilogo groot geel.png'
+import { notify } from 'react-notify-toast'
 
 // Material UI import
 import Button from '@material-ui/core/Button';
@@ -47,8 +48,8 @@ class Login extends Component {
     this.service
       .forgot(email)
       .then((response) => {
-        console.log(response);
-        this.props.getUser(response);        
+        this.props.getUser(response);
+        notify.show(response.message)        
       })
       .catch((error) => console.log(error));
   };
