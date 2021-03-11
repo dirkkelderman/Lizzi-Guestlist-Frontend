@@ -13,6 +13,7 @@ import ProtectedRoute from "./components/auth/protected-route";
 import Forgot  from './components/auth/Forgot'
 import Reset from './components/auth/Reset'
 import SplashScreen from './components/home/SplashScreen'
+import axios from 'axios';
 
 import Container from '@material-ui/core/Container';
 
@@ -49,7 +50,7 @@ class App extends Component {
   }
   
   componentDidMount = () => {
-    fetch(`${process.env.REACT_APP_API_URL}/wake-up`)
+    axios.get(`${process.env.REACT_APP_API_URL}/wake-up`)
       .then(res => res.json())
       .then(() => {
         this.setState({ loading: false })
@@ -87,9 +88,6 @@ class App extends Component {
             <Route exact path='/confirm/:id' component={Confirm} />
             <Route exact path='/forgot' component={Forgot} />
             <Route exact path='/reset/:token' component={Reset} />
-
-            {/* <Route exact path='/' component={Landing} /> */}
-            {/* <Redirect from='*' to='/'/> */}
 
 
           <Route

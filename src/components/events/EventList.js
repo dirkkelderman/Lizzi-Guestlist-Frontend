@@ -239,7 +239,7 @@ export class EventList extends Component {
             <div>
               <List className={classes.form} key={event._id}>
                 <ListItem
-                
+                    key={event._id}
                   style={{ color: "black" }}
                   
                   component={Link}
