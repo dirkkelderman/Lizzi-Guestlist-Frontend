@@ -1,5 +1,11 @@
 import React, { Component } from "react";
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from 'react-places-autocomplete';
 import EventService from "../services/event-service";
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 class EditProject extends Component {
   service = new EventService();
@@ -43,7 +49,21 @@ class EditProject extends Component {
     this.setState({[name]: value });
   };
 
+  handleChangeGeo = location => {
+    this.setState({ location });
+  };
+
+  handleSelect = location => {
+    console.log('Selected location:', location);
+    this.setState({selectedLocation: location})
+    geocodeByAddress(location)
+      .then(results => getLatLng(results[0]))
+      .then(latLng => console.log('Success', latLng))
+      .catch(error => console.error('Error', error));
+  };
+
   render() {
+    const { selectedLocation} = this.state;
     return (
       <div>
         <hr />
@@ -67,14 +87,66 @@ class EditProject extends Component {
             value={this.state.guestNumber}
             onChange={this.handleChange}
           />
+            <PlacesAutocomplete
+        value={this.state.location}
+        onChange={this.handleChangeGeo}
+        onSelect={this.handleSelect}
+      >
+        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => {
+          if(selectedLocation){
+            return (
 
-          <label>location</label>
+               <div><label> Location</label> <br></br>{selectedLocation}<Button onClick={e=>this.setState({selectedLocation:''})}>x</Button></div>
+              
+            )
+          }
+          return(
+          
+            <div>
+              <TextField
+              margin="normal"
+                  label="Location" 
+                  type="text"
+                  name="location"
+                {...getInputProps({
+                  placeholder: 'Select Location ...',
+                  className: 'location-search-input',
+                })}
+
+              />
+              <div className="autocomplete-dropdown-container">
+                {loading && <div>Loading...</div>}
+                {suggestions.map(suggestion => {
+                  const className = suggestion.active
+                    ? 'suggestion-item--active'
+                    : 'suggestion-item';
+                  // inline style for demonstration purpose
+                  const style = suggestion.active
+                    ? { backgroundColor: '#fad974', cursor: 'pointer' }
+                    : { backgroundColor: '#fad974', cursor: 'pointer' };
+                  return (
+                    <div
+                      {...getSuggestionItemProps(suggestion, {
+                        className,
+                        style,
+                      })}
+                    >
+                      <span>{suggestion.description}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+        )}}
+      </PlacesAutocomplete>  
+
+          {/* <label>location</label>
           <input
             type="text"
             name="location"
             value={this.state.location}
             onChange={this.handleChange}
-          />
+          /> */}
 
           <label>description</label>
           <textarea

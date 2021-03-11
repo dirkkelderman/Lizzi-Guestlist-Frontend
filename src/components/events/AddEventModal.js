@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import "./AddEventModal.css";
 import EventService from "../services/event-service";
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from 'react-places-autocomplete';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
@@ -33,6 +37,7 @@ class AddEventModal extends Component {
       date: "",
       guestNumber: 0,
       location: "",
+      selectedLocation: '',
       description: "",
       status: "",
     };
@@ -49,7 +54,7 @@ class AddEventModal extends Component {
     
 
     this.service
-      .addEvent(eventName, date, guestNumber, location, description)
+      .addEvent(eventName, date, guestNumber, this.state.selectedLocation, description)
       .then(
         (res) => {
           this.props.getEvent();
@@ -80,9 +85,21 @@ class AddEventModal extends Component {
     const { name, value } = e.target;
     this.setState({ [name]: value });
   };
+  handleChangeGeo = location => {
+    this.setState({ location });
+  };
 
+  handleSelect = location => {
+    console.log('Selected location:', location);
+    this.setState({selectedLocation: location})
+    geocodeByAddress(location)
+      .then(results => getLatLng(results[0]))
+      .then(latLng => console.log('Success', latLng))
+      .catch(error => console.error('Error', error));
+  };
   render() {
     const {classes} = this.props
+    const { selectedLocation} = this.state;
 
     return (
         <Container>
@@ -135,14 +152,58 @@ class AddEventModal extends Component {
                 onChange={this.handleChange}    
                 /> 
 
-            <TextField
-            margin="normal"
-                label="Location" 
-                type="text"
-                name="location"
-                value={this.state.location}
-                onChange={this.handleChange}    
-                />     
+<PlacesAutocomplete
+        value={this.state.location}
+        onChange={this.handleChangeGeo}
+        onSelect={this.handleSelect}
+      >
+        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => {
+          if(selectedLocation){
+            return (
+
+               <div><label> Location</label> <br></br>{selectedLocation}<Button onClick={e=>this.setState({selectedLocation:''})}>x</Button></div>
+              
+            )
+          }
+          return(
+          
+            <div>
+              <TextField
+              margin="normal"
+                  label="Location" 
+                  type="text"
+                  name="location"
+                {...getInputProps({
+                  placeholder: 'Select Location ...',
+                  className: 'location-search-input',
+                })}
+
+              />
+              <div className="autocomplete-dropdown-container">
+                {loading && <div>Loading...</div>}
+                {suggestions.map(suggestion => {
+                  const className = suggestion.active
+                    ? 'suggestion-item--active'
+                    : 'suggestion-item';
+                  // inline style for demonstration purpose
+                  const style = suggestion.active
+                    ? { backgroundColor: '#fad974', cursor: 'pointer' }
+                    : { backgroundColor: '#fad974', cursor: 'pointer' };
+                  return (
+                    <div
+                      {...getSuggestionItemProps(suggestion, {
+                        className,
+                        style,
+                      })}
+                    >
+                      <span>{suggestion.description}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+        )}}
+      </PlacesAutocomplete>  
 
             <TextField
             margin="normal"
