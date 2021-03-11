@@ -50,12 +50,12 @@ class App extends Component {
   }
   
   componentDidMount = () => {
-    axios.get(`${process.env.REACT_APP_API_URL}/wake-up`)
-      // .then(res => res.json())
-      .then(() => {
-        this.setState({ loading: false })
-      })
-      .catch(err => console.log(err))
+    // axios.get(`${process.env.REACT_APP_API_URL}/wake-up`)
+    //   // .then(res => res.json())
+    //   .then(() => {
+    //     this.setState({ loading: false })
+    //   })
+    //   .catch(err => console.log(err))
 
     this.splashScreenTime()
 
@@ -64,9 +64,9 @@ class App extends Component {
   
   render() {
 
-    if (this.state.loading) {
-      return <Spinner size='8x' spinning='spinning' />
-    }
+    // if (this.state.loading) {
+    //   return <Spinner size='8x' spinning='spinning' />
+    // }
 
     return (
       <Container  className='App-body'>
