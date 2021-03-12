@@ -8,6 +8,7 @@ import PlacesAutocomplete, {
   getLatLng,
 } from 'react-places-autocomplete';
 
+
 // Material UI import
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -56,15 +57,16 @@ export class EventDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      eventObj: {
-        eventName: "",
-        date: "",
-        guestNumber: 0,
-        location: "",
-        description: "",
-        _id: "",
-        status: "",
-      },
+      //eventObj: {
+      eventName: "",
+      date: "",
+      guestNumber: 0,
+      location: "",
+      selectedLocation: "",
+      description: "",
+      _id: "",
+      status: "",
+      //},
       showEditForm: false,
     };
   }
@@ -78,7 +80,9 @@ export class EventDetails extends Component {
     this.service.eventDetails(params.id).then(
       (responseFromApi) => {
         this.setState({
-          eventObj: responseFromApi,
+          ...responseFromApi,
+          selectedLocation: responseFromApi.location,
+          location: '',
         });
       },
       (err) => {
@@ -90,36 +94,45 @@ export class EventDetails extends Component {
   handleChange = (e) => {
     const { name, value } = e.target;
     this.setState({
-      eventObj: Object.assign({}, this.state.eventObj, { [name]: value }),
+      //eventObj: Object.assign({}, this.state.eventObj, { [name]: value }),
+      //eventObj: {...this.state.eventObj, { [name]: value }),
+      [name] : value
     });
+  }
+
+    /*this.setState(state => {
+      return {
+        eventObj: {...eventObj, { [name]: value }}
+      }
+    })*/
     
 
-    const {
-      eventName,
-      date,
-      guestNumber,
-      location,
-      description,
-      _id,
-    } = this.state.eventObj;
+  //   const {
+  //     eventName,
+  //     date,
+  //     guestNumber,
+  //     selectedLocation,
+  //     description,
+  //     _id,
+  //   } = this.state;
 
-    this.service
-      .updateEvent(_id, eventName, date, guestNumber, location, description)
-      .then(
-        (res) => {
-          console.log(res);
-          this.setState({
-            status: "Event updated",
-          });
-        },
-        (err) => {
-          console.log(err);
-          this.setState({
-            status: "Oops, something wrong",
-          });
-        }
-      );
-  };
+  //   this.service
+  //     .updateEvent(_id, eventName, date, guestNumber, selectedLocation, description)
+  //     .then(
+  //       (res) => {
+  //         console.log(res);
+  //         this.setState({
+  //           status: "Event updated",
+  //         });
+  //       },
+  //       (err) => {
+  //         console.log(err);
+  //         this.setState({
+  //           status: "Oops, something wrong",
+  //         });
+  //       }
+  //     );
+  // };
 
 
   handleChangeGeo = location => {
@@ -143,13 +156,13 @@ export class EventDetails extends Component {
       eventName,
       date,
       guestNumber,
-      location,
+      selectedLocation,
       description,
       _id,
-    } = this.state.eventObj;
+    } = this.state;
 
     this.service
-      .updateEvent(_id, eventName, date, guestNumber, location, description)
+      .updateEvent(_id, eventName, date, guestNumber, selectedLocation, description)
       .then(
         (res) => {
           this.setState({
@@ -179,7 +192,12 @@ export class EventDetails extends Component {
     );
   };
 
+  deleteLocation = () => {
+    this.setState({selectedLocation:''})
+  }
+
   render() {
+    console.log(this.state.location)
     const { classes } = this.props;
     const { params } = this.props.match;
     const {
@@ -187,10 +205,10 @@ export class EventDetails extends Component {
       date,
       guestNumber,
       location,
+      selectedLocation,
       description,
-    } = this.state.eventObj;
-    const { selectedLocation} = this.state;
-    return (
+    } = this.state 
+       return (
       <Container>
         <div className={classes.details}>
           <div className={classes.detailsContent}>
@@ -255,48 +273,48 @@ export class EventDetails extends Component {
           if(selectedLocation){
             return (
 
-               <div><label> Location</label> <br></br>{selectedLocation}<Button onClick={e=>this.setState({selectedLocation:''})}>x</Button></div>
+               <div><label> Location</label> <br></br>{selectedLocation}<Button onClick={this.deleteLocation}>x</Button></div>
               
             )
-          }
-          return(
+          } else {return (
           
-            <div>
-              <TextField
-              margin="normal"
-                  label="Location" 
-                  type="text"
-                  name="location"
-                {...getInputProps({
-                  placeholder: 'Select Location ...',
-                  className: 'location-search-input',
-                })}
+          <div>
+            <TextField
+            margin="normal"
+                label="Location" 
+                type="text"
+                name="location"
+              {...getInputProps({
+                placeholder: 'Select Location ...',
+                className: 'location-search-input',
+              })}
 
-              />
-              <div className="autocomplete-dropdown-container">
-                {loading && <div>Loading...</div>}
-                {suggestions.map(suggestion => {
-                  const className = suggestion.active
-                    ? 'suggestion-item--active'
-                    : 'suggestion-item';
-                  // inline style for demonstration purpose
-                  const style = suggestion.active
-                    ? { backgroundColor: '#fad974', cursor: 'pointer' }
-                    : { backgroundColor: '#fad974', cursor: 'pointer' };
-                  return (
-                    <div
-                      {...getSuggestionItemProps(suggestion, {
-                        className,
-                        style,
-                      })}
-                    >
-                      <span>{suggestion.description}</span>
-                    </div>
-                  );
-                })}
-              </div>
+            />
+            <div className="autocomplete-dropdown-container">
+              {loading && <div>Loading...</div>}
+              {suggestions.map(suggestion => {
+                const className = suggestion.active
+                  ? 'suggestion-item--active'
+                  : 'suggestion-item';
+                // inline style for demonstration purpose
+                const style = suggestion.active
+                  ? { backgroundColor: '#fad974', cursor: 'pointer' }
+                  : { backgroundColor: '#fad974', cursor: 'pointer' };
+                return (
+                  <div
+                    {...getSuggestionItemProps(suggestion, {
+                      className,
+                      style,
+                    })}
+                  >
+                    <span>{suggestion.description}</span>
+                  </div>
+                );
+              })}
             </div>
-        )}}
+          </div>
+      )}
+          }}
       </PlacesAutocomplete>  
 
                 <TextField

@@ -87,7 +87,7 @@ class EditProject extends Component {
             value={this.state.guestNumber}
             onChange={this.handleChange}
           />
-            <PlacesAutocomplete
+            {/* <PlacesAutocomplete
         value={this.state.location}
         onChange={this.handleChangeGeo}
         onSelect={this.handleSelect}
@@ -138,7 +138,7 @@ class EditProject extends Component {
               </div>
             </div>
         )}}
-      </PlacesAutocomplete>  
+      </PlacesAutocomplete>   */}
 
           {/* <label>location</label>
           <input
