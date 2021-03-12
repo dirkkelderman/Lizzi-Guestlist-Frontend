@@ -40,31 +40,27 @@ class AddEventModal extends Component {
       selectedLocation: '',
       description: "",
       status: "",
+      coOwner: ""
     };
   }
 
   handleFormSubmit = (e) => {
     e.preventDefault();
 
-    const eventName = this.state.eventName;
-    const date = this.state.date;
-    const guestNumber = this.state.guestNumber;
-    const location = this.state.location;
-    const description = this.state.description;
-    
+    const {eventName, date, guestNumber, location, description, coOwner} = this.state
 
     this.service
-      .addEvent(eventName, date, guestNumber, this.state.selectedLocation, description)
+      .addEvent(eventName, date, guestNumber, this.state.selectedLocation, description, coOwner)
       .then(
         (res) => {
           this.props.getEvent();
-          console.log(res);
           this.setState({
             eventName: "",
             date: "",
             guestNumber: "",
             location: "",
             description: "",
+            coOwner: "",
             status: "Your project is created",
           })
           notify.show(res.msg)
@@ -103,11 +99,7 @@ class AddEventModal extends Component {
 
     return (
         <Container>
-        <div className={classes.paper}>
 
-            <h2>Testing</h2>
-
-        </div>
       <div className="add-event-modal" >
         <div
           className="add-event-modal-content"
@@ -214,6 +206,16 @@ class AddEventModal extends Component {
                 onChange={this.handleChange}    
                 /> 
                 
+
+            <TextField
+                margin="normal"
+                label="Add extra user" 
+                type="text"
+                name="coOwner"
+                value={this.state.coOwner}
+                onChange={this.handleChange}    
+                /> 
+
               <div className={classes.modalFooter}>
                 <Button
                     type="submit"
@@ -237,4 +239,3 @@ class AddEventModal extends Component {
 }
 
 export default withStyles(styles)(AddEventModal);
-// export default AddEventModal;

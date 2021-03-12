@@ -14,8 +14,8 @@ class EventService {
         .then(respons => respons.data)
     }
 
-    addEvent(eventName, date, guestNumber, location, description, id){
-        return this.service.post('/events', {eventName, date, guestNumber, location, description, id})
+    addEvent(eventName, date, guestNumber, location, description, coOwner, id, ){
+        return this.service.post('/events', {eventName, date, guestNumber, location, description, coOwner, id, })
         .then(respons => respons.data)
     }
 
