@@ -237,7 +237,7 @@ export class EventList extends Component {
           let date = new Date(event.date);
           return (
             <div>
-              <List className={classes.form} key={event._id}>
+              <List className={classes.form} >
                 <ListItem
                     key={event._id}
                   style={{ color: "black" }}
