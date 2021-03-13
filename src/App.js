@@ -74,7 +74,7 @@ class App extends Component {
         <Notifications />
 
 
-      {this.state.showSplashScreen ? <SplashScreen /> : <Login />}
+      {this.state.showSplashScreen ? <SplashScreen /> : null}
 
       <div className="App">
       
