@@ -48,6 +48,9 @@ const styles = (theme) => ({
     justifyContent: "space-between",
     padding: "10px",
   },
+  button: {
+    backgroundColor: "rgba(0, 0, 0, 0.5)"
+  },
 });
 
 export class EventDetails extends Component {
@@ -178,6 +181,7 @@ export class EventDetails extends Component {
                 onClick={this.handleFormSubmit}
                 component={Link}
                 to={`/events/${params.id}/guestlist`}
+                className={classes.button}
               >
                 <CloseIcon />
               </Avatar>

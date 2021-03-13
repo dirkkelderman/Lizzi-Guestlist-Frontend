@@ -42,7 +42,7 @@ const styles = theme => ({
   },
   modalHeader: {
       display: 'flex',
-      justifyContent: 'space-between',
+      justifyContent: 'flex-end',
       padding: '10px',
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },

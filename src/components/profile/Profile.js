@@ -20,6 +20,7 @@ const styles = theme => ({
     backgroundColor: "#FAD974",
     color: '#20111f',
     display: 'center',
+    borderRadius: "16px",
   },
   profileImage: {
     borderRadius: "50%", 
@@ -103,7 +104,7 @@ export class Profile extends Component {
   render() {
     const {classes} = this.props
     return (
-      <Container>
+      <Container borderRadius="16px">
       <div className={classes.root}>
         <h1 >User Profile</h1>
         <img
