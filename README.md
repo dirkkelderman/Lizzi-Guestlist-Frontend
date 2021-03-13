@@ -4,7 +4,7 @@
 
 ## Description
 
-Lizzie is a guest management App, that allows you to quickly and smoothly manage your guestlist and check-in guest in a simple way/
+Lizzie is a guest management App, that allows you to quickly and smoothly manage your guestlist and check-in guest in a simple way.
 
 ## Visuals
 ![Lizzie Home Page](https://i.postimg.cc/DZLMsdFd/Snip20210313-25.png) 
