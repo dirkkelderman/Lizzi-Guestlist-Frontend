@@ -15,7 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { notify } from 'react-notify-toast'
-import Spinner from '../email/Spinner'
+
 
 const styles = theme => ({
   paper: {

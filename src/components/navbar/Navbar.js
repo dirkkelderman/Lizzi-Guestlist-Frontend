@@ -1,6 +1,6 @@
 // React or componnents import
 import React from 'react'
-import { Link, useHistory } from 'react-router-dom';
+import {useHistory } from 'react-router-dom';
 import LogoLizzi from '../home/lizzilogo groot geel.png'
 
 // Material UI import

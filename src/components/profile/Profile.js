@@ -1,7 +1,6 @@
+// React or componnents import
 import React, { Component } from "react";
 import ProfileService from "../services/profile-service";
-import axios from "axios";
-import EditProfile from './EditProfile'
 import EditProfileModal from './EditProfileModal'
 import AuthService from "../services/auth-service";
 

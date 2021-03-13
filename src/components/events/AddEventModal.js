@@ -1,3 +1,4 @@
+// React or componnents import
 import React, { Component } from "react";
 import "./AddEventModal.css";
 import EventService from "../services/event-service";
@@ -5,14 +6,15 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete';
+
+
+// Material UI import
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
-
 import Container from '@material-ui/core/Container';
 import CloseIcon from '@material-ui/icons/Close';
-import { withRouter } from "react-router-dom";
 import { notify } from 'react-notify-toast'
 
 
@@ -47,7 +49,7 @@ class AddEventModal extends Component {
   handleFormSubmit = (e) => {
     e.preventDefault();
 
-    const {eventName, date, guestNumber, location, description, coOwner} = this.state
+    const {eventName, date, guestNumber, description, coOwner} = this.state
 
     this.service
       .addEvent(eventName, date, guestNumber, this.state.selectedLocation, description, coOwner)
@@ -64,7 +66,6 @@ class AddEventModal extends Component {
             status: "Your project is created",
           })
           notify.show(res.msg)
-        //   this.props.history.push(`/events`);
         },
         (err) => {
           console.log(err);
@@ -144,58 +145,54 @@ class AddEventModal extends Component {
                 onChange={this.handleChange}    
                 /> 
 
-<PlacesAutocomplete
-        value={this.state.location}
-        onChange={this.handleChangeGeo}
-        onSelect={this.handleSelect}
-      >
-        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => {
-          if(selectedLocation){
-            return (
-
-               <div><label> Location</label> <br></br>{selectedLocation}<Button onClick={e=>this.setState({selectedLocation:''})}>x</Button></div>
-              
-            )
-          }
-          return(
-          
-            <div>
-              <TextField
-              margin="normal"
-                  label="Location" 
-                  type="text"
-                  name="location"
-                {...getInputProps({
-                  placeholder: 'Select Location ...',
-                  className: 'location-search-input',
-                })}
-
-              />
-              <div className="autocomplete-dropdown-container">
-                {loading && <div>Loading...</div>}
-                {suggestions.map(suggestion => {
-                  const className = suggestion.active
-                    ? 'suggestion-item--active'
-                    : 'suggestion-item';
-                  // inline style for demonstration purpose
-                  const style = suggestion.active
-                    ? { backgroundColor: '#fad974', cursor: 'pointer' }
-                    : { backgroundColor: '#fad974', cursor: 'pointer' };
+            <PlacesAutocomplete
+              value={this.state.location}
+              onChange={this.handleChangeGeo}
+              onSelect={this.handleSelect}
+            >
+              {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => {
+                if(selectedLocation){
                   return (
-                    <div
-                      {...getSuggestionItemProps(suggestion, {
-                        className,
-                        style,
-                      })}
-                    >
-                      <span>{suggestion.description}</span>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-        )}}
-      </PlacesAutocomplete>  
+                    <div><label> Location</label> <br></br>{selectedLocation}<Button onClick={e=>this.setState({selectedLocation:''})}>x</Button></div>   
+                )}
+              return(
+              
+                <div>
+                  <TextField
+                  margin="normal"
+                      label="Location" 
+                      type="text"
+                      name="location"
+                    {...getInputProps({
+                      placeholder: 'Select Location ...',
+                      className: 'location-search-input',
+                    })}
+
+                  />
+                  <div className="autocomplete-dropdown-container">
+                    {loading && <div>Loading...</div>}
+                    {suggestions.map(suggestion => {
+                      const className = suggestion.active
+                        ? 'suggestion-item--active'
+                        : 'suggestion-item';
+                      const style = suggestion.active
+                        ? { backgroundColor: '#fad974', cursor: 'pointer' }
+                        : { backgroundColor: '#fad974', cursor: 'pointer' };
+                      return (
+                        <div
+                          {...getSuggestionItemProps(suggestion, {
+                            className,
+                            style,
+                          })}
+                        >
+                          <span>{suggestion.description}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}}
+            </PlacesAutocomplete>  
 
             <TextField
             margin="normal"

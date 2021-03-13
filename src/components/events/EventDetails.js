@@ -1,7 +1,6 @@
 // React or componnents import
 import React, { Component } from "react";
 import EventService from "../services/event-service";
-import EditEvent from "./EditEvent";
 import { Link } from "react-router-dom";
 import PlacesAutocomplete, {
   geocodeByAddress,
@@ -94,46 +93,9 @@ export class EventDetails extends Component {
   handleChange = (e) => {
     const { name, value } = e.target;
     this.setState({
-      //eventObj: Object.assign({}, this.state.eventObj, { [name]: value }),
-      //eventObj: {...this.state.eventObj, { [name]: value }),
       [name] : value
     });
   }
-
-    /*this.setState(state => {
-      return {
-        eventObj: {...eventObj, { [name]: value }}
-      }
-    })*/
-    
-
-  //   const {
-  //     eventName,
-  //     date,
-  //     guestNumber,
-  //     selectedLocation,
-  //     description,
-  //     _id,
-  //   } = this.state;
-
-  //   this.service
-  //     .updateEvent(_id, eventName, date, guestNumber, selectedLocation, description)
-  //     .then(
-  //       (res) => {
-  //         console.log(res);
-  //         this.setState({
-  //           status: "Event updated",
-  //         });
-  //       },
-  //       (err) => {
-  //         console.log(err);
-  //         this.setState({
-  //           status: "Oops, something wrong",
-  //         });
-  //       }
-  //     );
-  // };
-
 
   handleChangeGeo = location => {
     this.setState({ location });
@@ -204,7 +166,6 @@ export class EventDetails extends Component {
       eventName,
       date,
       guestNumber,
-      location,
       selectedLocation,
       description,
     } = this.state 
@@ -254,68 +215,57 @@ export class EventDetails extends Component {
                   value={guestNumber}
                   onChange={this.handleChange}
                 />
-{/* 
-                <TextField
-                  margin="normal"
-                  label="Location"
-                  type="text"
-                  name="location"
-                  value={location}
-                  onChange={this.handleChange}
-                /> */}
 
                 <PlacesAutocomplete
-        value={this.state.location}
-        onChange={this.handleChangeGeo}
-        onSelect={this.handleSelect}
-      >
-        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => {
-          if(selectedLocation){
-            return (
+                  value={this.state.location}
+                  onChange={this.handleChangeGeo}
+                  onSelect={this.handleSelect}
+                >
+                  {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => {
+                    if(selectedLocation){
+                      return (
+                        <div><label> Location</label> <br></br>{selectedLocation}<Button onClick={this.deleteLocation}>x</Button></div>
+                      )} 
+                      else {
+                        return (
+                    
+                        <div>
+                          <TextField
+                          margin="normal"
+                              label="Location" 
+                              type="text"
+                              name="location"
+                            {...getInputProps({
+                              placeholder: 'Select Location ...',
+                              className: 'location-search-input',
+                            })}
 
-               <div><label> Location</label> <br></br>{selectedLocation}<Button onClick={this.deleteLocation}>x</Button></div>
-              
-            )
-          } else {return (
-          
-          <div>
-            <TextField
-            margin="normal"
-                label="Location" 
-                type="text"
-                name="location"
-              {...getInputProps({
-                placeholder: 'Select Location ...',
-                className: 'location-search-input',
-              })}
-
-            />
-            <div className="autocomplete-dropdown-container">
-              {loading && <div>Loading...</div>}
-              {suggestions.map(suggestion => {
-                const className = suggestion.active
-                  ? 'suggestion-item--active'
-                  : 'suggestion-item';
-                // inline style for demonstration purpose
-                const style = suggestion.active
-                  ? { backgroundColor: '#fad974', cursor: 'pointer' }
-                  : { backgroundColor: '#fad974', cursor: 'pointer' };
-                return (
-                  <div
-                    {...getSuggestionItemProps(suggestion, {
-                      className,
-                      style,
-                    })}
-                  >
-                    <span>{suggestion.description}</span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-      )}
-          }}
-      </PlacesAutocomplete>  
+                          />
+                          <div className="autocomplete-dropdown-container">
+                            {loading && <div>Loading...</div>}
+                            {suggestions.map(suggestion => {
+                              const className = suggestion.active
+                                ? 'suggestion-item--active'
+                                : 'suggestion-item';
+                              // inline style for demonstration purpose
+                              const style = suggestion.active
+                                ? { backgroundColor: '#fad974', cursor: 'pointer' }
+                                : { backgroundColor: '#fad974', cursor: 'pointer' };
+                              return (
+                                <div
+                                  {...getSuggestionItemProps(suggestion, {
+                                    className,
+                                    style,
+                                  })}
+                                >
+                                  <span>{suggestion.description}</span>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      )}}}
+                </PlacesAutocomplete>  
 
                 <TextField
                   margin="normal"

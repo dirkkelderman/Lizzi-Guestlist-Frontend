@@ -1,6 +1,9 @@
+// React or componnents import
 import React, { Component } from "react";
 import "./AddGuestModal.css"
 import GuestService from "../services/guest-service";
+
+// Material UI import
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import { withStyles } from '@material-ui/core/styles';

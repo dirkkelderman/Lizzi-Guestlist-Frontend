@@ -1,8 +1,10 @@
+// React or componnents import
 import React, { Component } from "react";
 import axios from 'axios';
-import ProfileService from "../services/profile-service"
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
+
+// Material UI import
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
@@ -48,7 +50,6 @@ const styles = theme => ({
       display: 'flex',
       justifyContent: 'space-around',
       padding: '10px',
-      // backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalBody: {
       padding: '10px',
