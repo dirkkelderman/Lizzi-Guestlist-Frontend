@@ -1,4 +1,4 @@
-![Lizzi Logo](https://i.postimg.cc/JhJDWGMd/lizzilogo-groot-geel.png)
+![Lizzi Logo](https://i.postimg.cc/J7cBYDzT/lizzilogo-groot-geel.png)
 
 # Lizzi
 
