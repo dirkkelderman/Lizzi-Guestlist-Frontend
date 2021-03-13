@@ -84,7 +84,7 @@ class App extends Component {
 
 
         <Switch>
-
+            
             <Route exact path='/confirm/:id' component={Confirm} />
             <Route exact path='/forgot' component={Forgot} />
             <Route exact path='/reset/:token' component={Reset} />
