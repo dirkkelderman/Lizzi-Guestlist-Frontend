@@ -17,7 +17,13 @@ _*Your Events List*_
 _*Your guest List*_ 
 
 
-Fork, clone and run 'npm start'
+Fork, clone install 'npm i' and run 'npm start'
+
+Variables needed:
+REACT_APP_API_URL= Your url
+MAPS_API_KEY= api key
+
+Backend: https://github.com/dirkkelderman/Lizzi-Guestlist-Backend
 
 For deployed verion - to sign up and check out this awesome platform go to: https://lizzi-guestlist.netlify.app/
 
