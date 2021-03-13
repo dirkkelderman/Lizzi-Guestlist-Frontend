@@ -48,7 +48,7 @@ class Login extends Component {
     this.service
       .forgot(email)
       .then((response) => {
-        this.props.getUser(response);
+        // this.props.getUser(response);
         notify.show(response.message)        
       })
       .catch((error) => console.log(error));
