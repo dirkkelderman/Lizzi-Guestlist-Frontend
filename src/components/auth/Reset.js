@@ -4,11 +4,8 @@ import AuthService from "../services/auth-service";
 import LogoLizzi from '../home/lizzilogo groot geel.png'
 
 // Material UI import
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
+import {Button, TextField, Typography, Container} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 
 const styles = theme => ({
   paper: {
@@ -41,9 +38,6 @@ class Login extends Component {
 
     const { password } = this.state;
     const { params } = this.props.match;
-
-    // localStorage.setItem('rememberMe', rememberMe);
-    // localStorage.setItem('email', rememberMe ? email : '');
 
     this.service
       .reset(params.token, password)

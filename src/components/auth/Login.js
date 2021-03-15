@@ -6,14 +6,8 @@ import LogoLizzi from '../home/lizzilogo groot geel.png'
 import { notify } from 'react-notify-toast'
 
 // Material UI import
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import {Button, TextField, FormControlLabel, Checkbox, Grid, Typography, Container} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 
 const styles = theme => ({
   paper: {
@@ -23,7 +17,6 @@ const styles = theme => ({
     alignItems: 'center',
   },
   form: {
-    //   backgroundColor: 'rgba(210, 207, 210, 0.644)',
       borderLeft: '3px solid white',
       placeholder: 'white',
       marginBottom: '10px',

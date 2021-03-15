@@ -5,11 +5,8 @@ import LogoLizzi from '../home/lizzilogo groot geel.png'
 import { notify } from 'react-notify-toast'
 
 // Material UI import
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
+import {Button, TextField, Typography, Container} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 
 const styles = theme => ({
   paper: {
@@ -42,13 +39,9 @@ class Login extends Component {
 
     const { email } = this.state;
 
-    // localStorage.setItem('rememberMe', rememberMe);
-    // localStorage.setItem('email', rememberMe ? email : '');
-
     this.service
       .forgot(email)
       .then((response) => {
-        // this.props.getUser(response);
         notify.show(response.message)        
       })
       .catch((error) => console.log(error));
