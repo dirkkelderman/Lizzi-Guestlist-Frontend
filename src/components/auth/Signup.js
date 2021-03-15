@@ -6,14 +6,8 @@ import { Link } from "react-router-dom";
 import LogoLizzi from '../home/lizzilogo groot geel.png'
 
 // Material UI import
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import {TextField, Grid, Typography, Container, Button} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 import { notify } from 'react-notify-toast'
 
 
@@ -158,17 +152,17 @@ class Signup extends Component {
             name="password"
             type="password"
             id="password"
+            helperText=" Password must be 8 characters long"
+            FormHelperTextProps={{ 
+                    className: classes.input 
+                    }}    
             autoComplete="current-password"
             value={this.state.password}
             onChange={this.handleChange}
 
           />
-          <FormControlLabel
-            control={<Checkbox  value="remember" style={{color: "#fad974"}} />}
-            label="Remember me"
-            style={{color: "#fad974"}}
-            
-          />
+          
+          
           <Button
             type="submit"
             fullWidth
