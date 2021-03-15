@@ -41,7 +41,6 @@ const styles = theme => ({
       color: '#c5a845'
   },
   border: "solid 1px black",
-
   }
 });
 
@@ -116,11 +115,11 @@ export class Profile extends Component {
         <div  display="flex" justifyContent="center">
           <Box className={classes.profileInfo} margin="Auto" justifyContent="center" width="50%">
             <Box >
-              <Box component="h1" display="block" p={1} m={0}> {this.state.user.firstName}</Box>
-              <Box component="h1" display="block" p={1} m={0}>{this.state.user.lastName}</Box>
+              <Box variant="h1" display="block" p={1} m={0}> {this.state.user.firstName}</Box>
+              <Box variant="h1" display="block" p={1} m={0}>{this.state.user.lastName}</Box>
             </Box>
             <Box >
-            <Box  component="h1" display="block" p={1} m={0}>{this.state.user.email}</Box> 
+            <Box  variant="h1" display="block" p={1} m={0}>{this.state.user.email}</Box> 
             </Box>
           </Box>
         </div>
@@ -136,18 +135,7 @@ export class Profile extends Component {
           </Button>
         </div>
         <br />
-        {this.state.showForm && <EditProfileModal
-             handleChange={this.handleChange}
-             onSubmit={this.onEditProfileSubmit}
-             handleFileUpload = {this.handleFileUpload}
-             user = {this.state.user}
-             parentProps = {this.props}
-             getSingleUser = {this.getSingleUser}
-             closeModal={this.handleCloseModal}
-        />}
         <div  >
-        <br />
-
         <Button 
           className={classes.button} 
           onClick={this.logoutUser}
@@ -157,6 +145,16 @@ export class Profile extends Component {
            Logout
         </Button>
         </div>
+        {this.state.showForm && <EditProfileModal
+             handleChange={this.handleChange}
+             onSubmit={this.onEditProfileSubmit}
+             handleFileUpload = {this.handleFileUpload}
+             user = {this.state.user}
+             parentProps = {this.props}
+             getSingleUser = {this.getSingleUser}
+             closeModal={this.handleCloseModal}
+        />}
+      
       </div>
       </Container>
     );
