@@ -1,3 +1,5 @@
+// React or componnents import
+
 import "./App.css";
 import EventList from "./components/events/EventList";
 import Signup from "./components/auth/Signup";
@@ -12,20 +14,14 @@ import Profile from  './components/profile/Profile'
 import ProtectedRoute from "./components/auth/protected-route";
 import Forgot  from './components/auth/Forgot'
 import Reset from './components/auth/Reset'
-import SplashScreen from './components/home/SplashScreen'
-import axios from 'axios';
+import Confirm from './components/email/Confirm'
+import HomePage from "./components/home/HomePage";
 
+// Material UI import
 import Container from '@material-ui/core/Container';
 
 //Mail confirmation imports
 import Notifications from 'react-notify-toast'
-// import 'react-toastify/dist/ReactToastify.css'
-
-import Landing from './components/email/Landing'
-import Confirm from './components/email/Confirm'
-import Spinner from './components/email/Spinner'
-// import Footer from './components/Footer/Footer'
-// import { API_URL } from './config'
 
 class App extends Component {
   state = {
@@ -50,31 +46,16 @@ class App extends Component {
   }
   
   componentDidMount = () => {
-    // axios.get(`${process.env.REACT_APP_API_URL}/wake-up`)
-    //   // .then(res => res.json())
-    //   .then(() => {
-    //     this.setState({ loading: false })
-    //   })
-    //   .catch(err => console.log(err))
-
     this.splashScreenTime()
 
   }
   
   
   render() {
-
-    // if (this.state.loading) {
-    //   return <Spinner size='8x' spinning='spinning' />
-    // }
-
     return (
       <Container  className='App-body'>
 
         <Notifications />
-
-
-      {this.state.showSplashScreen ? <SplashScreen /> : null}
 
       <div className="App">
       
@@ -84,7 +65,7 @@ class App extends Component {
 
 
         <Switch>
-            
+            <Route exact path='/' component={HomePage} />
             <Route exact path='/confirm/:id' component={Confirm} />
             <Route exact path='/forgot' component={Forgot} />
             <Route exact path='/reset/:token' component={Reset} />
