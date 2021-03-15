@@ -10,11 +10,7 @@ import PlacesAutocomplete, {
 
 // Material UI import
 import { withStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import FormControl from "@material-ui/core/FormControl";
-import Button from "@material-ui/core/Button";
-import Avatar from "@material-ui/core/Avatar";
-import Container from "@material-ui/core/Container";
+import {TextField, FormControl, Button, Avatar, Container} from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 
 const styles = (theme) => ({
@@ -59,7 +55,6 @@ export class EventDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      //eventObj: {
       eventName: "",
       date: "",
       guestNumber: 0,
@@ -68,7 +63,6 @@ export class EventDetails extends Component {
       description: "",
       _id: "",
       status: "",
-      //},
       showEditForm: false,
     };
   }

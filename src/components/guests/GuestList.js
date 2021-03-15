@@ -4,29 +4,18 @@ import { Link } from "react-router-dom";
 import GuestService from "../services/guest-service";
 import EventService from "../services/event-service";
 import SearchBar from "../searchbar/SearchBar";
-import "./GuestList.css";
 import AddGuestModal from "./AddGuestModal";
 
 // Material UI import
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
+import {List, ListItem, ListItemText, ListItemAvatar, Avatar, Fab, Container, Button, Grid} from "@material-ui/core";
 import DoneOutlinedIcon from "@material-ui/icons/DoneOutlined";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
-import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import { withStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import Button from "@material-ui/core/Button";
-import Grid from '@material-ui/core/Grid';
-
 
 const styles = (theme) => ({
   root: {
     width: "100%",
-    // maxWidth: 360,
   },
   form: {
     backgroundColor: "#d2cfd2",
@@ -50,6 +39,9 @@ const styles = (theme) => ({
     marginBottom: "10px",
     borderRadius: "15px",
 
+  },
+  guestListHeading: {
+    color: "#fad974"
   }
 });
 
@@ -163,7 +155,7 @@ export class GuestList extends Component {
       <Container>
         <div className={classes.root}>
           <div>
-            <h2 className="guest-list-text">{this.state.event.eventName}</h2>
+            <h2 className={classes.guestListHeading}>{this.state.event.eventName}</h2>
             <Button
               variant="contained"
               className={classes.submit}
