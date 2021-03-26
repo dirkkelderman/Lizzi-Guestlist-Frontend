@@ -52,21 +52,25 @@ class Signup extends Component {
     localStorage.setItem("rememberMe", rememberMe);
     localStorage.setItem("email", rememberMe ? email : "");
 
-    this.emailService
-      .confirmationEmail(email)
-      .then(response => {
-        this.setState({ sendingEmail: false})
-        notify.show(response.msg)
-      })
-
+    
     this.service
-      .signup(email, password, firstName, lastName)
-      .then((response) => {
-        console.log(response);
-        this.props.getUser(response);
-        // this.props.history.push("/events");
-      })
-      .catch((error) => console.log(error));
+    .signup(email, password, firstName, lastName)
+    .then((response) => {
+      console.log(response);
+      this.props.getUser(response);
+      // this.props.history.push("/events");
+    })
+    .then(() => {
+      this.emailService
+        .confirmationEmail(email)
+        .then(response => {
+          this.setState({ sendingEmail: false})
+          notify.show(response.msg)
+        })
+
+    })
+    .catch((error) => console.log(error));
+
   };
   response
   handleChange = (event) => {

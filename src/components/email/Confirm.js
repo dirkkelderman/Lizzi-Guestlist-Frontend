@@ -16,7 +16,9 @@ export default class Confirm extends Component {
       .then(data => {
         this.setState({ confirming: false })
         notify.show(data.msg)
+        this.props.history.push("/events");
       })
+      
       .catch(err => console.log(err))
   }
 
